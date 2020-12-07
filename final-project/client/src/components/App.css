@@ -1,10 +1,51 @@
+
+/* ========== NAVBAR ========== */
+
 Nav {
     font-weight: 100;
+    
 }
+
+.navbar {
+  padding: 15px 100px;
+}
+
+/* ========== SEARCH IMAGES ========== */
+
+.image-container {
+  max-width: none;
+}
+
+.image-card {
+  width: 300px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.image-card img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.form {
+ width: 105%;
+}
+
+
+/* ========== PORTFOLIO ========== */
 
 .work-image {
   width: 50%;
 }
+
+
+
+
+
+
+
+/* ========== APP ========== */
 
 .App {
   text-align: center;

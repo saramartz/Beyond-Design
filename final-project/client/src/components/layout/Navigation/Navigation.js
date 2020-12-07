@@ -1,15 +1,24 @@
 import React, { Component } from 'react'
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import AuthService from '../../../service/auth.service'
 
 // import logo from './logo.png'
 
 class Navigation extends Component {
 
     constructor() {
-        super()    
+        super()  
+        this.authService = new AuthService()
     } 
 
+    logOut = () => {
+        this.authService
+            .logout()
+            .then(res => console.log("Logout succesfully: ", res))
+            .catch(err => console.log(err))
+    }
+   
     render() {
 
         return (
@@ -27,7 +36,7 @@ class Navigation extends Component {
                         </Link>
 
                         {/* >>>> TO-DO change href to Link <<<< */}
-                        <NavDropdown title="Professionals" id="basic-nav-dropdown">
+                        <NavDropdown title="Professionals" id="basic-nav-dropdown">                    
                         <NavDropdown.Item href="/photography">Photography</NavDropdown.Item>
                         <NavDropdown.Item href="/fashion">Fashion</NavDropdown.Item>
                         <NavDropdown.Item href="/stylism">Stylism</NavDropdown.Item>   
@@ -35,16 +44,32 @@ class Navigation extends Component {
                         <NavDropdown.Item href="/modeling">Modeling</NavDropdown.Item>       
                         </NavDropdown>
 
-                        <NavDropdown title="Profile" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="/account">My Account</NavDropdown.Item>
-                        <NavDropdown.Item href="/portfolio">Portfolio</NavDropdown.Item>
-                        <NavDropdown.Item href="/boards">Your Boards</NavDropdown.Item>                        
-                        <NavDropdown.Item href="/logout">Log Out</NavDropdown.Item>  
+                        <Link to="/signup">
+                            <Nav.Link as="div">Sign Up</Nav.Link>
+                        </Link>
+                        <Link to="/login">
+                            <Nav.Link as="div">Login</Nav.Link>
+                        </Link>                      
+
+                        <NavDropdown title="Profile" id="basic-nav-dropdown">                            
+                        <Link to="/account">
+                            <NavDropdown.Item as="div">My Account</NavDropdown.Item>
+                        </Link>                        
+                        <Link to="/works">
+                            <NavDropdown.Item as="div">Portfolio</NavDropdown.Item>
+                        </Link>
+                        <Link to="/board">
+                            <NavDropdown.Item as="div">Your Board</NavDropdown.Item>
+                        </Link>
+                        <Link to="/logout">
+                            <NavDropdown.Item as="div" onClick={this.logOut}>Log Out</NavDropdown.Item>
+                        </Link>                            
                         </NavDropdown>                        
 
                     </Nav>
                 </Navbar.Collapse>
-            </Navbar >
+
+            </Navbar>
         )
     }
 }

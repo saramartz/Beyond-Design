@@ -4,6 +4,7 @@
 | 1 | post | /api/auth/signup | Signup form |
 | 2 | post | /api/auth/login | Login form |
 | 3 | post | /api/auth/logout | User logout |
+<!-- | 3 | post | /api/auth/loggedin | User logout | -->
 | 4 | get | /user | User's profile |
 | 5 | put | /user/edit/:id | Edit profile |
 | 6 | post | /user/delete/:id | Delete profile |
