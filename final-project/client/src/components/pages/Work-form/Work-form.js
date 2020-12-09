@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import WorkService from '../../../service/works.service'
+import FilesService from '../../../service/upload.service'
+
+import Loader from "../../shared/Spinner/Loader"
 
 import { Form, Button } from 'react-bootstrap'
 
@@ -8,17 +11,21 @@ class WorkForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            title: '',
-            description: '',
-            date: '',
-            status: '',
-            image: '',
-            author: this.props.loggedUser ? this.props.loggedUser._id : '' 
+            work: {
+                title: '',
+                description: '',
+                date: '',
+                status: '',
+                image: '',
+                author: this.props.loggedUser ? this.props.loggedUser._id : '' 
+            },
+            uploadingActive: false
         }
         this.worksService = new WorkService()
+        this.filesService = new FilesService()
     }
 
-    handleInputChange = e => this.setState({ [e.target.name]: e.target.value })
+    handleInputChange = e => this.setState({ work: { ...this.state.work, [e.target.name]: e.target.value } })
 
     handleSubmit = e => {
         e.preventDefault()
@@ -31,6 +38,27 @@ class WorkForm extends Component {
             })
             .catch(err => console.log(err))
     }
+
+    handleImageUpload = e => {
+
+        const uploadData = new FormData()
+        uploadData.append('imageUrl', e.target.files[0])
+        console.log('ESTO ES UNA IMAGEN EN MEMORIA:', e.target.files[0])
+
+        this.setState({ uploadingActive: true })
+
+        this.filesService
+            .uploadImage(uploadData)
+            .then(response => {
+                console.log(response)
+                this.setState({
+                    work: { ...this.state.work, image: response.data.secure_url },
+                    uploadingActive: false                    
+                })
+                console.log(this.state.work.image)
+            })
+            .catch(err => console.log('ERRORRR!', err))
+    }  
 
 
     render() {
@@ -64,12 +92,17 @@ class WorkForm extends Component {
                     </Form.Group>
 
                     {/* <!-- Image --> */}
-                    <Form.Group controlId="image">
+                    {/* <Form.Group controlId="image">
                         <Form.Label>Image</Form.Label>
                         <Form.Control type="text" name="image" value={this.state.image} onChange={this.handleInputChange} />
+                    </Form.Group> */}
+
+                    <Form.Group>
+                    <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
+                    <Form.Control type="file" onChange={this.handleImageUpload} />
                     </Form.Group>
 
-                    <Button variant="dark" type="submit">Create</Button>
+                    <Button variant="dark" type="submit" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Subiendo imagen...' : 'Create'}</Button>
 
                 </Form>
             </>

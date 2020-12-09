@@ -37,6 +37,11 @@ Nav {
  width: 105%;
 }
 
+/* ========== PROFESSIONALS ========== */
+
+.user-details img {
+ width: 50%;
+}
 
 /* ========== PORTFOLIO ========== */
 
@@ -64,9 +69,6 @@ Nav {
 .modal-title {
  font-weight: 100;
 }
-
-
-
 
 
 /* ========== APP ========== */

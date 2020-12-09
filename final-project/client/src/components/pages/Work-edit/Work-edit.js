@@ -8,7 +8,11 @@ class WorkEdit extends Component {
     constructor() {
         super()
         this.state = {
-            work: []         
+            title: '',
+            description: '',
+            date: '',
+            status: '',
+            image: ''       
         }
         this.worksService = new WorkService()
     }
@@ -20,11 +24,12 @@ class WorkEdit extends Component {
 
         this.worksService
             .getWork(work_id)
-            .then(res => this.setState({ work: res.data }))
+            .then(res => this.setState({ ...res.data }))
             .catch(err => console.log(err))  
     }
 
-    handleInputChange = e => this.setState({ [e.target.name]: e.target.value })
+    handleInputChange = e => { this.setState({ [e.target.name]: e.target.value })
+    }
 
     handleSubmit = e => {
   
@@ -34,7 +39,7 @@ class WorkEdit extends Component {
 
         this.worksService
             .editWork(work_id, this.state)
-            .then(res => {
+            .then(() => {
                 this.props.updateWork()
                 this.props.closeModal()
             })
@@ -50,31 +55,31 @@ class WorkEdit extends Component {
                     {/* <!-- Title --> */}
                     <Form.Group controlId="title">
                         <Form.Label>Title</Form.Label>
-                        <Form.Control type="text" name="title" value={this.state.work.title} onChange={this.handleInputChange} />
+                        <Form.Control type="text" name="title" value={this.state.title} onChange={this.handleInputChange} />
                     </Form.Group>
 
                     {/* <!-- Description --> */}
                     <Form.Group controlId="description">
                         <Form.Label>Description</Form.Label>
-                        <Form.Control type="text" name="description" value={this.state.work.description} onChange={this.handleInputChange} />
+                        <Form.Control type="text" name="description" value={this.state.description} onChange={this.handleInputChange} />
                     </Form.Group>
 
                     {/* <!-- Date --> */}
                     <Form.Group controlId="date">
                         <Form.Label>Fecha de creación</Form.Label>
-                        <Form.Control type="date" name="date" value={this.state.work.date} onChange={this.handleInputChange} />
+                        <Form.Control type="date" name="date" value={this.state.date} onChange={this.handleInputChange} />
                     </Form.Group> 
 
                     {/* <!-- Status --> */}
                     <Form.Group controlId="status">
                         <Form.Label>Status</Form.Label>
-                        <Form.Control type="text" name="status" value={this.state.work.status} onChange={this.handleInputChange} />
+                        <Form.Control type="text" name="status" value={this.state.status} onChange={this.handleInputChange} />
                     </Form.Group>
 
                     {/* <!-- Image --> */}
                     <Form.Group controlId="image">
                         <Form.Label>Image</Form.Label>
-                        <Form.Control type="text" name="image" value={this.state.work.image} onChange={this.handleInputChange} />
+                        <Form.Control type="text" name="image" value={this.state.image} onChange={this.handleInputChange} />
                     </Form.Group>
 
                     <Button variant="dark" type="submit">Save</Button>
