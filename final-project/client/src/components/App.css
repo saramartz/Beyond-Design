@@ -10,6 +10,11 @@ Nav {
   padding: 15px 100px;
 }
 
+.avatar {
+  width: 25px;
+  border-radius: 100%;
+}
+
 /* ========== SEARCH IMAGES ========== */
 
 .image-container {
@@ -39,7 +44,26 @@ Nav {
   width: 50%;
 }
 
+.work-details img {
+  width: 50%
+}
 
+.create-btn {
+  margin: 0 auto;
+}
+
+.card-text {
+  color: black;
+  
+}
+
+.modal-content {
+  margin-top: 180px; 
+}
+
+.modal-title {
+ font-weight: 100;
+}
 
 
 

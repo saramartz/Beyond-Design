@@ -25,7 +25,7 @@ class Signup extends Component {
             .signup(this.state.username, this.state.password)
             .then(theLoggedInUser => {
                 console.log("Sign Up and logged as: ", theLoggedInUser)
-                this.props.storeUser(theLoggedInUser.data)
+                this.props.storeUser(theLoggedInUser.data)               
                 this.props.history.push('/works')  
             })
             .catch(err => console.log('Error', err))

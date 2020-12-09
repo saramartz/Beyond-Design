@@ -11,5 +11,7 @@ export default class WorkService {
 
     getWorks = () => this.apiHandler.get('/getAllWorks')
     getWork = workId => this.apiHandler.get(`/getOneWork/${workId}`)    
-    saveWork = workInfo => this.apiHandler.post(`/newWork/`, workInfo)
+    saveWork = workInfo => this.apiHandler.post(`/newWork`, workInfo)
+    editWork = (workId, workInfo) => this.apiHandler.put(`/editWork/${workId}`, workInfo)
+    deleteWork = workId => this.apiHandler.delete(`/deleteWork/${workId}`)
 }

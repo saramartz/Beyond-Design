@@ -23,8 +23,9 @@ class Login extends Component {
             .login(this.state.username, this.state.password)
             .then(theLoggedInUser => {
                 console.log("Logged successfully as: ", theLoggedInUser)
-                this.props.storeUser(theLoggedInUser.data)   
+                this.props.storeUser(theLoggedInUser.data)            
                 this.props.history.push('/works')  
+                // this.props.closeModal()
             })
             .catch(err => console.log({ err }))
     }

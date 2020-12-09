@@ -2,22 +2,35 @@ import React, { Component } from 'react'
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import AuthService from '../../../service/auth.service'
+// import Popup from "../../shared/Popup/Popup"
+// import Signup from "../../pages/Auth/Signup"
+// import Login from "../../pages/Auth/Login"
 
 // import logo from './logo.png'
 
 class Navigation extends Component {
 
     constructor() {
-        super()  
+        super()
+        this.state = {           
+            showModal: false,
+        }
         this.authService = new AuthService()
     } 
 
     logOut = () => {
         this.authService
             .logout()
-            .then(res => console.log("Logout succesfully: ", res))
+            .then(res => {                
+                console.log("Logout succesfully: ", res)
+                console.log("These are the props: ", this.props)
+                this.props.storeUser(undefined) 
+                this.props.history.push('/')
+            })
             .catch(err => console.log(err))
     }
+
+    // handleModal = visible => this.setState({ showModal: visible })
    
     render() {
 
@@ -30,41 +43,59 @@ class Navigation extends Component {
                 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="ml-auto">
-                        <Link to="/search">
-                            <Nav.Link as="div">Search Images</Nav.Link>
-                        </Link>
+                    <Nav className="ml-auto">                         
+                                         
+                        {this.props.loggedUser
+                            ?
+                            <>    
+                                <Link to="/search">
+                                <Nav.Link as="div">Search Images</Nav.Link>
+                                </Link>
 
-                        {/* >>>> TO-DO change href to Link <<<< */}
-                        <NavDropdown title="Professionals" id="basic-nav-dropdown">                    
-                        <NavDropdown.Item href="/photography">Photography</NavDropdown.Item>
-                        <NavDropdown.Item href="/fashion">Fashion</NavDropdown.Item>
-                        <NavDropdown.Item href="/stylism">Stylism</NavDropdown.Item>   
-                        <NavDropdown.Item href="/makeup">Makeup</NavDropdown.Item>   
-                        <NavDropdown.Item href="/modeling">Modeling</NavDropdown.Item>       
-                        </NavDropdown>
+                                <NavDropdown title="Professionals" id="basic-nav-dropdown"> 
+                                <NavDropdown.Item href="/professionals">All</NavDropdown.Item>    
+                                <NavDropdown.Item href="/photography">Photography</NavDropdown.Item>
+                                <NavDropdown.Item href="/fashion">Fashion</NavDropdown.Item>
+                                <NavDropdown.Item href="/stylism">Stylism</NavDropdown.Item>   
+                                <NavDropdown.Item href="/makeup">Makeup</NavDropdown.Item>   
+                                <NavDropdown.Item href="/modeling">Modeling</NavDropdown.Item>       
+                                </NavDropdown>       
+                                <NavDropdown title={                                                       
+                                                    <img className="avatar" src={this.props.loggedUser.image} alt={this.props.loggedUser.name} />                                                        
+                                                   }  id="basic-nav-dropdown">   
+                                     
+                                    <Link to="/account">
+                                        <NavDropdown.Item as="div">Account</NavDropdown.Item>
+                                    </Link>                        
+                                    <Link to="/works">
+                                        <NavDropdown.Item as="div">Portfolio</NavDropdown.Item>
+                                    </Link>
+                                    <Link to="/board">
+                                        <NavDropdown.Item as="div">Your Board</NavDropdown.Item>
+                                    </Link>  
+                                    <Link to="/logout">
+                                    <NavDropdown.Item as="a" onClick={this.logOut}>Log Out</NavDropdown.Item>  
+                                    </Link>
+                                </NavDropdown> 
+                            </>
+                            :
+                            <>
+                                <Link to="/signup">
+                                <Nav.Link as="div">Sign Up</Nav.Link>
+                                </Link>
+                                <Link to="/login">
+                                    <Nav.Link as="div">Login</Nav.Link>
+                                </Link> 
 
-                        <Link to="/signup">
-                            <Nav.Link as="div">Sign Up</Nav.Link>
-                        </Link>
-                        <Link to="/login">
-                            <Nav.Link as="div">Login</Nav.Link>
-                        </Link>                      
+                                {/* <Popup show={this.state.showModal} handleModal={this.handleModal} title="Sign In">
+                                    <Login closeModal={() => this.handleModal(false)} loggedUser={this.props.loggedUser} />
+                                </Popup> */}
 
-                        <NavDropdown title="Profile" id="basic-nav-dropdown">                            
-                        <Link to="/account">
-                            <NavDropdown.Item as="div">My Account</NavDropdown.Item>
-                        </Link>                        
-                        <Link to="/works">
-                            <NavDropdown.Item as="div">Portfolio</NavDropdown.Item>
-                        </Link>
-                        <Link to="/board">
-                            <NavDropdown.Item as="div">Your Board</NavDropdown.Item>
-                        </Link>
-                        <Link to="/logout">
-                            <NavDropdown.Item as="div" onClick={this.logOut}>Log Out</NavDropdown.Item>
-                        </Link>                            
-                        </NavDropdown>                        
+                                {/* <Popup show={this.state.showModal} handleModal={this.handleModal} title="Sign In">
+                                    <Login closeModal={() => this.handleModal(false)} loggedUser={this.props.loggedUser} />
+                                </Popup> */}
+                            </>
+                        }                                               
 
                     </Nav>
                 </Navbar.Collapse>
