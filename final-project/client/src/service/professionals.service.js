@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export default class allUsersService {
+export default class ProfessionalsService {
 
     constructor() {
         this.apiHandler = axios.create({
@@ -10,6 +10,5 @@ export default class allUsersService {
     }
 
     getUsers = () => this.apiHandler.get('/getAllUsers')
-    getUser = userId => this.apiHandler.get(`/getOneUser/${userId}`)   
-
+    getUser = userId => this.apiHandler.get(`/getOneUser/${userId}`) 
 }

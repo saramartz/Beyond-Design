@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ImageCard from "./Image-card"
 import { createClient } from 'pexels';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 
 const client = createClient('563492ad6f91700001000001320414824c594940b38138c28df3e9e3');
 
@@ -40,25 +40,21 @@ class ImagesList extends Component {
 
     render() {
         return (
-
             <>
                 <Container>
                     <Row>  
                         <Col lg={10} className="image-container mb-4 text-center">                    
-                            <Form.Control className="form" type="text" placeholder="Search" value={this.state.search} onChange={this.searchImage} />                       
-                          
+                            <Form.Control className="form" type="text" placeholder="Search" value={this.state.search} onChange={this.searchImage} />                      
                         </Col>   
                         
                         {console.log(this.state.images)}
             
-                         {
+                        {
                             this.state.images.map(elm => <ImageCard key={elm.id} {...elm} />) 
-                        }   
-                        
+                        } 
                     </Row>
                 </Container>
-            </>        
-
+            </>      
         )
     }
 }

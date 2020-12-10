@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import WorkService from '../../../service/works.service'
+import WorkService from '../../../../service/works.service'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import WorkEdit from "../Work-edit/Work-edit"
-import Popup from "../../shared/Popup/Popup"
+import Popup from "../../../shared/Popup/Popup"
 
 import { Link } from 'react-router-dom'
 
@@ -67,7 +67,6 @@ class WorkDetails extends Component {
                 </Row>
                
                 </Container>
-
 
                 <Popup show={this.state.showModal} handleModal={this.handleModal} title="New work">
                     <WorkEdit closeModal={() => this.handleModal(false)} updateWork={this.displayWork} loggedUser={this.props.loggedUser} {...this.props}/>

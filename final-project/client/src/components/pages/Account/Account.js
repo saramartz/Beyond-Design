@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import AccountService from '../../../service/account.service'
 import { Container, Row, Col, Button } from 'react-bootstrap'
-// import WorkEdit from "../Work-edit/Work-edit"
-// import Popup from "../../shared/Popup/Popup"
+import AccountEdit from "./Account-edit"
+import Popup from "../../shared/Popup/Popup"
 
 // import { Link } from 'react-router-dom'
 
@@ -16,8 +16,22 @@ class Account extends Component {
         }
         this.accountService = new AccountService()
     }
+
+    componentDidMount = () => this.displayInfo()
+
+    displayInfo = () => {
+        const user_id = this.props.match.params.user_id
+
+        console.log(this.props)
+
+        this.accountService
+            .getUser(user_id)
+            .then(res => this.setState({ user: res.data }))
+            .catch(err => console.log(err))   
+    }
+
     deleteUser = () => {
-        const user_id = this.state.user._id
+        const user_id = this.props.match.params.user_id
 
         this.accountService
             .deleteUser(user_id)
@@ -28,7 +42,7 @@ class Account extends Component {
             .catch(err => console.log(err))   
     }
 
-    // handleModal = visible => this.setState({ showModal: visible })
+    handleModal = visible => this.setState({ showModal: visible })
 
     render() {
 
@@ -47,12 +61,12 @@ class Account extends Component {
                                     <img src={this.state.user.image} alt={this.state.user.name} />                        
                                     <hr />
                                     <p>Bio: {this.state.user.bio}</p>  
+                                    <p>Birthday: {this.state.user.birthday}</p>  
                                 </> 
                                 : null
                             }                          
-                        
-                                                
-                        {/* <Button onClick={() => this.handleModal(true)} variant="dark" size="sm" className="create-btn mr-4">Edit Work</Button> */}
+                                                                        
+                        <Button onClick={() => this.handleModal(true)} variant="dark" size="sm" className="create-btn mr-4">Edit</Button>
                         <Button onClick={this.deleteUser} variant="dark" size="sm" className="create-btn mr-4">Delete</Button>                        
                             
                     </Col>                           
@@ -60,10 +74,10 @@ class Account extends Component {
                
                 </Container>
 
-{/* 
+
                 <Popup show={this.state.showModal} handleModal={this.handleModal} title="New work">
-                    <WorkEdit closeModal={() => this.handleModal(false)} updateWork={this.displayWork} loggedUser={this.props.loggedUser} {...this.props}/>
-                </Popup>       */}
+                    <AccountEdit closeModal={() => this.handleModal(false)} updateUserInfo={this.displayInfo} loggedUser={this.props.loggedUser} {...this.props}/>
+                </Popup>      
             </>    
         )    
     }

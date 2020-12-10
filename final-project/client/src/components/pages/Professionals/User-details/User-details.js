@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import allUsersService from '../../../service/users.service'
+import allUsersService from '../../../../service/professionals.service'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 
 import { Link } from 'react-router-dom'
@@ -41,10 +41,8 @@ class UserDetails extends Component {
                         <p>Bio: {this.state.user.bio}</p>
                         <hr />
                         <p>Availability: {this.state.user.availability}</p>  
-                        <p>{this.state.user.target}</p>       
-                                            
-                        <Link to="/professionals" className="btn btn-sm btn-dark ">Back</Link>    
-                    </Col>                           
+                        <p>{this.state.user.target}</p>                                                 
+                   </Col>                           
                 </Row>
                
                 </Container>     

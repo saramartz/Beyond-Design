@@ -15,3 +15,6 @@ export default class WorkService {
     editWork = (workId, workInfo) => this.apiHandler.put(`/editWork/${workId}`, workInfo)
     deleteWork = workId => this.apiHandler.delete(`/deleteWork/${workId}`)
 }
+
+
+

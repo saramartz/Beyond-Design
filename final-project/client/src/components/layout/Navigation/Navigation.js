@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import AuthService from '../../../service/auth.service'
 // import Popup from "../../shared/Popup/Popup"
@@ -53,18 +53,31 @@ class Navigation extends Component {
                                 </Link>
 
                                 <NavDropdown title="Professionals" id="basic-nav-dropdown"> 
-                                <NavDropdown.Item href="/professionals">All</NavDropdown.Item>    
-                                <NavDropdown.Item href="/photography">Photography</NavDropdown.Item>
-                                <NavDropdown.Item href="/fashion">Fashion</NavDropdown.Item>
-                                <NavDropdown.Item href="/stylism">Stylism</NavDropdown.Item>   
-                                <NavDropdown.Item href="/makeup">Makeup</NavDropdown.Item>   
-                                <NavDropdown.Item href="/modeling">Modeling</NavDropdown.Item>       
-                                </NavDropdown>       
+                                <Link to="/professionals">  
+                                    <NavDropdown.Item as="div">All</NavDropdown.Item>  
+                                </Link>
+                                <Link to="/photography">      
+                                    <NavDropdown.Item as="div">Photography</NavDropdown.Item>
+                                </Link>
+                                <Link to="/fashion">   
+                                    <NavDropdown.Item as="div">Fashion</NavDropdown.Item>
+                                </Link>
+                                <Link to="/stylism">     
+                                    <NavDropdown.Item as="div">Stylism</NavDropdown.Item> 
+                                </Link>
+                                <Link to="/makeup">      
+                                    <NavDropdown.Item as="div">Makeup</NavDropdown.Item>
+                                </Link>
+                                <Link to="/modeling">     
+                                    <NavDropdown.Item as="div">Modeling</NavDropdown.Item> 
+                                </Link>        
+                                </NavDropdown>  
+                                
                                 <NavDropdown title={                                                       
-                                                    <img className="avatar" src={this.props.loggedUser.image} alt={this.props.loggedUser.name} />                                                        
+                                                    <Image className="avatar" src={this.props.loggedUser.image} alt={this.props.loggedUser.name} />                                                        
                                                    }  id="basic-nav-dropdown">   
                                      
-                                    <Link to="/account">
+                                    <Link to={`/account/${this.props.loggedUser._id}`}>
                                         <NavDropdown.Item as="div">Account</NavDropdown.Item>
                                     </Link>                        
                                     <Link to="/works">
@@ -104,6 +117,5 @@ class Navigation extends Component {
         )
     }
 }
-
 
 export default Navigation

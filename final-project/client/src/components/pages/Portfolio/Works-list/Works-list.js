@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import WorkService from '../../../service/works.service'
+import WorkService from '../../../../service/works.service'
 import WorkCard from "./Work-card"
 
 import { Container, Row, Button } from 'react-bootstrap'
 import WorkForm from '../Work-form/Work-form'
-import Popup from "../../shared/Popup/Popup"
+import Popup from "../../../shared/Popup/Popup"
 // import Loader from '../shared/Spinner/Loader'
 
 class WorksList extends Component {
