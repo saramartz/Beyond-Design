@@ -30,7 +30,7 @@ class StylismUsers extends Component {
                     <Row>                                      
                         
                         {
-                            this.state.users.filter(elm => elm.specialty == "Stylism").map(elm => <UserCard key={elm._id} {...elm}/>)                                                             
+                            this.state.users.filter(elm => elm.specialty.toString() === "Stylism").map(elm => <UserCard key={elm._id} {...elm}/>)                                                             
                         }
                                                 
                     </Row>           

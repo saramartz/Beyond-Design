@@ -18,4 +18,5 @@ const WorkCard = ({ image, username, specialty, location, _id }) => {
     )
 }  
 
+
 export default WorkCard
