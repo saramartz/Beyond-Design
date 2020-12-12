@@ -69,7 +69,7 @@ class Follows extends Component {
                     <Row> 
                       
                         { 
-                            this.state.friends ?
+                            this.state.user && this.state.friends ?
                               
                             this.state.friends.map(elm => {
                                 return (

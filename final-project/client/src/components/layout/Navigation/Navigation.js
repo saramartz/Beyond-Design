@@ -29,7 +29,7 @@ class Navigation extends Component {
             })
             .catch(err => console.log(err))
     }
-    
+
     // handleModal = visible => this.setState({ showModal: visible })
    
     render() {
@@ -80,7 +80,7 @@ class Navigation extends Component {
                                     <Link to={`/account/${this.props.loggedUser._id}`}>
                                         <NavDropdown.Item as="div">Account</NavDropdown.Item>
                                     </Link>                        
-                                    <Link to="/works">
+                                    <Link to={`/works/${this.props.loggedUser._id}`}>
                                         <NavDropdown.Item as="div">Portfolio</NavDropdown.Item>
                                     </Link>
                                     <Link to={`/board/${this.props.loggedUser._id}`}>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import WorkService from '../../../../service/works.service'
+import UserService from '../../../../service/account.service'
 import WorkCard from "./Work-card"
 
 import { Container, Row, Button } from 'react-bootstrap'
@@ -12,16 +13,28 @@ class WorksList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            user: this.props.loggedUser,
+            user: {},
             works: [],            
             showModal: false
         }
         this.worksService = new WorkService()
+        this.userService = new UserService()
     }
 
-    componentDidMount = () => this.displayWorks() 
+    componentDidMount = () => {
+        this.getUser()
+        this.displayWorks()
+    }
 
-    //{'author': {$elemMatch: {_id: 'this.state.user._id'}}} { "author": this.state.user._id}
+    getUser = () => {
+        const user_id = this.props.match.params.user_id
+
+        this.userService
+            .getUser(user_id)
+            .then(res => this.setState({ user: res.data }))
+            .catch(err => console.log(err))  
+    }
+
     displayWorks = () => {
         this.worksService
             .getWorks()
@@ -39,8 +52,8 @@ class WorksList extends Component {
                     <Row>                                      
             
                         {
-                           this.state.user ? this.state.works.filter(elm => elm.author == this.state.user._id).map(elm => <WorkCard key={elm._id} {...elm} />) : null
-                        }
+                           this.state.works.filter(elm => elm.author == this.state.user._id || elm.coworkers.includes(this.state.user._id)).map(elm => <WorkCard key={elm._id} {...elm} />) 
+                        }                   
                                                 
                     </Row>
 

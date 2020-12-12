@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import WorkService from '../../../../service/works.service'
 import FilesService from '../../../../service/upload.service'
+import UserService from "../../../../service/professionals.service"
 
 import Loader from "../../../shared/Spinner/Loader"
 
@@ -17,14 +18,32 @@ class WorkForm extends Component {
                 date: '',
                 status: '',
                 image: '',
+                coworkers: [],
                 author: this.props.loggedUser ? this.props.loggedUser._id : '' 
             },
+            user: this.props.loggedUser,
+            friends: [],
             uploadingActive: false
         }
         this.worksService = new WorkService()
         this.filesService = new FilesService()
+        this.userService = new UserService()
     }
 
+    componentDidMount = () => {      
+        this.displayFriends()
+        this.getUser()
+    }
+
+    getUser = () => {
+        const user_id = this.props.loggedUser._id
+
+        this.userService
+            .getUser(user_id)
+            .then(res => this.setState({ user: res.data }))
+            .catch(err => console.log(err))  
+     }
+    
     handleInputChange = e => this.setState({ work: { ...this.state.work, [e.target.name]: e.target.value } })
 
     handleSubmit = e => {
@@ -60,6 +79,18 @@ class WorkForm extends Component {
             .catch(err => console.log('ERRORRR!', err))
     }  
 
+    displayFriends = () => {
+        this.userService
+            .getUsers()
+            .then(res => {           
+
+                let filteredUsers = res.data.filter(elm => this.state.user.follows.includes(elm._id))  
+                
+                this.setState({ friends: filteredUsers })
+            })           
+            .catch(err => console.log(err))
+    }     
+
     render() {
 
         return (
@@ -90,6 +121,14 @@ class WorkForm extends Component {
                         <Form.Control type="text" name="status" value={this.state.status} onChange={this.handleInputChange} />
                     </Form.Group>
 
+                    <Form.Group controlId="coworkers">                                          
+                        <select name="coworkers" value={this.state.coworkers} onChange={this.handleInputChange}>
+                            {this.state.friends.map(elm => 
+                                <option value={elm._id}>{elm.name}</option>
+                            )}                           
+                        </select>
+                    </Form.Group>
+                    
                     {/* <!-- Image --> */}
                     {/* <Form.Group controlId="image">
                         <Form.Label>Image</Form.Label>

@@ -42,7 +42,10 @@ class UserDetails extends Component {
             .getWorks()
             .then(res => {
                 console.log("These are the works", res.data)
-                const works = res.data.filter(elm => elm.author == this.state.otherUser._id)
+                const works = res.data.filter(elm => elm.author == this.state.otherUser._id || elm.coworkers.includes(this.state.otherUser._id) )            
+                
+                // this.setState({ friends: filteredUsers }, () => this.getUser())
+
                 this.setState({ works: works })
             })
             .catch(err => console.log(err))

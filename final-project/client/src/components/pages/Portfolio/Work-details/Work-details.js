@@ -37,7 +37,7 @@ class WorkDetails extends Component {
             .deleteWork(work_id)
             .then(res => {
                 this.setState({ work: res.data })
-                this.props.history.push('/works')  
+                this.props.history.push(`/works/${this.props.loggedUser._id}`)  
             })
             .catch(err => console.log(err))   
     }
@@ -62,7 +62,8 @@ class WorkDetails extends Component {
                         
                         <Button onClick={() => this.handleModal(true)} variant="dark" size="sm" className="create-btn mr-4">Edit Work</Button>
                         <Button onClick={this.deleteWork} variant="dark" size="sm" className="create-btn mr-4">Delete</Button> 
-                        <Link to="/works" className="btn btn-sm btn-dark ">Back</Link>    
+                        <Link to={`/works/${this.props.loggedUser._id}`} className="btn btn-sm btn-dark ">Back</Link> 
+                        {/* TO-DO cannot get loggedUser ID when the page recharges    */}
                     </Col>                           
                 </Row>
                

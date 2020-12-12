@@ -63,12 +63,11 @@ class App extends Component {
             
             {/* <!-- Account --> */} 
             <Route path="/account/:user_id" render={props => <Account loggedUser={this.state.loggedInUser} {...props} />} /> 
-            <Route path='/works' exact render={props => <WorksList loggedUser={this.state.loggedInUser} {...props} /> } />
-            <Route path="/works/:work_id" render={props => <WorkDetails loggedUser={this.state.loggedInUser} {...props} />} />
+            <Route exact path='/works/:user_id' exact render={props => <WorksList loggedUser={this.state.loggedInUser} {...props} /> } />
+            <Route exact path="/works/details/:work_id" exact render={props => <WorkDetails loggedUser={this.state.loggedInUser} {...props} />} />
             <Route path='/board/:user_id' render={props => <Board loggedUser={this.state.loggedInUser} {...props} />} />
             <Route exact path='/:user_id/follows' exact render={props => <Follows loggedUser={this.state.loggedInUser} {...props} /> } />
-            {/* <Route path='/account/:user_id/follows' exact render={props => <Follows loggedUser={this.state.loggedInUser} {...props} /> } /> */}
-            
+                    
             {/* <!-- Auth --> */}
             <Route path="/signup" render={props => <Signup storeUser={this.setTheUser} {...props} />} />
             <Route path="/login" render={props => <Login storeUser={this.setTheUser} {...props} />} />   
