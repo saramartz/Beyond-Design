@@ -1,21 +1,28 @@
 import React, { Component } from 'react'
-import ImageCard from "./Image-card"
+// import ImageCard from "./Image-card"
 import { createClient } from 'pexels';
-import { Container, Row, Col, Form } from 'react-bootstrap';
+import { Container, Row, Col, Form, Card, Button } from 'react-bootstrap';
+import UserService from '../../../service/account.service'
 
 const client = createClient('563492ad6f91700001000001320414824c594940b38138c28df3e9e3');
 
 class ImagesList extends Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             images: [],
+            user: this.props.loggedUser,           
             search: ""
-        } 
+        }
+        this.userService = new UserService()
     }
 
-    componentDidMount = () => this.displayImages()
+    componentDidMount = () => {
+        this.getUser()
+        this.displayImages()     
+ 
+    }
 
     displayImages = () => {
         client.photos
@@ -38,6 +45,32 @@ class ImagesList extends Component {
             .catch(err => console.log(err))           
     }     
 
+    ////////////////////////////////////////////////////
+
+    getUser = () => {
+        const user_id = this.props.match.params.user_id
+
+        this.userService
+            .getUser(user_id)
+            .then(res => this.setState({ user: res.data }))
+            .catch(err => console.log(err))  
+    }
+
+    getFavImages = (src) => {  
+        let photos = this.state.user.board.concat(src)
+        this.setState({ user: { ...this.state.user, board: photos } }, () => this.updateUserInfo())         
+    }
+
+    updateUserInfo = () => { 
+        
+        const user_id = this.props.match.params.user_id
+            
+        this.userService
+            .editUser(user_id, this.state)
+            .then(() => console.log("good!!"))            
+            .catch((err) => console.log(err))
+    }
+    
     render() {
         return (
             <>
@@ -47,10 +80,24 @@ class ImagesList extends Component {
                             <Form.Control className="form" type="text" placeholder="Search" value={this.state.search} onChange={this.searchImage} />                      
                         </Col>   
                         
-                        {console.log(this.state.images)}
+                        {/* {console.log(this.state.images)} */}
             
-                        {
-                            this.state.images.map(elm => <ImageCard key={elm.id} {...elm} />) 
+                        {                 
+                              
+                            this.state.images.map(elm => {
+                                return (
+                                    <Col lg={3} className="image-container">
+                                        <Card className="image-card" key={elm.id}>
+                                            <Card.Img variant="top" src={elm.src.medium} />
+                                            <Card.Body>
+                                            <Card.Text>Credits: {elm.photographer}</Card.Text>
+                                            </Card.Body>             
+                                            <Button onClick={() => this.getFavImages(elm.src.medium)} variant="dark" size="sm" className="create-btn mb-4">Save</Button>
+                                        </Card>                
+                                    </Col>
+                                )
+                            }) 
+                     
                         } 
                     </Row>
                 </Container>

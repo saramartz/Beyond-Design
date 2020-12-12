@@ -10,6 +10,6 @@ export default class AccountService {
     }
 
     getUser = userId => this.apiHandler.get(`/account/${userId}`)     
-    editUser = (userId, userInfo) => this.apiHandler.put(`/account/editUser/${userId}`, userInfo)
+    editUser = (userId, userInfo) => this.apiHandler.put(`/account/editUser/${userId}`, userInfo) 
     deleteUser = userId => this.apiHandler.delete(`/account/deleteUser/${userId}`)
 }

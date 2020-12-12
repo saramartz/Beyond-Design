@@ -48,7 +48,7 @@ class Navigation extends Component {
                         {this.props.loggedUser
                             ?
                             <>    
-                                <Link to="/search">
+                                <Link to={`/search/${this.props.loggedUser._id}`}>
                                 <Nav.Link as="div">Search Images</Nav.Link>
                                 </Link>
 
@@ -83,7 +83,7 @@ class Navigation extends Component {
                                     <Link to="/works">
                                         <NavDropdown.Item as="div">Portfolio</NavDropdown.Item>
                                     </Link>
-                                    <Link to="/board">
+                                    <Link to={`/board/${this.props.loggedUser._id}`}>
                                         <NavDropdown.Item as="div">Your Board</NavDropdown.Item>
                                     </Link>  
                                     <Link to="/logout">

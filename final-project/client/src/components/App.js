@@ -15,6 +15,8 @@ import Login from "./pages/Auth/Login"
 import Account from "./pages/Account/Account"
 import WorksList from "./pages/Portfolio/Works-list/Works-list"
 import WorkDetails from './pages/Portfolio/Work-details/Work-details'
+import Board from "./pages/Board/Board"
+
 
 // ========== PROFESSIONALS ========== 
 import UsersList from "./pages/Professionals/Users-list/Users-list"
@@ -51,14 +53,15 @@ class App extends Component {
     return (
       <>
         <Navigation storeUser={this.setTheUser} /* Lift Up State */ loggedUser={this.state.loggedInUser} {...this.props} />        
-        
+   
         <main>
           <Switch>           
             
             {/* <!-- Account --> */} 
             <Route path="/account/:user_id" render={props => <Account loggedUser={this.state.loggedInUser} {...props} />} /> 
             <Route path='/works' exact render={props => <WorksList loggedUser={this.state.loggedInUser} {...props} /> } />
-            <Route path="/works/:work_id" render={props => <WorkDetails loggedUser={this.state.loggedInUser} {...props} />} />         
+            <Route path="/works/:work_id" render={props => <WorkDetails loggedUser={this.state.loggedInUser} {...props} />} />
+            <Route path='/board/:user_id' render={props => <Board loggedUser={this.state.loggedInUser} {...props} /> } />
             
             {/* <!-- Auth --> */}
             <Route path="/signup" render={props => <Signup storeUser={this.setTheUser} {...props} />} />
@@ -75,7 +78,7 @@ class App extends Component {
             <Route path="/stylism" render={() => <StylismUsers />} /> 
 
              {/* <!-- Images --> */}  
-            <Route path="/search" exact render={() => <ImagesList />} /> 
+            <Route path="/search/:user_id" exact render={(props) => <ImagesList loggedUser={this.state.loggedInUser} storeUser={this.setTheUser} {...props} />} /> 
 
           </Switch>
         </main>
