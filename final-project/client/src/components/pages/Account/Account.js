@@ -4,6 +4,9 @@ import { Container, Row, Col, Button } from 'react-bootstrap'
 import AccountEdit from "./Account-edit"
 import Popup from "../../shared/Popup/Popup"
 
+import { Link } from 'react-router-dom'
+
+
 // import { Link } from 'react-router-dom'
 
 class Account extends Component {
@@ -64,7 +67,11 @@ class Account extends Component {
                                     <p>Birthday: {this.state.user.birthday}</p>  
                                 </> 
                                 : null
-                            }                          
+                            } 
+                            
+                        <Link to={`/${this.props.match.params.user_id}/follows`} className="nav-button">
+                            <p>My follows</p>
+                        </Link>
                                                                         
                         <Button onClick={() => this.handleModal(true)} variant="dark" size="sm" className="create-btn mr-4">Edit</Button>
                         <Button onClick={this.deleteUser} variant="dark" size="sm" className="create-btn mr-4">Delete</Button>                        

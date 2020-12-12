@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import Home from "./pages/Home/Home"
+
 // ========== LAYOUT ========== 
 import Navigation from "../components/layout/Navigation/Navigation"
 
@@ -16,7 +18,7 @@ import Account from "./pages/Account/Account"
 import WorksList from "./pages/Portfolio/Works-list/Works-list"
 import WorkDetails from './pages/Portfolio/Work-details/Work-details'
 import Board from "./pages/Board/Board"
-
+import Follows from "./pages/Account/Follows"
 
 // ========== PROFESSIONALS ========== 
 import UsersList from "./pages/Professionals/Users-list/Users-list"
@@ -55,13 +57,17 @@ class App extends Component {
         <Navigation storeUser={this.setTheUser} /* Lift Up State */ loggedUser={this.state.loggedInUser} {...this.props} />        
    
         <main>
-          <Switch>           
+          <Switch> 
+
+            <Route path="/" exact render={props => <Home loggedUser={this.state.loggedInUser} {...props} />} />
             
             {/* <!-- Account --> */} 
             <Route path="/account/:user_id" render={props => <Account loggedUser={this.state.loggedInUser} {...props} />} /> 
             <Route path='/works' exact render={props => <WorksList loggedUser={this.state.loggedInUser} {...props} /> } />
             <Route path="/works/:work_id" render={props => <WorkDetails loggedUser={this.state.loggedInUser} {...props} />} />
-            <Route path='/board/:user_id' render={props => <Board loggedUser={this.state.loggedInUser} {...props} /> } />
+            <Route path='/board/:user_id' render={props => <Board loggedUser={this.state.loggedInUser} {...props} />} />
+            <Route exact path='/:user_id/follows' exact render={props => <Follows loggedUser={this.state.loggedInUser} {...props} /> } />
+            {/* <Route path='/account/:user_id/follows' exact render={props => <Follows loggedUser={this.state.loggedInUser} {...props} /> } /> */}
             
             {/* <!-- Auth --> */}
             <Route path="/signup" render={props => <Signup storeUser={this.setTheUser} {...props} />} />
@@ -76,6 +82,8 @@ class App extends Component {
             <Route path="/modeling" render={() => <ModelingUsers />} /> 
             <Route path="/photography" render={() => <PhotographyUsers />} /> 
             <Route path="/stylism" render={() => <StylismUsers />} /> 
+
+            {/* {!this.state.loggedInUser ? <Redirect to="/login" /> : null}  */}
 
              {/* <!-- Images --> */}  
             <Route path="/search/:user_id" exact render={(props) => <ImagesList loggedUser={this.state.loggedInUser} storeUser={this.setTheUser} {...props} />} /> 

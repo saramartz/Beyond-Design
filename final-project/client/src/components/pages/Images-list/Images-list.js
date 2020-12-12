@@ -26,7 +26,7 @@ class ImagesList extends Component {
 
     displayImages = () => {
         client.photos
-            .curated({ per_page: 15 })
+            .search({ query: "Cyber", per_page: 15 })
             .then(res => this.setState({images: res.photos}))
             .catch(err => console.log(err))    
     }

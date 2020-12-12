@@ -29,7 +29,7 @@ class Navigation extends Component {
             })
             .catch(err => console.log(err))
     }
-
+    
     // handleModal = visible => this.setState({ showModal: visible })
    
     render() {
