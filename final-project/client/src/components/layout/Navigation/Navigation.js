@@ -82,10 +82,11 @@ class Navigation extends Component {
                                     </Link>                        
                                     <Link to={`/works/${this.props.loggedUser._id}`}>
                                         <NavDropdown.Item as="div">Portfolio</NavDropdown.Item>
-                                    </Link>
-                                    <Link to={`/board/${this.props.loggedUser._id}`}>
-                                        <NavDropdown.Item as="div">Your Board</NavDropdown.Item>
-                                    </Link>  
+                                    </Link>                                                                     
+                                     <Link to={`/myBoards/${this.props.loggedUser._id}`}>
+                                        <NavDropdown.Item as="div">My Boards</NavDropdown.Item>
+                                    </Link> 
+
                                     <Link to="/logout">
                                     <NavDropdown.Item as="a" onClick={this.logOut}>Log Out</NavDropdown.Item>  
                                     </Link>

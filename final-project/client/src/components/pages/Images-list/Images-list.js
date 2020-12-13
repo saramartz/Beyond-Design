@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import { createClient } from 'pexels';
 import { Container, Row, Col, Form, Card, Button } from 'react-bootstrap';
 import UserService from '../../../service/account.service'
+import ImageForm from "./Image-form"
+import Popup from "../../shared/Popup/Popup"
 
 const client = createClient('563492ad6f91700001000001320414824c594940b38138c28df3e9e3');
 
@@ -11,18 +13,19 @@ class ImagesList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            images: [],
-            user: this.props.loggedUser,           
-            search: ""
+            images: [],             
+            search: "",
+            favImages: [],
+            showModal: false
         }
-        this.userService = new UserService()
+        this.userService = new UserService()       
     }
 
     componentDidMount = () => {
-        this.getUser()
-        this.displayImages()     
- 
+        this.displayImages() 
     }
+
+    // ========== DISPLAY & SEARCH IMAGES ==========
 
     displayImages = () => {
         client.photos
@@ -43,33 +46,16 @@ class ImagesList extends Component {
             .search({ query: this.state.search, per_page: 2 })
             .then(res => this.state.search.length > 0 ? this.setState({images: res.photos}) : this.setState(this.displayImages))
             .catch(err => console.log(err))           
-    }     
-
-    ////////////////////////////////////////////////////
-
-    getUser = () => {
-        const user_id = this.props.match.params.user_id
-
-        this.userService
-            .getUser(user_id)
-            .then(res => this.setState({ user: res.data }))
-            .catch(err => console.log(err))  
-    }
+    } 
+    
+    // ========== ADD IMAGES TO BOARD ==========
 
     getFavImages = (src) => {  
-        let photos = this.state.user.board.concat(src)
-        this.setState({ user: { ...this.state.user, board: photos } }, () => this.updateUserInfo())         
+        let photos = this.state.favImages.concat(src)
+        this.setState({ favImages: photos })         
     }
 
-    updateUserInfo = () => { 
-        
-        const user_id = this.props.match.params.user_id
-            
-        this.userService
-            .editUser(user_id, this.state)
-            .then(() => console.log("good!!"))            
-            .catch((err) => console.log(err))
-    }
+    handleModal = visible => this.setState({ showModal: visible })
     
     render() {
         return (
@@ -78,10 +64,8 @@ class ImagesList extends Component {
                     <Row>  
                         <Col lg={10} className="image-container mb-4 text-center">                    
                             <Form.Control className="form" type="text" placeholder="Search" value={this.state.search} onChange={this.searchImage} />                      
-                        </Col>   
-                        
-                        {/* {console.log(this.state.images)} */}
-            
+                        </Col> 
+
                         {                 
                               
                             this.state.images.map(elm => {
@@ -92,15 +76,23 @@ class ImagesList extends Component {
                                             <Card.Body>
                                             <Card.Text>Credits: {elm.photographer}</Card.Text>
                                             </Card.Body>             
-                                            <Button onClick={() => this.getFavImages(elm.src.medium)} variant="dark" size="sm" className="create-btn mb-4">Save</Button>
+                                            <Button onClick={() => {
+                                                this.getFavImages(elm.src.medium)
+                                                this.handleModal(true)
+                                            }} variant="dark" size="sm" className="create-btn mb-4">Save</Button>
                                         </Card>                
                                     </Col>
                                 )
                             }) 
                      
-                        } 
+                        }
+                        
                     </Row>
                 </Container>
+
+                 <Popup show={this.state.showModal} handleModal={this.handleModal} title="Choose your board">
+                    <ImageForm closeModal={() => this.handleModal(false)} loggedUser={this.props.loggedUser} favImages={this.state.favImages}/>
+                </Popup>  
             </>      
         )
     }

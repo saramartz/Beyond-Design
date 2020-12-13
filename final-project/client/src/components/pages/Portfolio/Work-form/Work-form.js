@@ -127,7 +127,7 @@ class WorkForm extends Component {
                                 <option value={elm._id}>{elm.name}</option>
                             )}                           
                         </select>
-                    </Form.Group>
+                    </Form.Group>                    
                     
                     {/* <!-- Image --> */}
                     {/* <Form.Group controlId="image">

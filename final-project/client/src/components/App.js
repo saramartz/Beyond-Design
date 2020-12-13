@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 
 import Home from "./pages/Home/Home"
 
+// ========== BOARDS ========== 
+import MyBoards from "./pages/Board/MyBoards"
+import BoardDetails from "./pages/Board/Board-details"
+
 // ========== LAYOUT ========== 
 import Navigation from "../components/layout/Navigation/Navigation"
 
@@ -64,9 +68,11 @@ class App extends Component {
             {/* <!-- Account --> */} 
             <Route path="/account/:user_id" render={props => <Account loggedUser={this.state.loggedInUser} {...props} />} /> 
             <Route exact path='/works/:user_id' exact render={props => <WorksList loggedUser={this.state.loggedInUser} {...props} /> } />
-            <Route exact path="/works/details/:work_id" exact render={props => <WorkDetails loggedUser={this.state.loggedInUser} {...props} />} />
-            <Route path='/board/:user_id' render={props => <Board loggedUser={this.state.loggedInUser} {...props} />} />
-            <Route exact path='/:user_id/follows' exact render={props => <Follows loggedUser={this.state.loggedInUser} {...props} /> } />
+            <Route exact path="/works/details/:work_id" exact render={props => <WorkDetails loggedUser={this.state.loggedInUser} {...props} />} />          
+            <Route exact path='/:user_id/follows' exact render={props => <Follows loggedUser={this.state.loggedInUser} {...props} />} />
+            
+            <Route path='/myBoards/:user_id' render={props => <MyBoards loggedUser={this.state.loggedInUser} {...props} />} />
+            <Route path='/details/:board_id' render={props => <BoardDetails loggedUser={this.state.loggedInUser} {...props} />} />
                     
             {/* <!-- Auth --> */}
             <Route path="/signup" render={props => <Signup storeUser={this.setTheUser} {...props} />} />
