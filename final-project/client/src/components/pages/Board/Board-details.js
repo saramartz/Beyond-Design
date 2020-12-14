@@ -20,8 +20,6 @@ class BoardDetails extends Component {
     displayBoard = () => {
         const board_id = this.props.match.params.board_id
 
-        console.log(this.props)
-
         this.boardsService
             .getBoard(board_id)
             .then(res => this.setState({ board: res.data }))
@@ -49,8 +47,7 @@ class BoardDetails extends Component {
         this.setState({ board: {...this.state.board, images: photos } }, () => this.deleteImage())         
     }
 
-    deleteImage = () => { 
-                
+    deleteImage = () => {                
         const board_id = this.props.match.params.board_id
             
         this.boardsService
@@ -79,20 +76,20 @@ class BoardDetails extends Component {
                                             <img variant="top" src={elm} style={{ width: "50%", margin: "10px" }} /> 
                                             <Button onClick={() => this.getImages(elm)} variant="dark" size="sm" className="create-btn mb-4">Delete Image</Button>
                                         </>
-                                    )
-                                    
+                                    )                                    
                                 })
                                 : null
-                            }
-                                                   
-                        <Button onClick={this.deleteBoard} variant="dark" size="sm" className="create-btn mr-4">Delete</Button>                         
+                            }                                                   
+                                                
                         {/* <Link to={`/myBoards/${this.props.loggedUser._id}`} className="btn btn-sm btn-dark ">Back</Link> */}
-
-                         {/* <Button onClick={() => this.handleModal(true)} variant="dark" size="sm" className="create-btn mr-4">Edit Work</Button> */}    
+                        {/* <Button onClick={() => this.handleModal(true)} variant="dark" size="sm" className="create-btn mr-4">Edit Work</Button> */}    
                   
                     </Col>
-                                        
-                </Row>
+                        
+                    <Col md={{ span: 6, offset: 2 }} style={{marginTop: "50px", marginBottom: "50px"}}>
+                        <Button onClick={this.deleteBoard} variant="dark" size="sm" className="create-btn mr-4">Delete</Button>
+                    </Col>               
+                </Row>                   
                
                 </Container>             
             </>    
@@ -101,6 +98,8 @@ class BoardDetails extends Component {
 }
 
 export default BoardDetails
+
+    // TO-DO edit form
     
     //   {/* <Popup show={this.state.showModal} handleModal={this.handleModal} title="New work">
     //                 <WorkEdit closeModal={() => this.handleModal(false)} updateWork={this.displayWork} loggedUser={this.props.loggedUser} {...this.props}/>

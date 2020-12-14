@@ -44,7 +44,6 @@ class Follows extends Component {
 
     getFriends = (id) => {  
         let idx = this.state.user.follows.indexOf(id)
-
         this.state.user.follows.splice(idx, 1)
 
         let friends = this.state.user.follows
@@ -52,8 +51,7 @@ class Follows extends Component {
         this.setState({ user: { ...this.state.user, follows: friends } }, () => this.deleteFriends())         
     }
 
-    deleteFriends = () => { 
-                
+    deleteFriends = () => {                
         const user_id = this.props.match.params.user_id
             
         this.accountService
@@ -85,8 +83,7 @@ class Follows extends Component {
                                 )
                             })
 
-                            : null    
-                     
+                            : null
                         } 
                     </Row>
                 </Container>

@@ -24,8 +24,7 @@ class Navigation extends Component {
             .then(res => {                
                 console.log("Logout succesfully: ", res)
                 console.log("These are the props: ", this.props)
-                this.props.storeUser(undefined) 
-                this.props.history.push('/')
+                this.props.storeUser(undefined)               
             })
             .catch(err => console.log(err))
     }
@@ -101,7 +100,10 @@ class Navigation extends Component {
                                     <Nav.Link as="div">Login</Nav.Link>
                                 </Link> 
 
-                                {/* <Popup show={this.state.showModal} handleModal={this.handleModal} title="Sign In">
+                                
+                                {/* TO-DO login & signup popups
+                                
+                                <Popup show={this.state.showModal} handleModal={this.handleModal} title="Sign In">
                                     <Login closeModal={() => this.handleModal(false)} loggedUser={this.props.loggedUser} />
                                 </Popup> */}
 

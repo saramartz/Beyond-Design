@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import WorkService from '../../../../service/works.service'
 import FilesService from '../../../../service/upload.service'
 import UserService from "../../../../service/professionals.service"
+import BoardService from '../../../../service/boards.service'
 
 import Loader from "../../../shared/Spinner/Loader"
 
@@ -19,20 +20,24 @@ class WorkForm extends Component {
                 status: '',
                 image: '',
                 coworkers: [],
+                board: "",
                 author: this.props.loggedUser ? this.props.loggedUser._id : '' 
             },
             user: this.props.loggedUser,
             friends: [],
+            boards: [],
             uploadingActive: false
         }
         this.worksService = new WorkService()
         this.filesService = new FilesService()
         this.userService = new UserService()
+        this.boardsService = new BoardService() 
     }
 
-    componentDidMount = () => {      
-        this.displayFriends()
+    componentDidMount = () => { 
         this.getUser()
+        this.displayFriends()        
+        this.displayBoards()
     }
 
     getUser = () => {
@@ -82,14 +87,23 @@ class WorkForm extends Component {
     displayFriends = () => {
         this.userService
             .getUsers()
-            .then(res => {           
-
-                let filteredUsers = res.data.filter(elm => this.state.user.follows.includes(elm._id))  
+            .then(res => {         
+                let filteredUsers = res.data.filter(elm => this.state.user.follows.includes(elm._id))
                 
                 this.setState({ friends: filteredUsers })
             })           
             .catch(err => console.log(err))
-    }     
+    } 
+    
+    displayBoards = () => {
+        this.boardsService
+            .getBoards()
+            .then(res => {
+                const boards = res.data.filter(elm => elm.author == this.state.user._id)
+                this.setState({ boards: boards })
+            })
+            .catch(err => console.log(err))
+    }    
 
     render() {
 
@@ -127,7 +141,15 @@ class WorkForm extends Component {
                                 <option value={elm._id}>{elm.name}</option>
                             )}                           
                         </select>
-                    </Form.Group>                    
+                    </Form.Group>    
+                    
+                    <Form.Group controlId="board">                                          
+                        <select name="board" value={this.state.board} onChange={this.handleInputChange}>
+                            {this.state.boards.map(elm => 
+                                <option value={elm._id}>{elm.title}</option>
+                            )}                           
+                        </select>
+                    </Form.Group> 
                     
                     {/* <!-- Image --> */}
                     {/* <Form.Group controlId="image">

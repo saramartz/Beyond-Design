@@ -43,9 +43,7 @@ class UserDetails extends Component {
             .then(res => {
                 console.log("These are the works", res.data)
                 const works = res.data.filter(elm => elm.author == this.state.otherUser._id || elm.coworkers.includes(this.state.otherUser._id) )            
-                
-                // this.setState({ friends: filteredUsers }, () => this.getUser())
-
+               
                 this.setState({ works: works })
             })
             .catch(err => console.log(err))
@@ -53,6 +51,7 @@ class UserDetails extends Component {
 
     // ========== FOLLOWS ========== 
 
+    // TO-DO create weAreFriends in user schema
     checkUserFriends() {
         if (this.props.loggedUser.follows.includes(this.state.otherUser._id)) {
           this.setState({ weAreFriends: true })

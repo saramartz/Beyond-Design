@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import Home from "./pages/Home/Home"
 
+// import Chat from "./chat"
+
 // ========== BOARDS ========== 
 import MyBoards from "./pages/Board/MyBoards"
 import BoardDetails from "./pages/Board/Board-details"
@@ -21,7 +23,6 @@ import Login from "./pages/Auth/Login"
 import Account from "./pages/Account/Account"
 import WorksList from "./pages/Portfolio/Works-list/Works-list"
 import WorkDetails from './pages/Portfolio/Work-details/Work-details'
-import Board from "./pages/Board/Board"
 import Follows from "./pages/Account/Follows"
 
 // ========== PROFESSIONALS ========== 
@@ -39,7 +40,10 @@ class App extends Component {
 
   constructor() {
     super()
-    this.state = { loggedInUser: undefined }
+    this.state = {
+      loggedInUser: undefined,
+      mount: false
+    }
     this.authServices = new AuthServices()
   }
 
@@ -52,49 +56,61 @@ class App extends Component {
       .catch(err => this.setTheUser(undefined))
   }
 
-  setTheUser = user => this.setState({ loggedInUser: user }, () => console.log("The current user is: ", this.state))
+  setTheUser = user => this.setState({ loggedInUser: user, mount: true }, () => console.log("The current user is: ", this.state))
 
   render() {
 
     return (
       <>
-        <Navigation storeUser={this.setTheUser} /* Lift Up State */ loggedUser={this.state.loggedInUser} {...this.props} />        
+        <Navigation storeUser={this.setTheUser} /* Lift Up State */ loggedUser={this.state.loggedInUser} {...this.props} />   
+        
+        {/* <Chat></Chat> */}
    
-        <main>
+        {this.state.mount ? 
+          
+          <main>
           <Switch> 
 
-            <Route path="/" exact render={props => <Home loggedUser={this.state.loggedInUser} {...props} />} />
-            
-            {/* <!-- Account --> */} 
-            <Route path="/account/:user_id" render={props => <Account loggedUser={this.state.loggedInUser} {...props} />} /> 
-            <Route exact path='/works/:user_id' exact render={props => <WorksList loggedUser={this.state.loggedInUser} {...props} /> } />
-            <Route exact path="/works/details/:work_id" exact render={props => <WorkDetails loggedUser={this.state.loggedInUser} {...props} />} />          
-            <Route exact path='/:user_id/follows' exact render={props => <Follows loggedUser={this.state.loggedInUser} {...props} />} />
-            
-            <Route path='/myBoards/:user_id' render={props => <MyBoards loggedUser={this.state.loggedInUser} {...props} />} />
-            <Route path='/details/:board_id' render={props => <BoardDetails loggedUser={this.state.loggedInUser} {...props} />} />
-                    
+            <Route path="/" exact render={props => <Home loggedUser={this.state.loggedInUser} {...props} />} />         
+                                
             {/* <!-- Auth --> */}
             <Route path="/signup" render={props => <Signup storeUser={this.setTheUser} {...props} />} />
             <Route path="/login" render={props => <Login storeUser={this.setTheUser} {...props} />} />   
-            <Route path="/logout" render={() => <Redirect to="/" />} />            
+            <Route path="/logout" render={() => <Redirect to="/login" />} />            
+           
+            {this.state.loggedInUser
+                ? 
+                <>
+                {/* <!-- Account --> */}
+                <Route path="/account/:user_id" render={props => <Account loggedUser={this.state.loggedInUser} {...props} />} /> 
+                <Route exact path='/works/:user_id' exact render={props => <WorksList loggedUser={this.state.loggedInUser} {...props} /> } />
+                <Route exact path="/works/details/:work_id" exact render={props => <WorkDetails loggedUser={this.state.loggedInUser} {...props} />} />          
+                <Route exact path='/:user_id/follows' exact render={props => <Follows loggedUser={this.state.loggedInUser} {...props} />} />                
+                <Route path='/myBoards/:user_id' render={props => <MyBoards loggedUser={this.state.loggedInUser} {...props} />} />
+                <Route path='/details/:board_id' render={props => <BoardDetails loggedUser={this.state.loggedInUser} {...props} />} />
 
-            {/* <!-- Professionals --> */}
-            <Route path='/professionals' exact render={props => <UsersList loggedUser={this.state.loggedInUser} {...props} />} />
-            <Route path="/professionals/:user_id" render={props => <UserDetails loggedUser={this.state.loggedInUser} {...props} />} /> 
-            <Route path="/fashion" render={() => <FashionUsers />} />
-            <Route path="/makeup" render={() => <MakeupUsers />} />
-            <Route path="/modeling" render={() => <ModelingUsers />} /> 
-            <Route path="/photography" render={() => <PhotographyUsers />} /> 
-            <Route path="/stylism" render={() => <StylismUsers />} /> 
+                {/* <!-- Professionals --> */}
+                <Route path="/professionals/:user_id" render={props => <UserDetails loggedUser={this.state.loggedInUser} {...props} />} /> 
+                <Route path='/professionals' exact render={props => <UsersList loggedUser={this.state.loggedInUser} {...props} />} />
+                <Route path="/fashion" render={() => <FashionUsers />} />
+                <Route path="/makeup" render={() => <MakeupUsers />} />
+                <Route path="/modeling" render={() => <ModelingUsers />} /> 
+                <Route path="/photography" render={() => <PhotographyUsers />} /> 
+                <Route path="/stylism" render={() => <StylismUsers />} /> 
 
-            {/* {!this.state.loggedInUser ? <Redirect to="/login" /> : null}  */}
-
-             {/* <!-- Images --> */}  
-            <Route path="/search/:user_id" exact render={(props) => <ImagesList loggedUser={this.state.loggedInUser} storeUser={this.setTheUser} {...props} />} /> 
-
+                {/* <!-- Images -->  */}
+                <Route path="/search/:user_id" exact render={(props) => <ImagesList loggedUser={this.state.loggedInUser} storeUser={this.setTheUser} {...props} />} />
+                </>
+                :
+                <Redirect to="/login"/>             
+            }    
+            
           </Switch>
-        </main>
+          </main>
+          
+          : null
+          
+        }       
       </>
     )
   }

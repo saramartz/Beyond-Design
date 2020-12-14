@@ -16,6 +16,7 @@ class ImagesList extends Component {
             images: [],             
             search: "",
             favImages: [],
+            savedImage: "",
             showModal: false
         }
         this.userService = new UserService()       
@@ -29,7 +30,7 @@ class ImagesList extends Component {
 
     displayImages = () => {
         client.photos
-            .search({ query: "Cyber", per_page: 15 })
+            .search({ query: "cyberpunk", per_page: 15 })
             .then(res => this.setState({images: res.photos}))
             .catch(err => console.log(err))    
     }
@@ -55,6 +56,10 @@ class ImagesList extends Component {
         this.setState({ favImages: photos })         
     }
 
+    openModal = (url) => {
+        this.setState({savedImage: url}, () => this.handleModal(true))
+    }
+
     handleModal = visible => this.setState({ showModal: visible })
     
     render() {
@@ -77,8 +82,7 @@ class ImagesList extends Component {
                                             <Card.Text>Credits: {elm.photographer}</Card.Text>
                                             </Card.Body>             
                                             <Button onClick={() => {
-                                                this.getFavImages(elm.src.medium)
-                                                this.handleModal(true)
+                                                this.openModal(elm.src.medium)                                          
                                             }} variant="dark" size="sm" className="create-btn mb-4">Save</Button>
                                         </Card>                
                                     </Col>
@@ -91,7 +95,7 @@ class ImagesList extends Component {
                 </Container>
 
                  <Popup show={this.state.showModal} handleModal={this.handleModal} title="Choose your board">
-                    <ImageForm closeModal={() => this.handleModal(false)} loggedUser={this.props.loggedUser} favImages={this.state.favImages}/>
+                    <ImageForm closeModal={() => this.handleModal(false)} loggedUser={this.props.loggedUser} favImages={this.state.savedImage}/>
                 </Popup>  
             </>      
         )

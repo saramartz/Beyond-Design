@@ -55,6 +55,7 @@ class Signup extends Component {
                         </Form>
                     </Col>
                 </Row>
+                
             </Container>
         )
     }

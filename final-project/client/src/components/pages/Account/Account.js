@@ -1,13 +1,9 @@
 import React, { Component } from 'react'
 import AccountService from '../../../service/account.service'
-import { Container, Row, Col, Button } from 'react-bootstrap'
 import AccountEdit from "./Account-edit"
 import Popup from "../../shared/Popup/Popup"
-
+import { Container, Row, Col, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-
-
-// import { Link } from 'react-router-dom'
 
 class Account extends Component {
 

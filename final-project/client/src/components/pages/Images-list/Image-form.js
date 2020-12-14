@@ -11,7 +11,7 @@ class ImageForm extends Component {
         this.state = { 
             board: {               
                 _id: "",
-                images: []
+                image: ""
             },
             user: this.props.loggedUser,
             boards: [],    
@@ -22,10 +22,10 @@ class ImageForm extends Component {
 
     componentDidMount = () => { 
         this.displayBoards()
-        // this.displayBoard() >>>>>>>>> Conseguir id antes de que se recargue la página
+        // this.displayBoard() >>>>>>>>> Conseguir id cuando se muestra formulario
     }
     
-    handleInputChange = e => this.setState({ board: { ...this.state.board, [e.target.name]: e.target.value, images: this.state.board.images.concat(this.props.favImages) } }) 
+    handleInputChange = e => this.setState({ board: { ...this.state.board, [e.target.name]: e.target.value, image: this.props.favImages } }) 
       
     handleSubmit = e => {  
         e.preventDefault()
@@ -36,7 +36,7 @@ class ImageForm extends Component {
         const board_id = this.state.board._id
 
         this.boardsService
-            .editBoard(board_id, this.state)
+            .editBoard(board_id, this.state.board)
             .then(() => {              
                this.props.closeModal()              
                 console.log("yay!!!")
