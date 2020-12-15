@@ -34,10 +34,10 @@ class Navigation extends Component {
     render() {
 
         return (
-            <Navbar bg="dark" variant="dark" expand="md" style={{ marginBottom: '50px' }}>
+            <Navbar bg="dark" variant="dark" expand="md">
                 
                 <Link to="/">
-                    <Navbar.Brand>Creative-App</Navbar.Brand>
+                    <Navbar.Brand></Navbar.Brand>
                 </Link>
                 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />

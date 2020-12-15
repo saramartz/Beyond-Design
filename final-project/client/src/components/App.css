@@ -40,6 +40,8 @@ Nav {
   border-radius: 100%;
 }
 
+
+
 /* ========== SEARCH IMAGES ========== */
 
 .image-container {
@@ -136,3 +138,5 @@ Nav {
     transform: rotate(360deg);
   }
 }
+
+
