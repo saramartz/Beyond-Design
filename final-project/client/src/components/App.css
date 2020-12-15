@@ -1,9 +1,34 @@
+@font-face {
+  font-family: 'Colony';
+  src: local('Colony'), url(../fonts/Colony.ttf) format('truetype');
+}
 
+@font-face {
+  font-family: 'Razed';
+  src: local('Razed'), url(../fonts/Razed.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Razed2';
+  src: local('Razed2'), url(../fonts/Razed2.ttf) format('truetype');
+}
+
+main {
+  
+}
+
+h1 {
+  font-family: Razed, monospace;
+  font-size: 80px;
+}
+
+.title {
+  color: black;
+}
 /* ========== NAVBAR ========== */
 
 Nav {
-    font-weight: 100;
-    
+    font-weight: 100;    
 }
 
 .navbar {

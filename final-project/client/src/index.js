@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './components/App'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './components/App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'antd/dist/antd.css'
 
 import { BrowserRouter as Router } from 'react-router-dom'
 

@@ -55,6 +55,7 @@ class MyBoards extends Component {
                     </Row>
                     
                     <Row>
+                        
                         <Button onClick={() => this.handleModal(true)} variant="dark" size="sm" className="create-btn">New Board</Button>
                     </Row>
                 </Container>

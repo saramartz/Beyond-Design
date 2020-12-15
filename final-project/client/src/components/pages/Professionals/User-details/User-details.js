@@ -4,6 +4,7 @@ import WorkService from '../../../../service/works.service'
 import UserService from '../../../../service/account.service'
 import WorkCard from "../../Portfolio/Works-list/Work-card"
 import { Container, Row, Col, Button } from 'react-bootstrap'
+import Reveal from 'react-reveal/Reveal';
 
 class UserDetails extends Component {
 
@@ -12,7 +13,7 @@ class UserDetails extends Component {
         this.state = {
             otherUser: {},
             user: {},
-            works: [],
+            works: [],      
             weAreFriends: false
         }
         this.professionalsService = new ProfessionalsService()
@@ -84,7 +85,7 @@ class UserDetails extends Component {
             .editUser(user_id, this.state)
             .then(() => console.log("good!!"))            
             .catch((err) => console.log(err))
-    } 
+    }     
 
     render() {
 
@@ -92,7 +93,10 @@ class UserDetails extends Component {
             <>
                 <Container >
          
-                    <Row>
+                    <Row>            
+                        
+                        <Reveal >                      
+                          
                         <Col md={{ span: 6, offset: 1 }} className="user-details">
                             <h3 className="mb-4">{this.state.otherUser.name}</h3>
                             <img src={this.state.otherUser.image} alt={this.state.otherUser.name} />
@@ -106,7 +110,9 @@ class UserDetails extends Component {
 
                             <hr style={{marginBottom: "50px"}}></hr>
                             <h5 className="mt-4">Portfolio</h5>    
-                        </Col>                       
+                            </Col>
+                            
+                        </Reveal>
                     </Row>
                     
                     <Row>
