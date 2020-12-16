@@ -35,22 +35,24 @@ class Login extends Component {
 
         return (
 
-            <Container>
+            //TO-DO add symbols
 
+            <Container >
                 <Row>
-                    <Col md={{ span: 6, offset: 3 }}>
-                        <h1>Login</h1>
-                        <hr />
+                    <Col md={{ span: 8, offset: 2 }} className="login">
+                        <h1 className="text-center">Login</h1>                       
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Group controlId="username">
-                                <Form.Label>Username</Form.Label>
-                                <Form.Control type="text" name="username" value={this.state.username} onChange={this.handleInputChange} />
+                                <Form.Label></Form.Label>
+                                <Form.Control type="text" placeholder="Username" name="username" value={this.state.username} onChange={this.handleInputChange} />
                             </Form.Group>
                             <Form.Group controlId="password">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" name="password" value={this.state.password} onChange={this.handleInputChange} />
+                                <Form.Label></Form.Label>
+                                <Form.Control type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleInputChange} />
                             </Form.Group>
-                            <Button variant="dark" type="submit">Iniciar sesión</Button>
+                            <Form.Group className="text-center">
+                                <Button className="btn-transparent" variant="none" type="submit">Login</Button>
+                            </Form.Group>
                         </Form>
                     </Col>
                 </Row>

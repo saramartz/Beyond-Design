@@ -63,9 +63,7 @@ class App extends Component {
     return (
       <>
         <Navigation storeUser={this.setTheUser} /* Lift Up State */ loggedUser={this.state.loggedInUser} {...this.props} />   
-
-    
-        
+            
         {/* <Chat></Chat> */}
    
         {this.state.mount ? 

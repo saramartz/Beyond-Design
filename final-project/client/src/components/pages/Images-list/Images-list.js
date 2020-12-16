@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
-// import ImageCard from "./Image-card"
+
 import { createClient } from 'pexels';
 import { Container, Row, Col, Form, Card, Button } from 'react-bootstrap';
+
+import { Heart } from 'react-bootstrap-icons';
+import Reveal from 'react-reveal/Fade';
+
 import UserService from '../../../service/account.service'
 import ImageForm from "./Image-form"
 import Popup from "../../shared/Popup/Popup"
@@ -65,33 +69,34 @@ class ImagesList extends Component {
     render() {
         return (
             <>
-                <Container>
+                <Container className="images-container">
+                    <Reveal effect="fadeInUp">
                     <Row>  
-                        <Col lg={10} className="image-container mb-4 text-center">                    
-                            <Form.Control className="form" type="text" placeholder="Search" value={this.state.search} onChange={this.searchImage} />                      
-                        </Col> 
+                        <Col md={9} sm={4} className="mt-1 text-center">                             
+                            <input className="searchBar" placeholder="Search" value={this.state.search} onChange={this.searchImage} />
+                        </Col>
+                        
+                        <Col md={2}  className="mb-4 text-center">                                
+                            <Button type="submit" variant="none" className="btn-searchBar btn-transparent">Search</Button>          
+                        </Col>                    
 
-                        {                 
+                        {               
                               
                             this.state.images.map(elm => {
                                 return (
-                                    <Col lg={3} className="image-container">
-                                        <Card className="image-card" key={elm.id}>
+                                    <Col lg={3} className="pexelimg-container">
+                                        <div className="pexelimg-card" key={elm.id}>
                                             <Card.Img variant="top" src={elm.src.medium} />
-                                            <Card.Body>
-                                            <Card.Text>Credits: {elm.photographer}</Card.Text>
-                                            </Card.Body>             
-                                            <Button onClick={() => {
-                                                this.openModal(elm.src.medium)                                          
-                                            }} variant="dark" size="sm" className="create-btn mb-4">Save</Button>
-                                        </Card>                
+                                        </div>
+                                        <Heart color="white" className="heart" size={20} onClick={() => {this.openModal(elm.src.medium)}} />                                            
                                     </Col>
                                 )
                             }) 
                      
                         }
                         
-                    </Row>
+                        </Row>
+                        </Reveal>
                 </Container>
 
                  <Popup show={this.state.showModal} handleModal={this.handleModal} title="Choose your board">
@@ -103,3 +108,4 @@ class ImagesList extends Component {
 }
 
 export default ImagesList
+

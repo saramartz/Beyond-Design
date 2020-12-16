@@ -47,36 +47,50 @@ class Account extends Component {
 
         return (
             <>
-                <Container className="work-details">
-         
-                <Row>
-                    <Col md={{ span: 6, offset: 1 }} >
-                    
-                            {this.state.user
-                                ?
-                                <>
-                                    <h3 className="mb-4">{this.state.user.name}</h3>
-                                    <p>{this.state.user.specialty}</p>                                 
-                                    <img src={this.state.user.image} alt={this.state.user.name} />                        
-                                    <hr />
-                                    <p>Bio: {this.state.user.bio}</p>  
-                                    <p>Birthday: {this.state.user.birthday}</p>  
-                                </> 
-                                : null
-                            } 
+                <Container className="account-details">         
+                    <Row>
+                        <Col md={5} className="account-section1 text-center">                   
+                            <img className="mb-4" src={this.state.user.image} alt={this.state.user.name} />                 
+                            <h2 className="mb-2">{this.state.user.name}</h2>
+                            <p>{this.state.user.specialty}</p>
+                            <p>{this.state.user.introduction}</p>     
+                                                    
+                            <hr />                                   
+                            <p>{this.state.user.area}, Castilla y León</p>                                       
+                                
+                            <Link to={`/${this.props.match.params.user_id}/follows`} className="follows">
+                                <p>{this.state.user.follows.length} following</p>
+                            </Link>
+                                                                            
+                            <Button onClick={() => this.handleModal(true)} variant="none" size="sm" className="create-btn mr-4 mt-5 btn-transparent">Edit</Button>
+                            <Button onClick={this.deleteUser} variant="none" size="sm" className="create-btn mt-5 btn-delete">Delete</Button>                    
+                        </Col>
                             
-                        <Link to={`/${this.props.match.params.user_id}/follows`} className="nav-button">
-                            <p>My follows</p>
-                        </Link>
-                                                                        
-                        <Button onClick={() => this.handleModal(true)} variant="dark" size="sm" className="create-btn mr-4">Edit</Button>
-                        <Button onClick={this.deleteUser} variant="dark" size="sm" className="create-btn mr-4">Delete</Button>                        
-                            
-                    </Col>                           
-                </Row>
-               
-                </Container>
+                        <Col md={6} className="account-section2 d-flex flex-column justify-content-between">  
+                                
+                            <div className="mt-5">
+                                <h3>About</h3>
+                                <hr/>
+                                <p className="mb-5">{this.state.user.bio}</p> 
+                                <h5>Related Info</h5>
+                                <hr />
 
+                                <div className="d-flex flex-row justify-content-between">
+                                    <div>
+                                        <p>Currently</p> 
+                                        <p>Ability to travel</p>
+                                    </div>
+                                    <div className="info">
+                                        <p>{this.state.user.target}</p>
+                                        <p>{this.state.user.availability}</p>
+                                    </div>
+                                </div>                               
+                            </div>
+                                
+                            <div></div>   
+                        </Col>    
+                    </Row>               
+                </Container>              
 
                 <Popup show={this.state.showModal} handleModal={this.handleModal} title="New work">
                     <AccountEdit closeModal={() => this.handleModal(false)} updateUserInfo={this.displayInfo} loggedUser={this.props.loggedUser} {...this.props}/>

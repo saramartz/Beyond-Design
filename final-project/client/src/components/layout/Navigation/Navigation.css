@@ -1,0 +1,21 @@
+
+Nav {
+    font-weight: 300;    
+}
+
+.avatar {
+  width: 25px;
+  border-radius: 100%;
+}
+
+.navbar {
+ padding: 15px 80px !important;
+ background-color: rgba(0, 0, 0, 0.521);}
+
+.nav-link {
+  color: white !important;
+  padding: 10px 20px !important;
+}
+
+
+

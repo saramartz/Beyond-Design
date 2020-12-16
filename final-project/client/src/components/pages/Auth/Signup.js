@@ -39,19 +39,20 @@ class Signup extends Component {
             <Container>
 
                 <Row>
-                    <Col md={{ span: 6, offset: 3 }}>
-                        <h1>Sign Up</h1>
-                        <hr />
+                    <Col md={{ span: 8, offset: 2 }} className="login">
+                        <h1 className="text-center">Sign Up</h1>                    
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Group controlId="username">
-                                <Form.Label>Username</Form.Label>
-                                <Form.Control type="text" name="username" value={this.state.username} onChange={this.handleInputChange} />
+                                <Form.Label></Form.Label>
+                                <Form.Control type="text" placeholder="Username" name="username" value={this.state.username} onChange={this.handleInputChange} />
                             </Form.Group>
                             <Form.Group controlId="password">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" name="password" value={this.state.password} onChange={this.handleInputChange} />
+                                <Form.Label></Form.Label>
+                                <Form.Control type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleInputChange} />
                             </Form.Group>
-                            <Button variant="dark" type="submit">Registrarme</Button>
+                            <Form.Group className="text-center">
+                                <Button className="btn-transparent" variant="none" type="submit">Sign Up</Button>
+                            </Form.Group>
                         </Form>
                     </Col>
                 </Row>

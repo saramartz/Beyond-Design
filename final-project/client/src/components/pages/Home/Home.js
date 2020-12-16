@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
+import { Col, Container, Row } from "react-bootstrap";
 
-import video from "../../../videos/abstract.mp4"
+import video from "../../../videos/intro.mp4"
 
 import "./Home.css"
 
@@ -18,39 +18,39 @@ class Home extends Component {
         return (
             <>
                 
-                <header>
-                    <MDBRow>                        
-                        <MDBCol md="6" style={{height: "400px"}}>
-                            <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+                <header >              
+                    <Row pattern={1}>                        
+                        <Col md="6" className="">
+                            <div className="overlay"></div>                           
+                        </Col>
+                         <video playsinline="playsinline" muted="muted" loop="loop" className="video1">
                                 <source src={video} type="video/mp4" />
-                            </video>
-                        </MDBCol>
-                        <MDBCol md="6">
-                            <h1 className="text-center">TITLE</h1>
-                        </MDBCol>                       
-                    </MDBRow>
-                    <div className="overlay"></div> 
+                        </video>
+                        <Col md="6" className="divider">
+                            <div className="overlay2"></div>                          
+                        </Col>  
+                    </Row>             
                 </header>
    
                 <section className="section1" style={{height: "400px"}}>
-                    <MDBRow>                   
-                        <MDBCol md="4" className="text-center">
+                    <Row>                   
+                        <Col md="4" className="text-center">
                                <h1 class="display-3">SECTION 1</h1>
                                <p class="lead mb-0">Description</p>
-                        </MDBCol>                       
-                    </MDBRow>
+                        </Col>                       
+                    </Row>
                 </section>            
 
-                <MDBFooter className="font-small pt-4 mt-4 footer">
-                    <MDBContainer fluid className="text-center text-md-left section1">
-                        <MDBRow>
-                        <MDBCol md="6">
+                <footer className="font-small  footer">
+                    <Container fluid className="text-center text-md-left section1">
+                        <Row>
+                        <Col md="6">
                             <h5 >Content</h5>
                             <p>
                             Description
                             </p>
-                        </MDBCol>
-                        <MDBCol md="6">
+                        </Col>
+                        <Col md="6">
                             <h5>Links</h5>
                             <ul>
                             <li className="list-unstyled">
@@ -66,15 +66,15 @@ class Home extends Component {
                                 <a href="#!">Link 4</a>
                             </li>
                             </ul>
-                        </MDBCol>
-                        </MDBRow>
-                    </MDBContainer>
+                        </Col>
+                        </Row>
+                    </Container>
                     <div className="footer-copyright text-center py-3">
-                        <MDBContainer fluid>
+                        <Container fluid>
                         &copy; {new Date().getFullYear()} Copyright: Sara
-                        </MDBContainer>
+                        </Container>
                     </div>
-                </MDBFooter>
+                </footer>
           
             </>      
         )

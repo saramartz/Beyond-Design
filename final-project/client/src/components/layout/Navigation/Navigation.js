@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Navbar, Nav, NavDropdown, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import AuthService from '../../../service/auth.service'
+import "./Navigation.css"
 // import Popup from "../../shared/Popup/Popup"
 // import Signup from "../../pages/Auth/Signup"
 // import Login from "../../pages/Auth/Login"
@@ -34,11 +35,18 @@ class Navigation extends Component {
     render() {
 
         return (
-            <Navbar bg="dark" variant="dark" expand="md">
-                
-                <Link to="/">
-                    <Navbar.Brand></Navbar.Brand>
-                </Link>
+            <Navbar expand="md" className="whatever">  
+
+                <Link to="/" >
+                    <Nav.Link as="div" className="center-block">Home</Nav.Link>
+                </Link>    
+               
+                {this.props.loggedUser ?
+                    <Link to={`/search/${this.props.loggedUser._id}`}>
+                            <Nav.Link as="div">Search Images</Nav.Link>
+                    </Link>
+                    : null
+                }                 
                 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -47,9 +55,7 @@ class Navigation extends Component {
                         {this.props.loggedUser
                             ?
                             <>    
-                                <Link to={`/search/${this.props.loggedUser._id}`}>
-                                <Nav.Link as="div">Search Images</Nav.Link>
-                                </Link>
+                                
 
                                 <NavDropdown title="Professionals" id="basic-nav-dropdown"> 
                                 <Link to="/professionals">  
@@ -87,19 +93,18 @@ class Navigation extends Component {
                                     </Link> 
 
                                     <Link to="/logout">
-                                    <NavDropdown.Item as="a" onClick={this.logOut}>Log Out</NavDropdown.Item>  
+                                        <NavDropdown.Item as="div" onClick={this.logOut}>Log Out</NavDropdown.Item>  
                                     </Link>
                                 </NavDropdown> 
                             </>
                             :
                             <>
                                 <Link to="/signup">
-                                <Nav.Link as="div">Sign Up</Nav.Link>
+                                <Nav.Link as="div" className="btn-obscure" style={{marginRight: "10px"}}>Sign Up</Nav.Link>
                                 </Link>
                                 <Link to="/login">
-                                    <Nav.Link as="div">Login</Nav.Link>
+                                    <Nav.Link as="div" className="btn-obscure">Login</Nav.Link>
                                 </Link> 
-
                                 
                                 {/* TO-DO login & signup popups
                                 
