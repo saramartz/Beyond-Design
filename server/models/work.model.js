@@ -28,12 +28,12 @@ const workSchema = new Schema({
     coworkers: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Coworker'
+            ref: 'Coworker'      
         }
     ],
     board: {
         type: Schema.Types.ObjectId,
-        ref: 'Board'
+        ref: 'Board'    
     },
     author: {
         type: Schema.Types.ObjectId,

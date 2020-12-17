@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Col, Container, Row } from "react-bootstrap";
 
-import video from "../../../videos/intro.mp4"
+import video from "./videos/intro.mp4"
 
 import "./Home.css"
 

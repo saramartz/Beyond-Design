@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import AccountService from '../../../service/account.service'
+import FilesService from '../../../service/upload.service'
 
 import { Form, Button } from 'react-bootstrap'
 
@@ -11,10 +12,10 @@ class AccountEdit extends Component {
              user: this.props.loggedUser                
         }
         this.accountService = new AccountService()
+        this.filesService = new FilesService()
     }
 
-    handleInputChange = e => { this.setState({ user: { ...this.state.user, [e.target.name]: e.target.value}})
-    }
+    handleInputChange = e => { this.setState({ user: { ...this.state.user, [e.target.name]: e.target.value}})}
 
     handleSubmit = e => {
   
@@ -30,6 +31,27 @@ class AccountEdit extends Component {
             })
             .catch(err => console.log(err))
     }
+
+    handleImageUpload = e => {
+
+        const uploadData = new FormData()
+        uploadData.append('imageUrl', e.target.files[0])
+        console.log('The image:', e.target.files[0])
+
+        this.setState({ uploadingActive: true })
+
+        this.filesService
+            .uploadImage(uploadData)
+            .then(response => {
+                console.log(response)
+                this.setState({
+                    user: { ...this.state.user, image: response.data.secure_url },
+                    uploadingActive: false                    
+                })
+                console.log(this.state.user.image)
+            })
+            .catch(err => console.log('ERRORRR!', err))
+    }  
 
     render() {
 
@@ -53,7 +75,7 @@ class AccountEdit extends Component {
 
                     {/* <!-- Birthday --> */}
                     <Form.Group controlId="date">
-                        <Form.Label>Fecha de creación</Form.Label>
+                        <Form.Label>Birthdate</Form.Label>
                         <Form.Control type="date" name="date" value={this.state.user.date} onChange={this.handleInputChange} />                       
                     </Form.Group> 
 
@@ -101,10 +123,10 @@ class AccountEdit extends Component {
                         <Form.Control type="password" name="password" value={this.state.user.password} onChange={this.handleInputChange} />
                     </Form.Group>
 
-                    {/* <!-- Image --> */}
-                    <Form.Group controlId="image">
-                        <Form.Label>Image</Form.Label>
-                        <Form.Control type="text" name="image" value={this.state.user.image} onChange={this.handleInputChange} />
+                    {/* <!-- Image --> */}                
+                    <Form.Group>
+                        <Form.Label>Imagen (file) </Form.Label>
+                        <Form.Control type="file" onChange={this.handleImageUpload} />
                     </Form.Group>
 
                     <Button variant="dark" type="submit">Save</Button>

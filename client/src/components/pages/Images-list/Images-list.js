@@ -21,7 +21,8 @@ class ImagesList extends Component {
             search: "",
             favImages: [],
             savedImage: "",
-            showModal: false
+            showModal: false,
+            hover: false
         }
         this.userService = new UserService()       
     }
@@ -64,39 +65,42 @@ class ImagesList extends Component {
         this.setState({savedImage: url}, () => this.handleModal(true))
     }
 
+    toggleHover = (state) => this.setState({hover: state})
+
     handleModal = visible => this.setState({ showModal: visible })
     
     render() {
+
+           let heart;
+            if (this.state.hover) {
+                heart = {color: '#000000', background: "rgba(255,255,255,0.31)"}
+            } else {
+                heart = {color: '#FFFFFF'}
+            }
+
         return (
+            
             <>
                 <Container className="images-container">
                     <Reveal effect="fadeInUp">
                     <Row>  
-                        <Col md={9} sm={4} className="mt-1 text-center">                             
-                            <input className="searchBar" placeholder="Search" value={this.state.search} onChange={this.searchImage} />
+                        <Col md={12} sm={6} className="mt-1 mb-5 text-center searchform">                             
+                            <Form.Control type="text" className="searchBar" placeholder="Search" value={this.state.search} onChange={this.searchImage} />
                         </Col>
-                        
-                        <Col md={2}  className="mb-4 text-center">                                
-                            <Button type="submit" variant="none" className="btn-searchBar btn-transparent">Search</Button>          
-                        </Col>                    
 
-                        {               
-                              
-                            this.state.images.map(elm => {
+                        {  this.state.images.map(elm => {
                                 return (
                                     <Col lg={3} className="pexelimg-container">
                                         <div className="pexelimg-card" key={elm.id}>
                                             <Card.Img variant="top" src={elm.src.medium} />
                                         </div>
-                                        <Heart color="white" className="heart" size={20} onClick={() => {this.openModal(elm.src.medium)}} />                                            
+                                        <Heart style={heart} onMouseEnter={this.toggleHover} onMouseLeave={() => this.toggleHover(false)} className="heart" size={40} onClick={() => {this.openModal(elm.src.medium)}} />                                            
                                     </Col>
                                 )
-                            }) 
-                     
-                        }
-                        
-                        </Row>
-                        </Reveal>
+                            })                    
+                        }                        
+                    </Row>
+                    </Reveal>
                 </Container>
 
                  <Popup show={this.state.showModal} handleModal={this.handleModal} title="Choose your board">

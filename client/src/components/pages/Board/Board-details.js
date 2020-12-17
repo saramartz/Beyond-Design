@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import BoardService from '../../../service/boards.service'
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Container, Row, Col, Button, Card } from 'react-bootstrap'
+import { Link } from "react-router-dom"
+import { XCircle } from 'react-bootstrap-icons';
+
 // import WorkEdit from "../Work-edit/Work-edit"
 // import Popup from "../../../shared/Popup/Popup"
 
@@ -10,7 +13,8 @@ class BoardDetails extends Component {
         super()
         this.state = {
             board: {},
-            showModal: false
+            showModal: false,
+            hover: false
         }
         this.boardsService = new BoardService()
     }
@@ -56,40 +60,48 @@ class BoardDetails extends Component {
             .catch((err) => console.log(err))
     }
 
+    toggleHover = (state) => this.setState({hover: state})
+
     handleModal = visible => this.setState({ showModal: visible })
 
     render() {
+        
+        let trash;
+            if (this.state.hover) {
+                trash = {color: '#000000', background: "rgba(255,255,255,0.31)"}
+            } else {
+                trash = {color: '#FFFFFF'}
+            }
 
         return (
             <>
-                <Container className="board-details">
+                <Container className="images-container">
          
                 <Row>
-                    <Col md={{ span: 6, offset: 1 }} >
-                        <h3 className="mb-4">{this.state.board.title}</h3>
-                        
+                
                             {this.state.board.images
-                                ?
+                                &&
                                 this.state.board.images.map(elm => {
                                     return (
-                                        <>
-                                            <img variant="top" src={elm} style={{ width: "50%", margin: "10px" }} /> 
-                                            <Button onClick={() => this.getImages(elm)} variant="dark" size="sm" className="create-btn mb-4">Delete Image</Button>
-                                        </>
+                                        <Col md={2} className="pexelimg-container mr-5 ml-5 mb-5 mt-5">
+                                            <div className="pexelimg-card" key={elm}>
+                                                <Card.Img variant="top" src={elm} /> 
+                                            </div>                                       
+                                    
+                                            <XCircle style={trash} onMouseEnter={this.toggleHover} onMouseLeave={() => this.toggleHover(false)} className="what" size={20} onClick={() => this.getImages(elm)} className="mb-4" />                                            
+
+                                        </Col>
                                     )                                    
-                                })
-                                : null
-                            }                                                   
-                                                
-                        {/* <Link to={`/myBoards/${this.props.loggedUser._id}`} className="btn btn-sm btn-dark ">Back</Link> */}
-                        {/* <Button onClick={() => this.handleModal(true)} variant="dark" size="sm" className="create-btn mr-4">Edit Work</Button> */}    
-                  
-                    </Col>
-                        
-                    <Col md={{ span: 6, offset: 2 }} style={{marginTop: "50px", marginBottom: "50px"}}>
-                        <Button onClick={this.deleteBoard} variant="dark" size="sm" className="create-btn mr-4">Delete</Button>
-                    </Col>               
-                </Row>                   
+                                })                         
+                            } 
+                </Row> 
+
+                <Row>
+                    <Col md={12} className="text-center">
+                        <Button onClick={this.deleteBoard} variant="none" size="sm" className="create-btn mr-4 btn-delete">Delete</Button>
+                        <Link to={`/myBoards/${this.props.loggedUser._id}`}  className="btn-sm ml-5 btn-obscure">Back</Link>
+                    </Col> 
+                </Row>    
                
                 </Container>             
             </>    
@@ -98,9 +110,3 @@ class BoardDetails extends Component {
 }
 
 export default BoardDetails
-
-    // TO-DO edit form
-    
-    //   {/* <Popup show={this.state.showModal} handleModal={this.handleModal} title="New work">
-    //                 <WorkEdit closeModal={() => this.handleModal(false)} updateWork={this.displayWork} loggedUser={this.props.loggedUser} {...this.props}/>
-    //             </Popup>       */}

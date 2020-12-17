@@ -1,16 +1,16 @@
 @font-face {
   font-family: 'Colony';
-  src: local('Colony'), url(../fonts/Colony.ttf) format('truetype');
+  src: local('Colony'), url(./fonts/Colony.ttf) format('truetype');
 }
 
 @font-face {
   font-family: 'Razed';
-  src: local('Razed'), url(../fonts/Razed.ttf) format('truetype');
+  src: local('Razed'), url(./fonts/Razed.ttf) format('truetype');
 }
 
 @font-face {
   font-family: 'Razed2';
-  src: local('Razed2'), url(../fonts/Razed2.ttf) format('truetype');
+  src: local('Razed2'), url(./fonts/Razed2.ttf) format('truetype');
 }
 
 .btn-transparent {
@@ -19,7 +19,7 @@
   background-color: #48666d34;
   padding: 8px 40px;
   cursor: pointer;
-  border: 2px solid #ffffffa8 !important; 
+  border: 3px solid #ffffffa8 !important; 
 }
 
 .btn-transparent:hover {
@@ -30,10 +30,18 @@
 
 .btn-obscure {
   border-radius: 50px; 
-  background-color: rgba(255, 255, 255, 0);
+  background-color: #ffffff04;
+  color: black !important;
   padding: 6px 20px !important;
   cursor: pointer;
-  border: 1px solid #070707b9 !important; 
+  border: 3px solid #000000b9 !important; 
+}
+
+.btn-obscure:hover {  
+  background-color: #000000af;
+  color: white !important;
+  border: 3px solid #00000085 !important;  
+   
 }
 
 .btn-delete {
@@ -42,7 +50,7 @@
   background-color: #48666d34;
   padding: 8px 40px;
   cursor: pointer;
-  border: 2px solid #bb1e1ea8 !important;
+  border: 3px solid #bb1e1ea8 !important;
 }
 
 .btn-delete:hover {  
@@ -54,7 +62,7 @@
 body {
   color: black;
   font-family: 'Quicksand', sans-serif;
-  font-weight: 00;
+  font-weight: 500;
   min-height: 110vh;
   background-image: linear-gradient(to bottom, #173135f3, #124d50b2, #266d69ad, #459285b0, #59948c9c),
     linear-gradient(90deg, rgba(26,19,40,0.9430147058823529) 0%, rgba(37,150,105,0.4682247899159664) 0%, rgba(32,92,89,1) 0%, rgba(75,129,153,0.39399509803921573) 48%, rgba(194,189,196,0) 95%);
@@ -159,6 +167,7 @@ label:focus,
 .images-container {
     margin-top: 50px;
     border-radius: 5% !important;
+    color: white
 }
 
 .searchBar {
@@ -166,7 +175,6 @@ label:focus,
     border-bottom: 1px solid rgb(255, 255, 255);
     background-color: rgba(255, 0, 0, 0);
     width: 100%;
-    color: white;
     padding: 8px 20px;
 }
 
@@ -174,21 +182,34 @@ label:focus,
   margin-left: 50px;
 }
 
-::placeholder { 
-  color: rgba(250, 250, 250, 0.842);
+.searchform ::placeholder { 
+  color: rgba(255, 255, 255, 0.726) !important;
   opacity: 1; 
+}
+
+.searchform .form-control[type="text"] {
+  background-color: rgba(255, 255, 255, 0.062); 
+  border: 2px solid rgba(255, 255, 255, 0.39);
+  color: rgba(255, 255, 255, 0.788);
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+}
+
+.searchform .form-control:focus, .form-control:hover, .form-control:active {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.788);
 }
 
 .heart {
   margin: 0 auto;
   margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 45%;
 }
 
-/* ========== PROFESSIONALS ========== */
 
-.user-details img {
- width: 50%;
-}
+
+
 
 /* ========== ACCOUNT ========== */
 
@@ -213,10 +234,18 @@ label:focus,
   border-bottom-left-radius: 3%;
 }
 
-.account-section1 img {
-  width: 150px;
-  border-radius: 50%;
+.account-img {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.account-img img {
+  width: 250px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 50% !important;
   opacity: 0.8;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 .account-section2 {
@@ -230,6 +259,12 @@ label:focus,
 .follows{
   color: black;
 }
+
+.follows:hover {
+  color: rgba(255, 255, 255, 0.747);
+}
+
+
 
 /* ========== PORTFOLIO ========== */
 
@@ -257,6 +292,88 @@ label:focus,
  font-weight: 100;
 }
 
+
+/* ========== PROFESSIONALS ========== */
+
+.professionals-col img {
+  width: 58%;
+  margin: 0 auto;
+  position: absolute;
+  top: -15%;
+  left: 22%;
+  border-radius: 50%; 
+  border: 7px solid rgba(255, 255, 255, 0.014);
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12); 
+  opacity: 0.9;
+}
+
+.professionals-col {
+  width: 300px !important;
+  margin-top: 100px !important;
+
+}
+
+.professional-card {
+  position: relative;
+  width: 100%;
+  padding: 0px 20px 30px 20px;
+  padding-top: 50%;
+  background-color: rgba(255, 255, 255, 0.199);
+  border-radius: 3%;  
+}
+
+.profressional-card-text {
+  padding-left: 20px;
+  padding-right: 20px;
+  color: black
+}
+
+.location {
+  margin-top: 30px !important;
+}
+
+.professionals-container {
+  margin-top: 50px; 
+}
+
+/* >>>>>> DETAILS <<<<<<< */
+
+.portfolio-container{
+  color: black;
+  border: 1px solid rgba(0, 0, 0, 0.151);
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+  background-color: rgba(255, 255, 255, 0.541);
+  width: 100%
+}
+
+.pexelimg-container .what {
+  margin: 0 auto;
+  margin-bottom: 20px;
+  padding: 50px !important;
+  border-radius: 45%;
+}
+
+/* ========== CHAT ========== */
+
+#chat {
+  max-height: calc(100vh - 128px);
+  overflow: scroll;
+  padding: 16px;
+  background-color: rgba(255, 255, 255, 0.075);
+  margin: 40px !important
+}
+
+.name {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.content {
+  margin-bottom: 8px;
+}
+
+.chat-container {
+  color: red
+}
 
 /* ========== APP ========== */
 
@@ -292,8 +409,6 @@ label:focus,
     transform: rotate(360deg);
   }
 }
-
-
 
 
 

@@ -84,16 +84,9 @@ class WorkDetails extends Component {
                             : null
                         }
 
-                        {this.state.user
-                         ?
-                         <Link to={`/works/${this.state.user._id}`} className="btn btn-sm btn-dark ">Back</Link>   
-                         : null
-                        } 
-
                          <Button onClick={() => this.handleModal(true)} variant="dark" size="sm" className="create-btn mr-4">Edit Work</Button>
                          <Button onClick={this.deleteWork} variant="dark" size="sm" className="create-btn mr-4">Delete</Button>     
                         
-                        {/* TO-DO cannot get loggedUser ID when the page recharges    */}
                     </Col>                           
                 </Row>
                

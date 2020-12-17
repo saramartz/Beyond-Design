@@ -91,39 +91,60 @@ class UserDetails extends Component {
 
         return (
             <>
-                <Container >
-         
-                    <Row>            
-                        
-                        <Reveal >                      
-                          
-                        <Col md={{ span: 6, offset: 1 }} className="user-details">
-                            <h3 className="mb-4">{this.state.otherUser.name}</h3>
-                            <img src={this.state.otherUser.image} alt={this.state.otherUser.name} />
-                            <p className="mt-4">{this.state.otherUser.specialty}</p>                        
-                            <p>Bio: {this.state.otherUser.bio}</p>
-                            <hr />
-                            <p>Availability: {this.state.otherUser.availability}</p>  
-                            <p>{this.state.otherUser.target}</p> 
+                <Container className="account-details mb-5">
+                    <Row>        
+                        <Col md={5} className="account-section1 text-center">                   
+                            <img className="mb-4" src={this.state.otherUser.image} alt={this.state.otherUser.name} />                 
+                            <h2 className="mb-2">{this.state.otherUser.name}</h2>
+                            <p>{this.state.otherUser.specialty}</p>
+                            <p>{this.state.otherUser.introduction}</p>     
+                                                    
+                            <hr />                                   
+                            {/* <p>{this.state.otherUser.area}, Castilla y León</p>                                        */}
+                                                               
+                            <Button onClick={() => this.addFriend(this.state.otherUser._id)} disabled={this.state.weAreFriends} variant="none" size="sm" className="create-btn mr-4 mt-5 btn-transparent">Follow</Button>
+                                     
+                        </Col>
                             
-                            <Button onClick={() => this.addFriend(this.state.otherUser._id)} disabled={this.state.weAreFriends} variant="dark" size="sm" className="create-btn mb-4">Follow</Button> 
+                        <Col md={6} className="account-section2 d-flex flex-column justify-content-between">                                
+                            <div className="mt-5">
+                                <h3>About</h3>
+                                <hr/>
+                                <p className="mb-5">{this.state.otherUser.bio}</p> 
+                                <h5>Related Info</h5>
+                                <hr />
 
-                            <hr style={{marginBottom: "50px"}}></hr>
-                            <h5 className="mt-4">Portfolio</h5>    
-                            </Col>
-                            
-                        </Reveal>
-                    </Row>
-                    
+                                <div className="d-flex flex-row justify-content-between">
+                                    <div>
+                                        <p>Currently</p> 
+                                        <p>Ability to travel</p>
+                                    </div>
+                                    <div className="info">
+                                        <p>{this.state.otherUser.target}</p>
+                                        <p>{this.state.otherUser.availability}</p>
+                                    </div>
+                                </div>                               
+                            </div>
+                                
+                            <div></div>   
+                        </Col>                        
+                    </Row>             
+                </Container>
+
+                <Container className="portfolio-container mb-5" >     
                     <Row>
-                        <div style={{marginLeft: "80px", marginTop: "10px"}}>                            
+                        <Col className="mt-5 text-center">
+                            <h2>Portfolio</h2>
+                        </Col>                        
+                    </Row>    
+                    <Row className=" mb-5 d-flex flex-row justify-content-center">
+                                        
                             {
                             this.state.works ? this.state.works.map(elm => <WorkCard key={elm._id} {...elm} />) : null
                             } 
-                        </div>    
-                    </Row>              
-               
-                </Container>     
+                     
+                    </Row>  
+               </Container> 
             </>    
         )    
     }

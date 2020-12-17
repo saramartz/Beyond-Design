@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import UserService from '../../../service/professionals.service'
 import AccountService from '../../../service/account.service'
+import { Link } from 'react-router-dom'
+import { GeoAlt } from 'react-bootstrap-icons'
 
 import { Container, Row, Col, Button, Card } from 'react-bootstrap'
 
@@ -63,22 +65,27 @@ class Follows extends Component {
     render() {
         return (
             <>
-                <Container>
+                <Container className="professionals-container">
                     <Row> 
                       
                         { 
                             this.state.user && this.state.friends ?
                               
-                            this.state.friends.map(elm => {
+                            this.state.friends.map((elm, idx) => {
                                 return (
-                                    <Col lg={3} className="image-container">
-                                        <Card className="image-card" key={elm._id}>
-                                            <Card.Img variant="top" src={elm.image} />
-                                            <Card.Body>
-                                            <Card.Text>{elm.name}</Card.Text>
-                                            </Card.Body>             
-                                            <Button onClick={() => this.getFriends(elm._id)} variant="dark" size="sm" className="create-btn mb-4">Unfollow</Button>
-                                        </Card>                
+                                    <Col lg={3.5} className="professionals-col ml-5 text-center ">
+                                        <Card className="professional-card d-flex flex-column justify-content-end" key={idx}>
+                                            <Link to={`/professionals/${elm._id}`}>
+                                                <Card.Img variant="top" src={elm.image} alt={elm.name} />
+                                                <div ></div>
+                                                    <div className="profressional-card-text ">
+                                                    <p><span style={{fontSize: "18px"}}>{elm.name.trim().replace(/^\w/, (c) => c.toUpperCase())}</span> <br/> {elm.specialty} </p>                        
+                                                    <hr/>                                        
+                                                    <p className="location"><GeoAlt className="mr-2 mb-1" />Castilla y León</p>                   
+                                                </div>                                              
+                                            </Link> 
+                                            <Button onClick={() => this.getFriends(elm._id)} variant="none" size="sm" className="create-btn mb-4 btn-obscure">Unfollow</Button>    
+                                        </Card> 
                                     </Col>
                                 )
                             })
@@ -93,4 +100,19 @@ class Follows extends Component {
 }
 
 export default Follows
+
+    //   <Col lg={3.5} className="professionals-col ml-5 text-center ">
+    //         <Card className="professional-card d-flex flex-column justify-content-end">  
+    //             <Link to={`/professionals/${_id}`}> 
+    //                 <Card.Img variant="top" src={image} />     
+    //                 <div ></div>
+    //                 <div className="profressional-card-text ">
+    //                     <p><span style={{fontSize: "18px"}}>{name.trim().replace(/^\w/, (c) => c.toUpperCase())}</span> <br/> {specialty} </p>                        
+    //                     <hr/>
+    //                     <p >{introduction}</p> 
+    //                     <p className="location"><GeoAlt className="mr-2 mb-1" />{area} Castilla y León</p>                   
+    //                 </div>                                     
+    //             </Link> 
+    //         </Card>          
+    //     </Col>
 

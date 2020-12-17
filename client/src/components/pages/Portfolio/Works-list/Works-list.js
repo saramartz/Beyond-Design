@@ -3,7 +3,7 @@ import WorkService from '../../../../service/works.service'
 import UserService from '../../../../service/account.service'
 import WorkCard from "./Work-card"
 
-import { Container, Row, Button } from 'react-bootstrap'
+import { Container, Row, Button, Col } from 'react-bootstrap'
 import WorkForm from '../Work-form/Work-form'
 import Popup from "../../../shared/Popup/Popup"
 // import Loader from '../shared/Spinner/Loader'
@@ -48,8 +48,13 @@ class WorksList extends Component {
         return (
             
             <>
-                <Container>
-                    <Row>                                      
+                <Container className="portfolio-container mb-5 mt-5">
+                    <Row>
+                        <Col className="mt-5 text-center">
+                            <h2>Portfolio</h2>
+                        </Col>                        
+                    </Row> 
+                    <Row className=" mb-5 d-flex flex-row justify-content-center">                                      
             
                         {
                            this.state.works.filter(elm => elm.author == this.state.user._id || elm.coworkers.includes(this.state.user._id)).map(elm => <WorkCard key={elm._id} {...elm} />) 
@@ -58,7 +63,7 @@ class WorksList extends Component {
                     </Row>
 
                     <Row >
-                        <Button onClick={() => this.handleModal(true)} variant="dark" size="sm" className="create-btn">Create New Work</Button>
+                        <Button onClick={() => this.handleModal(true)} variant="none" size="sm" className="create-btn btn-obscure mb-5">Create New Work</Button>
                     </Row>
 
                 </Container>                

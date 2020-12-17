@@ -46,17 +46,17 @@ class MyBoards extends Component {
         return (
             <>
                 <Container>
-                    <Row> 
+                    <Row className="mt-5 mb-5"> 
                         
                         {
                            this.state.boards.filter(elm => elm.author == this.state.user._id).map(elm => <BoardCard key={elm._id} {...elm} />) 
-                        }                
-                  
-                    </Row>
+                        }    
+                   </Row>
                     
-                    <Row>
-                        
-                        <Button onClick={() => this.handleModal(true)} variant="dark" size="sm" className="create-btn">New Board</Button>
+                    <Row className=" text-center ">
+                       <Col>
+                         <Button onClick={() => this.handleModal(true)} variant="none" size="lg" className="btn-obscure mt-5">New Board</Button>
+                    </Col>
                     </Row>
                 </Container>
 

@@ -35,8 +35,13 @@ class Navigation extends Component {
     render() {
 
         return (
-            <Navbar expand="md" className="whatever">  
+            <Navbar expand="md" className="whatever"> 
 
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    
+                <Nav className="mr-auto">
+                
                 <Link to="/" >
                     <Nav.Link as="div" className="center-block">Home</Nav.Link>
                 </Link>    
@@ -47,15 +52,15 @@ class Navigation extends Component {
                     </Link>
                     : null
                 }                 
-                
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="ml-auto">                         
-                                         
+                </Nav>
+                                        
+                <Nav className="ml-auto">             
                         {this.props.loggedUser
                             ?
                             <>    
-                                
+                                <Link to="/chat">
+                                    <Nav.Link as="div">Chat Forum</Nav.Link>
+                                </Link>
 
                                 <NavDropdown title="Professionals" id="basic-nav-dropdown"> 
                                 <Link to="/professionals">  
@@ -100,10 +105,10 @@ class Navigation extends Component {
                             :
                             <>
                                 <Link to="/signup">
-                                <Nav.Link as="div" className="btn-obscure" style={{marginRight: "10px"}}>Sign Up</Nav.Link>
+                                <Nav.Link as="div" className="btn-transparent" style={{marginRight: "10px"}}>Sign Up</Nav.Link>
                                 </Link>
                                 <Link to="/login">
-                                    <Nav.Link as="div" className="btn-obscure">Login</Nav.Link>
+                                    <Nav.Link as="div" className="btn-transparent">Login</Nav.Link>
                                 </Link> 
                                 
                                 {/* TO-DO login & signup popups

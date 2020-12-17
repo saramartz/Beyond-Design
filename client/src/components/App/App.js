@@ -1,38 +1,39 @@
 import React, { Component } from 'react'
 
-import Home from "./pages/Home/Home"
-
-// import Chat from "./chat"
+import Home from "../pages/Home/Home"
 
 // ========== BOARDS ========== 
-import MyBoards from "./pages/Board/MyBoards"
-import BoardDetails from "./pages/Board/Board-details"
+import MyBoards from "../pages/Board/MyBoards"
+import BoardDetails from "../pages/Board/Board-details"
 
 // ========== LAYOUT ========== 
-import Navigation from "../components/layout/Navigation/Navigation"
+import Navigation from "../layout/Navigation/Navigation"
 
 // ========== IMAGES ========== 
-import ImagesList from "./pages/Images-list/Images-list"
+import ImagesList from "../pages/Images-list/Images-list"
 
 // ========== AUTH ========== 
-import AuthServices from '../service/auth.service'
-import Signup from "./pages/Auth/Signup"
-import Login from "./pages/Auth/Login"
+import AuthServices from '../../service/auth.service'
+import Signup from "../pages/Auth/Signup"
+import Login from "../pages/Auth/Login"
 
 // ========== ACCOUNT ========== 
-import Account from "./pages/Account/Account"
-import WorksList from "./pages/Portfolio/Works-list/Works-list"
-import WorkDetails from './pages/Portfolio/Work-details/Work-details'
-import Follows from "./pages/Account/Follows"
+import Account from "../pages/Account/Account"
+import WorksList from "../pages/Portfolio/Works-list/Works-list"
+import WorkDetails from '../pages/Portfolio/Work-details/Work-details'
+import Follows from "../pages/Account/Follows"
 
 // ========== PROFESSIONALS ========== 
-import UsersList from "./pages/Professionals/Users-list/Users-list"
-import UserDetails from './pages/Professionals/User-details/User-details'
-import FashionUsers from "./pages/Professionals/Fashion/Fashion-users"
-import MakeupUsers from "./pages/Professionals/Makeup/Makeup-users"
-import ModelingUsers from "./pages/Professionals/Modeling/Modeling-users"
-import PhotographyUsers from "./pages/Professionals/Photography/Photography-users"
-import StylismUsers from "./pages/Professionals/Stylism/Stylism-users"
+import UsersList from "../pages/Professionals/Users-list/Users-list"
+import UserDetails from '../pages/Professionals/User-details/User-details'
+import FashionUsers from "../pages/Professionals/Fashion/Fashion-users"
+import MakeupUsers from "../pages/Professionals/Makeup/Makeup-users"
+import ModelingUsers from "../pages/Professionals/Modeling/Modeling-users"
+import PhotographyUsers from "../pages/Professionals/Photography/Photography-users"
+import StylismUsers from "../pages/Professionals/Stylism/Stylism-users"
+
+// ========== PROFESSIONALS ========== 
+import Chat from "../pages/Chat/Chat"
 
 import { Switch, Route, Redirect } from 'react-router-dom'
 
@@ -62,16 +63,14 @@ class App extends Component {
 
     return (
       <>
-        <Navigation storeUser={this.setTheUser} /* Lift Up State */ loggedUser={this.state.loggedInUser} {...this.props} />   
-            
-        {/* <Chat></Chat> */}
-   
+        <Navigation storeUser={this.setTheUser} loggedUser={this.state.loggedInUser} {...this.props} />   
+    
         {this.state.mount ? 
           
           <main>
           <Switch> 
 
-            <Route path="/" exact render={props => <Home loggedUser={this.state.loggedInUser} {...props} />} />         
+            <Route path="/" exact render={props => <Home loggedUser={this.state.loggedInUser} loggedUser={this.state.loggedInUser} {...props} />} />                  
                                 
             {/* <!-- Auth --> */}
             <Route path="/signup" render={props => <Signup storeUser={this.setTheUser} {...props} />} />
@@ -81,6 +80,9 @@ class App extends Component {
             {this.state.loggedInUser
                 ? 
                 <>
+             
+                <Route path='/chat' render={() => <Chat loggedUser={this.state.loggedInUser} />} /> 
+                  
                 {/* <!-- Account --> */}
                 <Route path="/account/:user_id" render={props => <Account loggedUser={this.state.loggedInUser} {...props} />} /> 
                 <Route exact path='/works/:user_id' exact render={props => <WorksList loggedUser={this.state.loggedInUser} {...props} /> } />

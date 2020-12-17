@@ -42,16 +42,15 @@ const userSchema = new Schema({
         required: true,
         default: []
     },
-    // TO-DO Modify location
     area: {       
-        type: String      
+      location: [String]
     },
     follows: [
         {
             type: Schema.Types.ObjectId,
             ref: 'Follower'
         }
-    ],
+    ],  
     username: {
         type: String,
         required: true,
@@ -67,5 +66,3 @@ const userSchema = new Schema({
 
 const User = mongoose.model('User', userSchema)
 module.exports = User
-
-//TO-DO add EMAIL field

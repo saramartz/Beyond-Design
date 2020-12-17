@@ -32,7 +32,7 @@ class UsersList extends Component {
     render() {
         return (            
             <>
-                <Container>
+                <Container className="professionals-container">
                     <Row>                                      
             
                         {

@@ -158,8 +158,8 @@ class WorkForm extends Component {
                     </Form.Group> */}
 
                     <Form.Group>
-                    <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
-                    <Form.Control type="file" onChange={this.handleImageUpload} />
+                        <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
+                        <Form.Control type="file" onChange={this.handleImageUpload} />
                     </Form.Group>
 
                     <Button variant="dark" type="submit" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Subiendo imagen...' : 'Create'}</Button>

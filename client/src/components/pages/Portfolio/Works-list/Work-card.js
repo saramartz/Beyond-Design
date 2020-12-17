@@ -4,17 +4,16 @@ import { Link } from 'react-router-dom'
 
 const WorkCard = ({ image, title, _id }) => {
     return (
-        <Col lg={3} className="image-container">
-            <Card className="image-card">  
-                <Link to={`/works/details/${_id}`}>    
-                    <Card.Body>
-                    <Card.Text >{title}</Card.Text>
-                    </Card.Body>
+        <Col lg={3} className="pexelimg-container text-center mt-5 mr-4 ">
+            <h6 className="mb-4">{title.trim().replace(/^\w/, (c) => c.toUpperCase())}</h6>
+            <div className="pexelimg-card " key={_id}>
+                <Link to={`/works/details/${_id}`}>  
                     <Card.Img variant="top" src={image} />          
                 </Link> 
-            </Card>          
+            </div>
         </Col>
     )
 }  
 
 export default WorkCard
+

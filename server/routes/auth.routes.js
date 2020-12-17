@@ -10,19 +10,26 @@ const User = require("../models/user.model")
 
 router.post('/signup', (req, res) => {
 
-    const { username, password } = req.body
+    const { username, password, name, birthday, country, city } = req.body
 
-    if (!username || !password) {
+    const area = {
+        location: [city, country]
+    }
+
+    if (!username || !password || !name || !birthday || !country || !city) {
         res.status(400).json({ message: 'Please fill in all fields' })
         return
     }
 
-    if (password.length < 2) {
-        res.status(400).json({ message: 'Unsafe password' })
+    // if (!password.match(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/)) {
+    //     res.status(400).json({ message: 'Password must contain between 8 and 16 characters, at least one lowercase, one uppercase and one special character' })
+    //     return
+    // }
+
+    if (!username.match(/^([a-zA-Z0-9]+){2,15}$/)) {
+        res.status(400).json({ message: 'Username must be between 2 and 15 characters with no special characters' })
         return
     }
-
-    // TO-DO add more validations and user model fields
 
     User
         .findOne({ username })
@@ -36,7 +43,7 @@ router.post('/signup', (req, res) => {
             const hashPass = bcrypt.hashSync(password, salt)
 
             User
-                .create({ username, password: hashPass })
+                .create({ username, password: hashPass, name, birthday, area })
                 .then(newUser => req.login(newUser, err => err ? res.status(500).json({ message: 'Login error' }) : res.status(200).json(newUser)))
                 .catch(() => res.status(500).json({ message: 'Error saving user to DB' }))
         })

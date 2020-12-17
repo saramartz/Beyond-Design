@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import AccountService from '../../../service/account.service'
 import AccountEdit from "./Account-edit"
 import Popup from "../../shared/Popup/Popup"
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Container, Row, Col, Button, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 class Account extends Component {
@@ -49,14 +49,18 @@ class Account extends Component {
             <>
                 <Container className="account-details">         
                     <Row>
-                        <Col md={5} className="account-section1 text-center">                   
-                            <img className="mb-4" src={this.state.user.image} alt={this.state.user.name} />                 
+                        <Col md={5} className="account-section1 text-center">  
+                            <div className="account-img">
+                                
+                                <Card.Img className="mb-4" src={this.state.user.image} alt={this.state.user.name} />
+                       
+                            </div>    
                             <h2 className="mb-2">{this.state.user.name}</h2>
                             <p>{this.state.user.specialty}</p>
                             <p>{this.state.user.introduction}</p>     
                                                     
                             <hr />                                   
-                            <p>{this.state.user.area}, Castilla y León</p>                                       
+                            {/* <p>{this.state.user.area.location[0]}, {this.state.user.area.location[1]}</p>   //TO-DO add location everywhere  */} 
                                 
                             <Link to={`/${this.props.match.params.user_id}/follows`} className="follows">
                                 <p>{this.state.user.follows.length} following</p>
@@ -92,7 +96,7 @@ class Account extends Component {
                     </Row>               
                 </Container>              
 
-                <Popup show={this.state.showModal} handleModal={this.handleModal} title="New work">
+                <Popup show={this.state.showModal} handleModal={this.handleModal} title="Account">
                     <AccountEdit closeModal={() => this.handleModal(false)} updateUserInfo={this.displayInfo} loggedUser={this.props.loggedUser} {...this.props}/>
                 </Popup>      
             </>    
