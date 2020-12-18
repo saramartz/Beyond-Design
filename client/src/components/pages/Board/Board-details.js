@@ -68,7 +68,7 @@ class BoardDetails extends Component {
         
         let trash;
             if (this.state.hover) {
-                trash = {color: '#000000', background: "rgba(255,255,255,0.31)"}
+                trash = {color: '#c90a0a'}
             } else {
                 trash = {color: '#FFFFFF'}
             }

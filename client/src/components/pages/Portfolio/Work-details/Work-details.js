@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import WorkService from '../../../../service/works.service'
 import BoardService from '../../../../service/boards.service'
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import UserService from "../../../../service/professionals.service"
+import { Container, Row, Col, Button, Card } from 'react-bootstrap'
 import WorkEdit from "../Work-edit/Work-edit"
 import Popup from "../../../shared/Popup/Popup"
 
@@ -14,15 +15,18 @@ class WorkDetails extends Component {
         this.state = {
             work: {},
             board: {},
+            coworkers: [],
             user: this.props.loggedUser,
             showModal: false
         }
         this.worksService = new WorkService()
         this.boardsService = new BoardService()
+        this.userService = new UserService()
     }
 
     componentDidMount = () => {
-        this.displayWork()        
+        this.displayWork() 
+        this.displayCoworkers()
     }
 
     displayWork = () => {
@@ -55,49 +59,100 @@ class WorkDetails extends Component {
             .catch(err => console.log(err))   
     }
 
+
+    displayCoworkers = () => {
+        this.userService
+            .getUsers()
+            .then(res => {                 
+                let filteredUsers = res.data.filter(elm => this.state.work.coworkers.includes(elm._id))
+                this.setState({ coworkers: filteredUsers})
+            })           
+            .catch(err => console.log(err))
+    } 
+
     handleModal = visible => this.setState({ showModal: visible })
 
     render() {
 
         return (
-            <>
-                <Container className="work-details">
-         
-                <Row>
-                    <Col md={{ span: 6, offset: 1 }} >
+          
+        <Container className = "portfolio-container ">
+    
+       { this.state.board.images && this.state.coworkers ?
+            <Row>
+                <Col md={5} className="account-section1 portfolio-details text-center mt-4">
+                    <h3 className="">{this.state.work.title}</h3>
+                    <div className="user-img mt-5">
+                        <Card.Img className="mb-4" src={this.state.work.image} alt={this.state.user.title} />
+                            </div>
+                    <h6 className="mb-5">Date: {this.state.work.date}</h6>       
+                    <h5 className="mt-5">Status</h5>   
+                    <hr/>        
+                    <p> {this.state.work.status}</p>
                     
-                        {this.state.board.images ? 
-                        
-                                <>
-                                    <h3 className="mb-4">{this.state.work.title}</h3>
-                                    <img src={this.state.work.image} alt={this.state.work.title} />
-                                    <p className="mt-4">Status: {this.state.work.status}</p>
-                                    <p>Date: {this.state.work.date}</p>
-                                    <p>{this.state.work.description}</p>
-                                    <hr />
-                                    <p>Coworkers: {this.state.work.coworkers}</p> 
+             
+                    {/* <p>{this.state.user.area.location[0]}, {this.state.user.area.location[1]}</p> */}
+                                                                                   
+                    <Button onClick={() => this.handleModal(true)} variant="none" size="sm" className="create-btn mr-4 mt-5 btn-transparent">Edit</Button>
+                    <Button onClick={this.deleteWork} variant="none" size="sm" className="create-btn mt-5 btn-delete">Delete</Button>
+                </Col>
+                            
+                <Col md={6} className="account-section2 d-flex flex-column justify-content-between">
+                                
+                    <div className="description">
+                        <h3 >Description</h3>
+                        <hr />
+                        <p className="mb-5">{this.state.work.description}</p>
+                        <h5>Coworkers</h5>
+                        <hr />
+                        <div className="d-flex flex-row ">
+                            <div className="coworker coworkers-container mr-3">
+                                {this.state.coworkers.map(elm => <img key={elm} src={elm.image} />)}                                  
+                            </div>
+                            <div className="info mt-5">
+                                {this.state.coworkers.map((elm) => <h5>{elm.name}</h5> )}
+                            </div>
+                        </div>
+                        <h5>Board</h5>
+                        <hr/>
+                    <div className="d-flex flex-row justify-content-around flex-wrap userimg-container mb-4 ml-4">
+                           
+                                    {this.state.board.images.map(elm => {
+                                        return (<Col>
+                                            
+                                                    <img key={elm} src={elm} />
+                                                    
+                                                </Col>)
+                                    })}
+                         </div>
+                    </div>
+                                
+                    <div></div>
+                </Col>
+            </Row>
+            : null  }
 
-                                    <h5>{ this.state.board.title }</h5>
+                {/* <Col lg={3} className="pexelimg-container">
+                                        <div className="pexelimg-card" key={elm.id}>
+                                            <Card.Img variant="top" src={elm.src.medium} />
+                                        </div>
+                                    </Col> */}
+      
 
-                                    {this.state.board.images.map(elm => <img key={elm} src={elm} style={{marginBottom: "30px"}}/>)} 
-                                </>
-                            : null
-                        }
-
-                         <Button onClick={() => this.handleModal(true)} variant="dark" size="sm" className="create-btn mr-4">Edit Work</Button>
-                         <Button onClick={this.deleteWork} variant="dark" size="sm" className="create-btn mr-4">Delete</Button>     
-                        
-                    </Col>                           
-                </Row>
-               
-                </Container>
-
-                <Popup show={this.state.showModal} handleModal={this.handleModal} title="New work">
+                <Popup show={this.state.showModal} handleModal={this.handleModal} >
                     <WorkEdit closeModal={() => this.handleModal(false)} updateWork={this.displayWork} loggedUser={this.props.loggedUser} {...this.props}/>
-                </Popup>      
-            </>    
+                </Popup>
+        
+        </Container> 
+            
         )    
     }
 }
 
 export default WorkDetails
+
+
+
+// {this.state.coworkers.map(elm => <img key={elm} src={elm.image} style={{marginBottom: "30px"}}/>)}
+
+// {this.state.board.images.map(elm => <img key={elm} src={elm} style={{ marginBottom: "30px" }} />)}

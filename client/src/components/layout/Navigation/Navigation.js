@@ -109,17 +109,8 @@ class Navigation extends Component {
                                 </Link>
                                 <Link to="/login">
                                     <Nav.Link as="div" className="btn-transparent">Login</Nav.Link>
-                                </Link> 
-                                
-                                {/* TO-DO login & signup popups
-                                
-                                <Popup show={this.state.showModal} handleModal={this.handleModal} title="Sign In">
-                                    <Login closeModal={() => this.handleModal(false)} loggedUser={this.props.loggedUser} />
-                                </Popup> */}
-
-                                {/* <Popup show={this.state.showModal} handleModal={this.handleModal} title="Sign In">
-                                    <Login closeModal={() => this.handleModal(false)} loggedUser={this.props.loggedUser} />
-                                </Popup> */}
+                                </Link>                                
+              
                             </>
                         }                                               
 

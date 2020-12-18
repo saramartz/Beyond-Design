@@ -2,15 +2,14 @@ import { Modal } from 'react-bootstrap'
 
 const Popup = ({ show, title, handleModal, children }) => {
     return (
-        <Modal show={show} onHide={() => handleModal(false)}>
-            <Modal.Header closeButton>
-                <Modal.Title>{title}</Modal.Title>
+        <Modal size="lg" show={show} onHide={() => handleModal(false)} className="modal-container" >
+            <Modal.Header closeButton className="modal-header">
+                <Modal.Title className="col-12 text-center" >{title}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className="modal-body">
                 {children}
             </Modal.Body>
         </Modal>
-
     )
 }
 

@@ -68,7 +68,7 @@ class WorksList extends Component {
 
                 </Container>                
 
-                 <Popup show={this.state.showModal} handleModal={this.handleModal} title="New work">
+                 <Popup show={this.state.showModal} handleModal={this.handleModal} title=" ">
                     <WorkForm closeModal={() => this.handleModal(false)} updateList={this.displayWorks} loggedUser={this.props.loggedUser} />
                 </Popup>             
             </> 

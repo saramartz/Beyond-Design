@@ -3,7 +3,7 @@ import ProfessionalsService from '../../../../service/professionals.service'
 import WorkService from '../../../../service/works.service'
 import UserService from '../../../../service/account.service'
 import WorkCard from "../../Portfolio/Works-list/Work-card"
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Container, Row, Col, Button, Card } from 'react-bootstrap'
 import Reveal from 'react-reveal/Reveal';
 
 class UserDetails extends Component {
@@ -93,8 +93,10 @@ class UserDetails extends Component {
             <>
                 <Container className="account-details mb-5">
                     <Row>        
-                        <Col md={5} className="account-section1 text-center">                   
-                            <img className="mb-4" src={this.state.otherUser.image} alt={this.state.otherUser.name} />                 
+                        <Col md={5} className="account-section1 text-center">               
+                            <div className="account-img">                                
+                                <Card.Img className="mb-4" src={this.state.otherUser.image} alt={this.state.otherUser.name} />                       
+                            </div> 
                             <h2 className="mb-2">{this.state.otherUser.name}</h2>
                             <p>{this.state.otherUser.specialty}</p>
                             <p>{this.state.otherUser.introduction}</p>     

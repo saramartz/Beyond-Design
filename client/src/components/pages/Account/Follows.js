@@ -73,18 +73,20 @@ class Follows extends Component {
                               
                             this.state.friends.map((elm, idx) => {
                                 return (
-                                    <Col lg={3.5} className="professionals-col ml-5 text-center ">
-                                        <Card className="professional-card d-flex flex-column justify-content-end" key={idx}>
+                                    <Col lg={3.5} className="professionals-col ml-5 text-center mt-5">
+                                        <Card className="professional-card d-flex flex-column justify-content-end mb-5" key={idx}>
                                             <Link to={`/professionals/${elm._id}`}>
-                                                <Card.Img variant="top" src={elm.image} alt={elm.name} />
+                                                <div className="professional-img mb-4" key={elm.id}>
+                                                    <Card.Img variant="top" src={elm.image} alt={elm.name} />
+                                                </div>                                          
                                                 <div ></div>
-                                                    <div className="profressional-card-text ">
+                                                <div className="profressional-card-text ">
                                                     <p><span style={{fontSize: "18px"}}>{elm.name.trim().replace(/^\w/, (c) => c.toUpperCase())}</span> <br/> {elm.specialty} </p>                        
                                                     <hr/>                                        
                                                     <p className="location"><GeoAlt className="mr-2 mb-1" />Castilla y León</p>                   
                                                 </div>                                              
                                             </Link> 
-                                            <Button onClick={() => this.getFriends(elm._id)} variant="none" size="sm" className="create-btn mb-4 btn-obscure">Unfollow</Button>    
+                                            <Button onClick={() => this.getFriends(elm._id)} variant="none" size="sm" className="create-btn mb-4 btn-delete">Unfollow</Button>    
                                         </Card> 
                                     </Col>
                                 )
@@ -101,18 +103,6 @@ class Follows extends Component {
 
 export default Follows
 
-    //   <Col lg={3.5} className="professionals-col ml-5 text-center ">
-    //         <Card className="professional-card d-flex flex-column justify-content-end">  
-    //             <Link to={`/professionals/${_id}`}> 
-    //                 <Card.Img variant="top" src={image} />     
-    //                 <div ></div>
-    //                 <div className="profressional-card-text ">
-    //                     <p><span style={{fontSize: "18px"}}>{name.trim().replace(/^\w/, (c) => c.toUpperCase())}</span> <br/> {specialty} </p>                        
-    //                     <hr/>
-    //                     <p >{introduction}</p> 
-    //                     <p className="location"><GeoAlt className="mr-2 mb-1" />{area} Castilla y León</p>                   
-    //                 </div>                                     
-    //             </Link> 
-    //         </Card>          
-    //     </Col>
+
+
 

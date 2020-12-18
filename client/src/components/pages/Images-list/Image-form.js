@@ -54,7 +54,7 @@ class ImageForm extends Component {
             .catch(err => console.log(err))
     }    
     
-/* > */ displayBoard = () => {
+    displayBoard = () => {
         const board_id = this.state.board._id
 
         this.boardsService
@@ -67,20 +67,17 @@ class ImageForm extends Component {
 
         return (
             <>       
-                <Form onSubmit={this.handleSubmit}>                  
+                <Form onSubmit={this.handleSubmit} className="account-edit">                  
                     <Form.Group controlId="images">                                          
-                        <select name="_id" value={this.state._id} onChange={this.handleInputChange}>
-                            { this.state.user ?
+                        <Form.Control as="select" name="_id" type="select" value={this.state._id} onChange={this.handleInputChange} >
+                            <option value="Choose" disabled>Choose</option>    
+                            {this.state.boards.map(elm => <option key={elm._id} value={elm._id}>{elm.title}</option>)}
+                        </Form.Control>
+                    </Form.Group>
 
-                                this.state.boards.map(elm => 
-                                <option key={elm._id} value={elm._id}>{elm.title}</option>)
-                                
-                                : null
-                            }                           
-                        </select>
-                    </Form.Group>           
-
-                    <Button type="submit" variant="dark">Save to board</Button>
+                    <div className="text-center">
+                        <Button type="submit" size="md" variant="none" className="btn-transparent  mt-4">Save to board</Button>
+                    </div>
                 </Form>
             </>
         )
@@ -88,10 +85,3 @@ class ImageForm extends Component {
 }
 
 export default ImageForm
-
-
-    // addFavImages = (e) => {  
-    //     e.preventDefault()
-    //     let photos = this.state.board.images.concat(this.props.favImages)
-    //     this.setState({ board: { ...this.state.board, images: photos } }, () => this.editBoard())         
-    // }

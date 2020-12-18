@@ -8,7 +8,7 @@ import Reveal from 'react-reveal/Fade';
 
 import UserService from '../../../service/account.service'
 import ImageForm from "./Image-form"
-import Popup from "../../shared/Popup/Popup"
+import PopupBoard from "../../shared/Popup/Popup-board"
 
 const client = createClient('563492ad6f91700001000001320414824c594940b38138c28df3e9e3');
 
@@ -103,9 +103,9 @@ class ImagesList extends Component {
                     </Reveal>
                 </Container>
 
-                 <Popup show={this.state.showModal} handleModal={this.handleModal} title="Choose your board">
+                 <PopupBoard show={this.state.showModal} handleModal={this.handleModal} title="Choose your board">
                     <ImageForm closeModal={() => this.handleModal(false)} loggedUser={this.props.loggedUser} favImages={this.state.savedImage}/>
-                </Popup>  
+                </PopupBoard>  
             </>      
         )
     }

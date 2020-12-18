@@ -29,10 +29,11 @@ class Signup extends Component {
             .signup(this.state.username, this.state.password, this.state.name, this.state.birthday, this.state.country, this.state.city)
             .then(theLoggedInUser => {
                 console.log("Sign Up and logged as: ", theLoggedInUser)
+                
                 this.props.storeUser(theLoggedInUser.data)               
                 this.props.history.push("/login")  
             })
-            .catch(err => console.log("Error", err))
+            .catch(err => console.log("Error", {err}))
     }
 
 

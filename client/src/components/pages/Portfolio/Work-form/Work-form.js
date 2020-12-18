@@ -6,7 +6,7 @@ import BoardService from '../../../../service/boards.service'
 
 import Loader from "../../../shared/Spinner/Loader"
 
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Container } from 'react-bootstrap'
 
 class WorkForm extends Component {
 
@@ -87,10 +87,17 @@ class WorkForm extends Component {
     displayFriends = () => {
         this.userService
             .getUsers()
-            .then(res => {         
-                let filteredUsers = res.data.filter(elm => this.state.user.follows.includes(elm._id))
+            .then(res => {   
                 
-                this.setState({ friends: filteredUsers })
+                let workCopy = {...this.state.work}
+
+                let filteredUsers = res.data.filter(elm => this.state.user.follows.includes(elm._id))
+
+                const firstFriend = [filteredUsers[0]]
+              
+                workCopy.coworkers = firstFriend
+          
+                this.setState({ friends: filteredUsers, work: workCopy})
             })           
             .catch(err => console.log(err))
     } 
@@ -100,15 +107,21 @@ class WorkForm extends Component {
             .getBoards()
             .then(res => {
                 const boards = res.data.filter(elm => elm.author == this.state.user._id)
-                this.setState({ boards: boards })
+                let workCopy = {...this.state.work}
+
+                const firstBoard = boards[0]
+              
+                workCopy.board = firstBoard
+          
+                this.setState({ boards: boards, work: workCopy })
             })
             .catch(err => console.log(err))
     }    
 
     render() {
-
+    
         return (
-            <>       
+            <Container className="account-edit">       
                 <Form onSubmit={this.handleSubmit}>
                     
                     {/* <!-- Title --> */}
@@ -120,7 +133,7 @@ class WorkForm extends Component {
                     {/* <!-- Description --> */}
                     <Form.Group controlId="description">
                         <Form.Label>Description</Form.Label>
-                        <Form.Control type="text" name="description" value={this.state.description} onChange={this.handleInputChange} />
+                        <Form.Control as="textarea" rows={3} type="textarea"  name="description" value={this.state.description} onChange={this.handleInputChange} />
                     </Form.Group>
 
                     {/* <!-- Date --> */}
@@ -129,43 +142,46 @@ class WorkForm extends Component {
                         <Form.Control type="date" name="date" value={this.state.date} onChange={this.handleInputChange} />
                     </Form.Group> 
 
-                    {/* <!-- Status --> */}
+                    {/* <!-- Status --> */}        
                     <Form.Group controlId="status">
                         <Form.Label>Status</Form.Label>
-                        <Form.Control type="text" name="status" value={this.state.status} onChange={this.handleInputChange} />
+                        <Form.Control as="select" name="status" type="select" value={this.state.status} onChange={this.handleInputChange} > 
+                            <option value="Choose" disabled>Choose</option>    
+                            <option value="In Progress">In progress</option>
+                            <option value="Completed">Completed</option>                     
+                        </Form.Control>
                     </Form.Group>
 
-                    <Form.Group controlId="coworkers">                                          
-                        <select name="coworkers" value={this.state.coworkers} onChange={this.handleInputChange}>
-                            {this.state.friends.map(elm => 
-                                <option value={elm._id}>{elm.name}</option>
-                            )}                           
-                        </select>
-                    </Form.Group>    
-                    
-                    <Form.Group controlId="board">                                          
-                        <select name="board" value={this.state.board} onChange={this.handleInputChange}>
-                            {this.state.boards.map(elm => 
-                                <option value={elm._id}>{elm.title}</option>
-                            )}                           
-                        </select>
-                    </Form.Group> 
-                    
-                    {/* <!-- Image --> */}
-                    {/* <Form.Group controlId="image">
-                        <Form.Label>Image</Form.Label>
-                        <Form.Control type="text" name="image" value={this.state.image} onChange={this.handleInputChange} />
-                    </Form.Group> */}
+                    {/* <!-- Coworkers --> */}
+                    <Form.Group controlId="coworkers">
+                        <Form.Label>Coworkers</Form.Label>
+                        <Form.Control as="select" name="coworkers" type="select" value={this.state.coworkers} onChange={this.handleInputChange} > 
+                            <option value="Choose" disabled>Choose</option>  
+                            {this.state.friends.map(elm => <option key={elm._id} value={elm._id}>{elm.name}</option>)}
+                        </Form.Control>
+                    </Form.Group>
 
+                    {/* <!-- Board --> */}
+                    <Form.Group controlId="board">
+                        <Form.Label>Choose your board</Form.Label>
+                        <Form.Control as="select" name="board" type="select" value={this.state.board} onChange={this.handleInputChange} >
+                            <option value="Choose" disabled>Choose</option>    
+                            {this.state.boards.map(elm => <option key={elm._id} value={elm._id}>{elm.title}</option>)}
+                        </Form.Control>
+                    </Form.Group>
+             
+                    {/* <!-- Image --> */}
                     <Form.Group>
                         <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
-                        <Form.Control type="file" onChange={this.handleImageUpload} />
+                        <Form.File id="custom-file-translate-scss" label="Image" lang="en" custom onChange={this.handleImageUpload}/>
                     </Form.Group>
 
-                    <Button variant="dark" type="submit" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Subiendo imagen...' : 'Create'}</Button>
+                    <div className="text-center">
+                        <Button variant="none" className="btn-transparent" type="submit" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Loading image' : 'Create'}</Button>
+                    </div>
 
                 </Form>
-            </>
+            </Container>
         )
     }
 }

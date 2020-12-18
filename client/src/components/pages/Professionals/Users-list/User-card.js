@@ -5,10 +5,12 @@ import { Link } from 'react-router-dom'
 
 const WorkCard = ({ image, name, specialty, introduction, area, _id }) => {
     return (
-        <Col lg={3.5} className="professionals-col ml-5 text-center ">
-            <Card className="professional-card d-flex flex-column justify-content-end">  
+        <Col lg={3.5} className="professionals-col ml-5 text-center mt-5">
+            <Card className="professional-card d-flex flex-column justify-content-end mb-5">  
                 <Link to={`/professionals/${_id}`}> 
-                    <Card.Img variant="top" src={image} alt={name}/>     
+                    <div className="professional-img mb-4">
+                        <Card.Img variant="top" src={image} alt={name}/>  
+                    </div>
                     <div ></div>
                     <div className="profressional-card-text ">
                         <p><span style={{fontSize: "18px"}}>{name.trim().replace(/^\w/, (c) => c.toUpperCase())}</span> <br/> {specialty} </p>                        

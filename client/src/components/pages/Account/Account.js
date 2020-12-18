@@ -11,7 +11,7 @@ class Account extends Component {
         super(props)
         this.state = {
             user: this.props.loggedUser,
-            showModal: false
+            showModal: false,
         }
         this.accountService = new AccountService()
     }
@@ -60,7 +60,7 @@ class Account extends Component {
                             <p>{this.state.user.introduction}</p>     
                                                     
                             <hr />                                   
-                            {/* <p>{this.state.user.area.location[0]}, {this.state.user.area.location[1]}</p>   //TO-DO add location everywhere  */} 
+                            <p>{this.state.user.area.location[0]}, {this.state.user.area.location[1]}</p> 
                                 
                             <Link to={`/${this.props.match.params.user_id}/follows`} className="follows">
                                 <p>{this.state.user.follows.length} following</p>
@@ -96,7 +96,7 @@ class Account extends Component {
                     </Row>               
                 </Container>              
 
-                <Popup show={this.state.showModal} handleModal={this.handleModal} title="Account">
+                <Popup show={this.state.showModal} handleModal={this.handleModal} title="" className="text-center">
                     <AccountEdit closeModal={() => this.handleModal(false)} updateUserInfo={this.displayInfo} loggedUser={this.props.loggedUser} {...this.props}/>
                 </Popup>      
             </>    
