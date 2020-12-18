@@ -105,10 +105,10 @@ class Navigation extends Component {
                             :
                             <>
                                 <Link to="/signup">
-                                <Nav.Link as="div" className="btn-transparent" style={{marginRight: "10px"}}>Sign Up</Nav.Link>
+                                <Nav.Link as="div" className="btn-other" style={{marginRight: "10px"}}>Sign Up</Nav.Link>
                                 </Link>
                                 <Link to="/login">
-                                    <Nav.Link as="div" className="btn-transparent">Login</Nav.Link>
+                                    <Nav.Link as="div" className="btn-other">Login</Nav.Link>
                                 </Link>                                
               
                             </>

@@ -28,6 +28,22 @@
   cursor: pointer
 }
 
+.btn-other {
+  border-radius: 50px;
+  color: #ffffffdc;
+  background-color: #48666d62;
+  padding: 8px 40px;
+  cursor: pointer;
+  border: 2px solid #ffffffa8 !important; 
+}
+
+.btn-other:hover {
+  color: black;
+  background-color: #ffffff00;
+  cursor: pointer
+}
+
+
 .btn-obscure {
   border-radius: 50px; 
   background-color: #ffffff04;
@@ -68,7 +84,7 @@ body {
     linear-gradient(90deg, rgba(26,19,40,0.9430147058823529) 0%, rgba(37,150,105,0.4682247899159664) 0%, rgba(32,92,89,1) 0%, rgba(75,129,153,0.39399509803921573) 48%, rgba(194,189,196,0) 95%);
 ;
   
-  opacity: 0.9 /* background-image: url(./blur.jpg);
+  opacity:  /* background-image: url(./blur.jpg);
   background-repeat: no-repeat;
   background-size: cover; */
 }
@@ -473,6 +489,9 @@ label:focus,
 .chat-container {
   color: red
 }
+
+/* ========== HOME ========== */
+
 
 /* ========== APP ========== */
 

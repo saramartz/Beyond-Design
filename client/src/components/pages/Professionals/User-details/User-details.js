@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ProfessionalsService from '../../../../service/professionals.service'
 import WorkService from '../../../../service/works.service'
 import UserService from '../../../../service/account.service'
-import WorkCard from "../../Portfolio/Works-list/Work-card"
+import WorkCard2 from "../../Portfolio/Works-list/Work-card2"
 import { Container, Row, Col, Button, Card } from 'react-bootstrap'
 import Reveal from 'react-reveal/Reveal';
 
@@ -102,8 +102,7 @@ class UserDetails extends Component {
                             <p>{this.state.otherUser.introduction}</p>     
                                                     
                             <hr />                                   
-                            {/* <p>{this.state.otherUser.area}, Castilla y León</p>                                        */}
-                                                               
+                   
                             <Button onClick={() => this.addFriend(this.state.otherUser._id)} disabled={this.state.weAreFriends} variant="none" size="sm" className="create-btn mr-4 mt-5 btn-transparent">Follow</Button>
                                      
                         </Col>
@@ -142,7 +141,7 @@ class UserDetails extends Component {
                     <Row className=" mb-5 d-flex flex-row justify-content-center">
                                         
                             {
-                            this.state.works ? this.state.works.map(elm => <WorkCard key={elm._id} {...elm} />) : null
+                            this.state.works ? this.state.works.map(elm => <WorkCard2 key={elm._id} {...elm} />) : null
                             } 
                      
                     </Row>  

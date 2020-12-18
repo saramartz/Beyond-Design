@@ -16,7 +16,7 @@ const WorkCard = ({ image, name, specialty, introduction, area, _id }) => {
                         <p><span style={{fontSize: "18px"}}>{name.trim().replace(/^\w/, (c) => c.toUpperCase())}</span> <br/> {specialty} </p>                        
                         <hr/>
                         <p >{introduction}</p> 
-                        <p className="location"><GeoAlt className="mr-2 mb-1" />Castilla y León</p>                   
+                        <p className="location"><GeoAlt className="mr-2 mb-1" />{area.location[0]}, {area.location[1]}</p>                   
                     </div>                                     
                 </Link> 
             </Card>          

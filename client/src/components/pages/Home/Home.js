@@ -23,26 +23,43 @@ class Home extends Component {
                         <Col md="6" className="">
                             <div className="overlay"></div>                           
                         </Col>
-                         <video playsinline="playsinline" muted="muted" loop="loop" className="video1">
+                         <video playsinline="playsinline" autoPlay muted="muted" loop="loop" className="video1">
                                 <source src={video} type="video/mp4" />
                         </video>
+                        <div className="section-overlay text-center">
+                               <h2 class="display-3" style={{fontFamily:"Razed", fontSize:"60px"}} >Community for designers</h2>
+                               <p class="lead mb-0">Create your team, join castings, organize fashion shoots and showcase your artworks.</p>
+                        </div>
                         <Col md="6" className="divider">
                             <div className="overlay2"></div>                          
                         </Col>  
                     </Row>             
                 </header>
    
-                <section className="section1" style={{height: "400px"}}>
+                <section className="section1" style={{height: "250px"}}>
                     <Row>                   
                         <Col md="4" className="text-center">
-                               <h1 class="display-3">SECTION 1</h1>
-                               <p class="lead mb-0">Description</p>
+                 
                         </Col>                       
                     </Row>
-                </section>            
+                </section>  
+                
+                  <section className="section2 text-center " >
+                    <Row>                   
+                        <Col md="12" className="text-center section2-overlay">
+                            <div className="section2Div">
+
+                               <h1 class="display-3">About</h1>
+                               <p class="lead mb-0">A community passionate for fashion photography where models, <br></br> photographers, makeup artists, fashion designers and stylists meet to create together. <br></br>
+
+Find castings near you or publish your own. Discover job opportunities <br></br> or collaborations to improve your portfolio. <br></br> Discover new faces and explore editorials from creative artists just like you. <br></br> Put your portfolio or your book in front of professionals, bookers, agencies, clients and fans.</p>
+                            </div>                         
+                        </Col>                       
+                    </Row>
+                </section>
 
                 <footer className="font-small  footer">
-                    <Container fluid className="text-center text-md-left section1">
+                    {/* <Container fluid className="text-center text-md-left section1">
                         <Row>
                         <Col md="6">
                             <h5 >Content</h5>
@@ -68,10 +85,10 @@ class Home extends Component {
                             </ul>
                         </Col>
                         </Row>
-                    </Container>
+                    </Container> */}
                     <div className="footer-copyright text-center py-3">
                         <Container fluid>
-                        &copy; {new Date().getFullYear()} Copyright: Sara
+                        &copy; {new Date().getFullYear()} Copyright: Sara Martínez Vega
                         </Container>
                     </div>
                 </footer>

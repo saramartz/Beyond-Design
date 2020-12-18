@@ -35,7 +35,7 @@ class ImagesList extends Component {
 
     displayImages = () => {
         client.photos
-            .search({ query: "cyberpunk", per_page: 15 })
+            .search({ query: "fashion", per_page: 16 })
             .then(res => this.setState({images: res.photos}))
             .catch(err => console.log(err))    
     }
@@ -49,7 +49,7 @@ class ImagesList extends Component {
 
     searchResult = () => {          
          client.photos
-            .search({ query: this.state.search, per_page: 2 })
+            .search({ query: this.state.search, per_page: 16 })
             .then(res => this.state.search.length > 0 ? this.setState({images: res.photos}) : this.setState(this.displayImages))
             .catch(err => console.log(err))           
     } 

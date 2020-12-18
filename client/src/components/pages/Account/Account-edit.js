@@ -126,7 +126,7 @@ class AccountEdit extends Component {
                     {/* <!-- Availability --> */}      
                    <Form.Group controlId="status">
                         <Form.Label>Ability to travel</Form.Label>
-                        <Form.Control as="select" name="status" value={this.state.user.status} type="select" onChange={this.handleInputChange} > 
+                        <Form.Control as="select" name="availability" value={this.state.user.availability} type="select" onChange={this.handleInputChange} > 
                             <option value="Choose" disabled>Choose</option>    
                             <option value="No">No</option>
                             <option value="Yes, across the country">Yes, across the country</option>  

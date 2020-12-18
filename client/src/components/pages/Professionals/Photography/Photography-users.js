@@ -30,7 +30,7 @@ class PhotographyUsers extends Component {
                     <Row>                                      
                         
                         {
-                            this.state.users.filter(elm => elm.specialty.toString() === "Photography").map(elm => <UserCard key={elm._id} {...elm}/>)                                                             
+                            this.state.users.filter(elm => elm.specialty.toString() === "Photographer").map(elm => <UserCard key={elm._id} {...elm}/>)                                                             
                         }
                                                 
                     </Row>           

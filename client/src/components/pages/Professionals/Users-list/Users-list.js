@@ -7,10 +7,11 @@ import { Container, Row } from 'react-bootstrap'
 
 class UsersList extends Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
-            users: []           
+            users: [],
+            loggedUser: this.props.loggedUser
         }
         this.professionalsService = new ProfessionalsService()
     }
@@ -23,8 +24,8 @@ class UsersList extends Component {
         this.professionalsService
             .getUsers()
             .then(res => {
-                console.log(res.data)
-                this.setState({ users: res.data })
+                const filtered = res.data.filter(elm => elm._id !== this.state.loggedUser._id)
+                this.setState({ users: filtered })
             })
             .catch(err => console.log(err))
     }

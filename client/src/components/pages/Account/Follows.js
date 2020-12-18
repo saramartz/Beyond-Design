@@ -83,7 +83,7 @@ class Follows extends Component {
                                                 <div className="profressional-card-text ">
                                                     <p><span style={{fontSize: "18px"}}>{elm.name.trim().replace(/^\w/, (c) => c.toUpperCase())}</span> <br/> {elm.specialty} </p>                        
                                                     <hr/>                                        
-                                                    <p className="location"><GeoAlt className="mr-2 mb-1" />Castilla y León</p>                   
+                                                    <p className="location"><GeoAlt className="mr-2 mb-1" />{elm.area.location[0]}, {elm.area.location[1]}</p>                   
                                                 </div>                                              
                                             </Link> 
                                             <Button onClick={() => this.getFriends(elm._id)} variant="none" size="sm" className="create-btn mb-4 btn-delete">Unfollow</Button>    
