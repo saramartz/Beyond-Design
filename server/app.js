@@ -24,7 +24,7 @@ const Message = require('./models/message')
 const http = require('http').createServer(app)
 const io = require('socket.io')(http, {
     cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.DOMAIN_LOCAL,
     methods: ["GET", "POST"],
     credentials: true
   }
@@ -61,6 +61,5 @@ io.on('connection', (socket) => {
 http.listen(4000, function () {
     console.log('listening on port 4000')
 })
-
 
 module.exports = app

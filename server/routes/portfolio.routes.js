@@ -36,7 +36,7 @@ router.post('/newWork', (req, res) => {
 router.put('/editWork/:work_id', (req, res) => {
 
     Work
-        .findByIdAndUpdate(req.params.work_id, req.body)
+        .findByIdAndUpdate(req.params.work_id, req.body.work)
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })

@@ -18,7 +18,7 @@ const workSchema = new Schema({
     },
     status: {
         type: [String],
-        enum: ['In progress', "Completed"],
+        enum: ['In Progress', "Completed"],
         default: []
     },
     image: {
