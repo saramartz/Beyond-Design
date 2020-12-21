@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import AuthService from "../../../service/auth.service"
 
+import Fade from 'react-reveal/Fade'
 import { Container, Row, Col, Form, Button } from "react-bootstrap"
 
 class Signup extends Component {
@@ -41,40 +42,42 @@ class Signup extends Component {
 
         return (
 
-            <Container>
+            <Fade bottom>
+                <Container>
 
-                <Row>
-                    <Col md={{ span: 8, offset: 2 }} className="login">
-                        <h1 className="text-center">Sign Up</h1>                    
-                        <Form onSubmit={this.handleSubmit}>
-                            
-                            <Form.Group controlId="username">                               
-                                <Form.Control type="text" placeholder="Username" name="username" value={this.state.username} onChange={this.handleInputChange} />
-                            </Form.Group>
-                            <Form.Group controlId="name">                               
-                                <Form.Control type="text" placeholder="Full Name" name="name" value={this.state.name} onChange={this.handleInputChange} />
-                            </Form.Group>
-                               <Form.Group controlId="birthday">                               
-                                <Form.Control type="date" placeholder="Birthdate" name="birthday" value={this.state.birthday} onChange={this.handleInputChange} />
-                            </Form.Group>
-                            <Form.Group controlId="city">                               
-                                <Form.Control type="text" placeholder="City" name="city" value={this.state.city} onChange={this.handleInputChange} />
-                            </Form.Group>
-                               <Form.Group controlId="country">                               
-                                <Form.Control type="text" placeholder="Country" name="country" value={this.state.country} onChange={this.handleInputChange} />
-                            </Form.Group>
-                            <Form.Group controlId="password">                               
-                                <Form.Control type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleInputChange} />
-                            </Form.Group>
+                    <Row>
+                        <Col md={{ span: 8, offset: 2 }} className="login">
+                            <h1 className="text-center">Sign Up</h1>                    
+                            <Form onSubmit={this.handleSubmit}>
+                                
+                                <Form.Group controlId="username">                               
+                                    <Form.Control type="text" placeholder="Username" name="username" value={this.state.username} onChange={this.handleInputChange} />
+                                </Form.Group>
+                                <Form.Group controlId="name">                               
+                                    <Form.Control type="text" placeholder="Full Name" name="name" value={this.state.name} onChange={this.handleInputChange} />
+                                </Form.Group>
+                                <Form.Group controlId="birthday">                               
+                                    <Form.Control type="date" placeholder="Birthdate" name="birthday" value={this.state.birthday} onChange={this.handleInputChange} />
+                                </Form.Group>
+                                <Form.Group controlId="city">                               
+                                    <Form.Control type="text" placeholder="City" name="city" value={this.state.city} onChange={this.handleInputChange} />
+                                </Form.Group>
+                                <Form.Group controlId="country">                               
+                                    <Form.Control type="text" placeholder="Province" name="country" value={this.state.country} onChange={this.handleInputChange} />
+                                </Form.Group>
+                                <Form.Group controlId="password">                               
+                                    <Form.Control type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleInputChange} />
+                                </Form.Group>
 
-                            <Form.Group className="text-center">
-                                <Button className="btn-transparent" variant="none" type="submit">Sign Up</Button>
-                            </Form.Group>
-                        </Form>
-                    </Col>
-                </Row>
-                
-            </Container>
+                                <Form.Group className="text-center">
+                                    <Button className="btn-transparent" variant="none" type="submit">Sign Up</Button>
+                                </Form.Group>
+                            </Form>
+                        </Col>
+                    </Row>
+                    
+                </Container>
+            </Fade>
         )
     }
 }

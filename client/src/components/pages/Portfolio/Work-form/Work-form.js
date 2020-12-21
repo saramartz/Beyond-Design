@@ -51,6 +51,13 @@ class WorkForm extends Component {
     
     handleInputChange = e => this.setState({ work: { ...this.state.work, [e.target.name]: e.target.value } })
 
+
+    handleInputMultiple = e => {
+        const selected = []
+        e.target.childNodes.forEach(e => e.selected === true ? selected.push(e.value) : null)
+        this.setState({ work: { ...this.state.work, [e.target.name]: selected } })
+    }
+
     handleSubmit = e => {
         e.preventDefault()
 
@@ -90,11 +97,9 @@ class WorkForm extends Component {
             .then(res => {   
                 
                 let workCopy = {...this.state.work}
-
                 let filteredUsers = res.data.filter(elm => this.state.user.follows.includes(elm._id))
 
-                const firstFriend = [filteredUsers[0]]
-              
+                const firstFriend = [filteredUsers[0]]              
                 workCopy.coworkers = firstFriend
           
                 this.setState({ friends: filteredUsers, work: workCopy})
@@ -109,8 +114,7 @@ class WorkForm extends Component {
                 const boards = res.data.filter(elm => elm.author == this.state.user._id)
                 let workCopy = {...this.state.work}
 
-                const firstBoard = boards[0]
-              
+                const firstBoard = boards[0]              
                 workCopy.board = firstBoard
           
                 this.setState({ boards: boards, work: workCopy })
@@ -146,26 +150,26 @@ class WorkForm extends Component {
                     <Form.Group controlId="status">
                         <Form.Label>Status</Form.Label>
                         <Form.Control as="select" name="status" type="select" value={this.state.status} onChange={this.handleInputChange} > 
-                            <option value="Choose" disabled>Choose</option>    
+                            <option>Choose</option>    
                             <option value="In Progress">In progress</option>
                             <option value="Completed">Completed</option>                     
                         </Form.Control>
                     </Form.Group>
 
-                    {/* <!-- Coworkers --> */}
                     <Form.Group controlId="coworkers">
                         <Form.Label>Coworkers</Form.Label>
-                        <Form.Control as="select" name="coworkers" type="select" value={this.state.coworkers} onChange={this.handleInputChange} > 
-                            <option value="Choose" disabled>Choose</option>  
-                            {this.state.friends.map(elm => <option key={elm._id} value={elm._id}>{elm.name}</option>)}
+                        <Form.Control className="form myselect" as="select" type="select" value={this.state.coworkers} custom multiple name="coworkers" onChange={this.handleInputMultiple}>
+                            <option disabled style={{marginBottom:"10px", fontStyle:"italic", fontSize:"15px"}}>Press Ctrl or Shift to select multiple</option>
+                            {this.state.friends.map(elm => <option key={elm._id} value={elm._id}>{elm.name}</option>)}   
                         </Form.Control>
-                    </Form.Group>
+                        <small>* Start following someone to add a coworker</small>
+                    </Form.Group>            
 
                     {/* <!-- Board --> */}
                     <Form.Group controlId="board">
                         <Form.Label>Choose your board</Form.Label>
                         <Form.Control as="select" name="board" type="select" value={this.state.board} onChange={this.handleInputChange} >
-                            <option value="Choose" disabled>Choose</option>    
+                            <option>Choose</option>    
                             {this.state.boards.map(elm => <option key={elm._id} value={elm._id}>{elm.title}</option>)}
                         </Form.Control>
                     </Form.Group>
@@ -179,6 +183,8 @@ class WorkForm extends Component {
                     <div className="text-center">
                         <Button variant="none" className="btn-transparent" type="submit" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Loading image' : 'Create'}</Button>
                     </div>
+
+                    <small>* All fields are required</small>
 
                 </Form>
             </Container>

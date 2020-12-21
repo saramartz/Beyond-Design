@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import io from 'socket.io-client'
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-
+import Fade from 'react-reveal/Fade'
 import BottomBar from './BottomBar';
 
 class Chat extends Component {
@@ -81,28 +81,31 @@ class Chat extends Component {
 
   render() {
     return (
+      
       <div className="App">
-        <Paper id="chat" elevation={3}>
-          {this.state.chat.map((el, index) => {
-            return (
-              <div key={index}>
-                <Typography variant="caption" className="name">
-                  {el.name}
-                </Typography>
-                <Typography variant="body1" className="content">
-                  {el.content}
-                </Typography>
-              </div>
-            );
-          })}
-        </Paper>
-        <BottomBar
-          content={this.state.content}
-          handleContent={this.handleContent.bind(this)}
-          handleName={this.handleName.bind(this)}
-          handleSubmit={this.handleSubmit.bind(this)}
-          name={this.state.name}
-        />
+        <Fade>
+          <Paper id="chat" elevation={3}>
+            {this.state.chat.map((el, index) => {
+              return (
+                <div key={index}>
+                  <Typography variant="caption" className="name">
+                    {el.name}
+                  </Typography>
+                  <Typography variant="body1" className="content">
+                    {el.content}
+                  </Typography>
+                </div>
+              );
+            })}
+          </Paper>
+        </Fade>        
+          <BottomBar
+            content={this.state.content}
+            handleContent={this.handleContent.bind(this)}
+            handleName={this.handleName.bind(this)}
+            handleSubmit={this.handleSubmit.bind(this)}
+            name={this.state.name}
+          />   
       </div>
     );
   }

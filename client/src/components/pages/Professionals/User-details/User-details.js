@@ -4,7 +4,7 @@ import WorkService from '../../../../service/works.service'
 import UserService from '../../../../service/account.service'
 import WorkCard2 from "../../Portfolio/Works-list/Work-card2"
 import { Container, Row, Col, Button, Card } from 'react-bootstrap'
-import Reveal from 'react-reveal/Reveal';
+import Fade from 'react-reveal/Fade'
 
 class UserDetails extends Component {
 
@@ -13,8 +13,7 @@ class UserDetails extends Component {
         this.state = {
             otherUser: {},
             user: {},
-            works: [],      
-            weAreFriends: false
+            works: []
         }
         this.professionalsService = new ProfessionalsService()
         this.worksService = new WorkService()
@@ -23,20 +22,9 @@ class UserDetails extends Component {
 
     componentDidMount = () => {        
         this.displayUser()        
-        this.getLoggedUser()
-        this.checkUserFriends() //TO-DO make button dissapear
-        this.displayWorks()
-
-    }
-
-    displayUser = () => {
-        const user_id = this.props.match.params.user_id       
-
-        this.professionalsService
-            .getUser(user_id)
-            .then(res => this.setState({ otherUser: res.data }))
-            .catch(err => console.log(err))   
-    }  
+        this.getLoggedUser()         
+        this.displayWorks()   
+    } 
     
     displayWorks = () => {
         this.worksService
@@ -52,31 +40,23 @@ class UserDetails extends Component {
 
     // ========== FOLLOWS ========== 
 
-    // TO-DO create weAreFriends in user schema
     checkUserFriends() {
-        if (this.props.loggedUser.follows.includes(this.state.otherUser._id)) {
-          this.setState({ weAreFriends: true })
-        } else {
-          this.setState({ weAreFriends: false })
-        }
-    }    
+       return this.props.loggedUser.follows.includes(this.state.otherUser._id) ? this.setState({ otherUser: {...this.state.otherUser,  weAreFriends: true } }) : null    
+    }  
+    
+    addFriend = (friend_id) => {  
+        let id = this.state.user.follows.concat(friend_id)
+        
+        this.setState({ user: { ...this.state.user, follows: id }, otherUser: { ...this.state.otherUser, weAreFriends: true } }, () => this.updateOtherUserInfo())  
+    } 
 
+    // LOGGED USER
     getLoggedUser() {
         this.userService
             .getUser(this.props.loggedUser._id)
             .then((res) => this.setState({ user: res.data }))
             .catch((err) => console.log(err))
     }
-
-    addFriend = (friend_id) => {  
-        let id = this.state.user.follows.concat(friend_id)
-
-        if (this.state.user.follows.includes(friend_id)) {
-            this.checkUserFriends() // make button disabled
-        } else {
-            this.setState({ weAreFriends: true, user: { ...this.state.user, follows: id } }, () => this.updateUserInfo() )       
-        }     
-    } 
 
     updateUserInfo = () => {         
         const user_id = this.state.user._id
@@ -85,12 +65,37 @@ class UserDetails extends Component {
             .editUser(user_id, this.state)
             .then(() => console.log("good!!"))            
             .catch((err) => console.log(err))
-    }     
+    }    
+
+    // OTHER USER
+    displayUser = () => {
+        const user_id = this.props.match.params.user_id       
+
+        this.professionalsService
+            .getUser(user_id)
+            .then(res => this.setState({ otherUser: res.data }))
+            
+            .catch(err => console.log(err))   
+    } 
+    
+    updateOtherUserInfo = () => {         
+        const user_id = this.state.otherUser._id
+            
+        this.professionalsService
+            .editOtherUser(user_id, this.state.otherUser)
+            .then(() => console.log("good!!")) 
+            .then(() => this.updateUserInfo())
+            .then(() => this.getLoggedUser())
+            .then(() => this.displayUser())
+            .then(() => this.checkUserFriends())
+            .catch((err) => console.log(err))
+    }   
 
     render() {
 
         return (
             <>
+                <Fade>
                 <Container className="account-details mb-5">
                     <Row>        
                         <Col md={5} className="account-section1 text-center">               
@@ -103,7 +108,7 @@ class UserDetails extends Component {
                                                     
                             <hr />                                   
                    
-                            <Button onClick={() => this.addFriend(this.state.otherUser._id)} disabled={this.state.weAreFriends} variant="none" size="sm" className="create-btn mr-4 mt-5 btn-transparent">Follow</Button>
+                         {!this.state.otherUser.weAreFriends ? <Button onClick={() => this.addFriend(this.state.otherUser._id)} variant="none" size="sm" className="create-btn mr-4 mt-5 btn-transparent">Follow</Button> : null}   
                                      
                         </Col>
                             
@@ -145,7 +150,8 @@ class UserDetails extends Component {
                             } 
                      
                     </Row>  
-               </Container> 
+               </Container>
+                </Fade>
             </>    
         )    
     }

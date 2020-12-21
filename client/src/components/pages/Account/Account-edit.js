@@ -7,14 +7,26 @@ import { Form, Button, Col, Container, Row } from 'react-bootstrap'
 
 class AccountEdit extends Component {
 
-    constructor(props) {
-        super(props)
+    constructor() {
+        super()
         this.state = {
-            user: this.props.loggedUser,
+            user: [],
             uploadingActive: false
         }
         this.accountService = new AccountService()
         this.filesService = new FilesService()
+    }
+
+
+    componentDidMount = () => this.displayInfo()
+
+    displayInfo = () => {
+        const user_id = this.props.match.params.user_id
+
+        this.accountService
+            .getUser(user_id)
+            .then(res => this.setState({ user: res.data }))
+            .catch(err => console.log(err))   
     }
 
     handleInputChange = e => { this.setState({ user: { ...this.state.user, [e.target.name]: e.target.value}})}
@@ -28,7 +40,7 @@ class AccountEdit extends Component {
         this.accountService
             .editUser(user_id, this.state)
             .then(() => {
-                this.props.updateUserInfo()
+                this.props.updateUserInfo()          
                 this.props.closeModal()
             })
             .catch(err => console.log(err))
@@ -58,6 +70,7 @@ class AccountEdit extends Component {
     render() {
 
         return (
+            
             <Container className="account-edit">
                 <Form onSubmit={this.handleSubmit}>
                     <Row>                         
@@ -136,15 +149,20 @@ class AccountEdit extends Component {
                     </Form.Group>                
                     
                     {/* <!-- Location --> */}
+                 
+                    {this.state.user.area ? 
+                    <>
                     <Form.Group controlId="city">
                         <Form.Label>City</Form.Label>
                         <Form.Control type="text" name="city" value={this.state.user.area.location[0]} onChange={this.handleInputChange} />
                     </Form.Group>
                     <Form.Group controlId="country">
-                        <Form.Label>Country</Form.Label>
+                        <Form.Label>Province</Form.Label>
                         <Form.Control type="text" name="country" value={this.state.user.area.location[1]} onChange={this.handleInputChange} />
                     </Form.Group>
-                 
+                    </>
+                    : null}
+          
                     {/* <!-- Username --> */}
                     <Form.Group controlId="username">
                         <Form.Label>Username</Form.Label>

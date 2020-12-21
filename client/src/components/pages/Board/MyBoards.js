@@ -5,6 +5,7 @@ import BoardService from "../../../service/boards.service"
 import BoardForm from "./Board-form"
 import BoardCard from "./Board-card"
 import Popup from "../../shared/Popup/Popup"
+import Fade from 'react-reveal/Fade'
 
 class MyBoards extends Component {
 
@@ -45,6 +46,7 @@ class MyBoards extends Component {
     render() {
         return (
             <>
+                <Fade>
                 <Container>
                     <Row className="mt-5 mb-5"> 
                         
@@ -59,6 +61,7 @@ class MyBoards extends Component {
                     </Col>
                     </Row>
                 </Container>
+                </Fade>
 
                 <Popup show={this.state.showModal} handleModal={this.handleModal} title="New work">
                     <BoardForm closeModal={() => this.handleModal(false)} getBoards={this.displayBoards} loggedUser={this.props.loggedUser} />

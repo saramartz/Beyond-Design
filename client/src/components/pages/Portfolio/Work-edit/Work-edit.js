@@ -38,7 +38,13 @@ class WorkEdit extends Component {
             .catch(err => console.log(err))  
     }
 
-    handleInputChange = e => { this.setState({ work: {...this.state.work, [e.target.name]: e.target.value}})}
+    handleInputChange = e => { this.setState({ work: { ...this.state.work, [e.target.name]: e.target.value } }) }
+    
+    handleInputMultiple = e => {
+        const selected = []
+        e.target.childNodes.forEach(e => e.selected === true ? selected.push(e.value) : null)
+        this.setState({ work: { ...this.state.work, [e.target.name]: selected } } )
+    }
 
     handleSubmit = e => {
   
@@ -49,7 +55,7 @@ class WorkEdit extends Component {
         this.worksService
             .editWork(work_id, this.state)
             .then(() => {
-                this.props.updateWork()
+                this.props.updateWork()      
                 this.props.closeModal()
             })
             .catch(err => console.log(err))
@@ -78,14 +84,9 @@ class WorkEdit extends Component {
     displayFriends = () => {
         this.userService
             .getUsers()
-            .then(res => {
-                let workCopy = {...this.state.work}
-                let filteredUsers = res.data.filter(elm => this.state.user.follows.includes(elm._id))
-
-                const firstFriend = [filteredUsers[0]]              
-                workCopy.coworkers = firstFriend
-          
-                this.setState({ collaborators: filteredUsers, work: workCopy})
+            .then(res => {            
+                let filteredUsers = res.data.filter(elm => this.state.user.follows.includes(elm._id))          
+                this.setState({ collaborators: filteredUsers, work: filteredUsers})
             })           
             .catch(err => console.log(err))
     } 
@@ -95,13 +96,7 @@ class WorkEdit extends Component {
             .getBoards()
             .then(res => {
                 const boards = res.data.filter(elm => elm.author == this.state.user._id)
-                let workCopy = {...this.state.work}
-
-                const firstBoard = boards[0]
-              
-                workCopy.board = firstBoard
-          
-                this.setState({ boards: boards, work: workCopy })
+                this.setState({ boards: boards, work: boards })
             })
             .catch(err => console.log(err))
     }  
@@ -134,26 +129,25 @@ class WorkEdit extends Component {
                     <Form.Group controlId="status">
                         <Form.Label>Status</Form.Label>
                         <Form.Control as="select" name="status" type="select" value={this.state.work.status} onChange={this.handleInputChange} > 
-                            <option value="Choose" disabled>Choose</option>    
+                            <option>Choose</option>    
                             <option value="In Progress">In progress</option>
                             <option value="Completed">Completed</option>                     
                         </Form.Control>
                     </Form.Group>
 
-                    {/* <!-- Coworkers --> */}
-                    <Form.Group controlId="coworkers">
+                    <Form.Group controlId="coworkers" className="coworkers">
                         <Form.Label>Coworkers</Form.Label>
-                        <Form.Control as="select" name="coworkers" type="select" value={this.state.work.coworkers} onChange={this.handleInputChange} > 
-                            <option value="Choose" disabled>Choose</option>  
-                            {this.state.collaborators.map(elm => <option key={elm._id} value={elm._id}>{elm.name}</option>)}
+                        <Form.Control as="select" type="select" value={this.state.work.coworkers} custom multiple name="coworkers" onChange={this.handleInputMultiple}>
+                            <option disabled style={{marginBottom:"10px", fontStyle:"italic", fontSize:"15px"}}>Press Ctrl or Shift to select several</option>
+                            {this.state.collaborators.map(elm => <option key={elm._id} value={elm._id}>{elm.name}</option>)}   
                         </Form.Control>
-                    </Form.Group>                    
+                    </Form.Group> 
 
                     {/* <!-- Board --> */}
                     <Form.Group controlId="board">
                         <Form.Label>Choose your board</Form.Label>
                         <Form.Control as="select" name="board" type="select" value={this.state.work.board} onChange={this.handleInputChange} >
-                            <option value="Choose" disabled>Choose</option>    
+                            <option>Choose</option>    
                             {this.state.boards.map(elm => <option key={elm._id} value={elm._id}>{elm.title}</option>)}
                         </Form.Control>
                     </Form.Group>

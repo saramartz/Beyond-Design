@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import AuthService from '../../../service/auth.service'
 
+import Fade from 'react-reveal/Fade'
+
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 
 class Login extends Component {
@@ -34,28 +36,28 @@ class Login extends Component {
 
         return (
 
-            //TO-DO add symbols
-
-            <Container >
-                <Row>
-                    <Col md={{ span: 8, offset: 2 }} className="login">
-                        <h1 className="text-center">Login</h1>                       
-                        <Form onSubmit={this.handleSubmit}>
-                            <Form.Group controlId="username">
-                                <Form.Label></Form.Label>
-                                <Form.Control type="text" placeholder="Username" name="username" value={this.state.username} onChange={this.handleInputChange} />
-                            </Form.Group>
-                            <Form.Group controlId="password">
-                                <Form.Label></Form.Label>
-                                <Form.Control type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleInputChange} />
-                            </Form.Group>
-                            <Form.Group className="text-center">
-                                <Button className="btn-transparent" variant="none" type="submit">Login</Button>
-                            </Form.Group>
-                        </Form>
-                    </Col>
-                </Row>
-            </Container>
+            <Fade bottom>
+                <Container>
+                    <Row>
+                        <Col md={{ span: 8, offset: 2 }} className="login">
+                            <h1 className="text-center">Login</h1>                       
+                            <Form onSubmit={this.handleSubmit}>
+                                <Form.Group controlId="username">
+                                    <Form.Label></Form.Label>
+                                    <Form.Control type="text" placeholder="Username" name="username" value={this.state.username} onChange={this.handleInputChange} />
+                                </Form.Group>
+                                <Form.Group controlId="password">
+                                    <Form.Label></Form.Label>
+                                    <Form.Control type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleInputChange} />
+                                </Form.Group>
+                                <Form.Group className="text-center">
+                                    <Button className="btn-transparent" variant="none" type="submit">Login</Button>
+                                </Form.Group>
+                            </Form>
+                        </Col>
+                    </Row>
+                </Container>
+            </Fade>
         )
     }
 }

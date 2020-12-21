@@ -1,8 +1,10 @@
 import React, { Component } from "react"
 import UserService from '../../../service/professionals.service'
 import AccountService from '../../../service/account.service'
+import ProfessionalsService from '../../../service/professionals.service'
 import { Link } from 'react-router-dom'
 import { GeoAlt } from 'react-bootstrap-icons'
+import Fade from 'react-reveal/Fade'
 
 import { Container, Row, Col, Button, Card } from 'react-bootstrap'
 
@@ -12,10 +14,12 @@ class Follows extends Component {
         super(props)
         this.state = {
             friends: [],
-            user: {}       
+            user: {},
+            otherUser: {}
         }
         this.userService = new UserService()
         this.accountService = new AccountService()
+        this.professionalsService = new ProfessionalsService()
     }
 
     componentDidMount = () => {
@@ -50,8 +54,16 @@ class Follows extends Component {
 
         let friends = this.state.user.follows
   
-        this.setState({ user: { ...this.state.user, follows: friends } }, () => this.deleteFriends())         
+        this.setState({ user: { ...this.state.user, follows: friends }, otherUser: {...this.state.otherUser, weAreFriends: false} }, () => this.updateOtherUserInfo(id))         
     }
+
+    updateOtherUserInfo = (otherUser_id) => {         
+       
+        this.professionalsService
+            .editOtherUser(otherUser_id, this.state.otherUser)
+            .then(() => this.deleteFriends())           
+            .catch((err) => console.log(err))
+    } 
 
     deleteFriends = () => {                
         const user_id = this.props.match.params.user_id
@@ -65,6 +77,7 @@ class Follows extends Component {
     render() {
         return (
             <>
+                <Fade>
                 <Container className="professionals-container">
                     <Row> 
                       
@@ -96,6 +109,7 @@ class Follows extends Component {
                         } 
                     </Row>
                 </Container>
+                </Fade>
             </> 
         )
     }

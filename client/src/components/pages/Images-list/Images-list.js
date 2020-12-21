@@ -4,7 +4,8 @@ import { createClient } from 'pexels';
 import { Container, Row, Col, Form, Card, Button } from 'react-bootstrap';
 
 import { Heart } from 'react-bootstrap-icons';
-import Reveal from 'react-reveal/Fade';
+
+import Fade from 'react-reveal/Fade'
 
 import UserService from '../../../service/account.service'
 import ImageForm from "./Image-form"
@@ -81,8 +82,8 @@ class ImagesList extends Component {
         return (
             
             <>
+                <Fade>
                 <Container className="images-container">
-                    <Reveal effect="fadeInUp">
                     <Row>  
                         <Col md={12} sm={6} className="mt-1 mb-5 text-center searchform">                             
                             <Form.Control type="text" className="searchBar" placeholder="Search" value={this.state.search} onChange={this.searchImage} />
@@ -100,8 +101,8 @@ class ImagesList extends Component {
                             })                    
                         }                        
                     </Row>
-                    </Reveal>
                 </Container>
+                </Fade>
 
                  <PopupBoard show={this.state.showModal} handleModal={this.handleModal} title="Choose your board">
                     <ImageForm closeModal={() => this.handleModal(false)} loggedUser={this.props.loggedUser} favImages={this.state.savedImage}/>

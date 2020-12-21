@@ -11,4 +11,5 @@ export default class ProfessionalsService {
 
     getUsers = () => this.apiHandler.get('/users/getAllUsers')
     getUser = userId => this.apiHandler.get(`/users/getOneUser/${userId}`) 
+    editOtherUser = (userId, userInfo) => this.apiHandler.put(`/users/editUser/${userId}`, userInfo) 
 }

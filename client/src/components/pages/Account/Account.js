@@ -4,6 +4,7 @@ import AccountEdit from "./Account-edit"
 import Popup from "../../shared/Popup/Popup"
 import { Container, Row, Col, Button, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import Fade from 'react-reveal/Fade'
 
 class Account extends Component {
 
@@ -47,6 +48,7 @@ class Account extends Component {
 
         return (
             <>
+                <Fade>
                 <Container className="account-details">         
                     <Row>
                         <Col md={5} className="account-section1 text-center">  
@@ -95,6 +97,8 @@ class Account extends Component {
                         </Col>    
                     </Row>               
                 </Container>              
+
+                </Fade>
 
                 <Popup show={this.state.showModal} handleModal={this.handleModal} title="" className="text-center">
                     <AccountEdit closeModal={() => this.handleModal(false)} updateUserInfo={this.displayInfo} loggedUser={this.props.loggedUser} {...this.props}/>

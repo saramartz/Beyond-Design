@@ -3,11 +3,8 @@ import { Navbar, Nav, NavDropdown, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import AuthService from '../../../service/auth.service'
 import "./Navigation.css"
-// import Popup from "../../shared/Popup/Popup"
-// import Signup from "../../pages/Auth/Signup"
-// import Login from "../../pages/Auth/Login"
 
-// import logo from './logo.png'
+import logo from './logo.png'
 
 class Navigation extends Component {
 
@@ -34,8 +31,9 @@ class Navigation extends Component {
    
     render() {
 
+        
         return (
-            <Navbar expand="md" className="whatever"> 
+            <Navbar variant="none" className="custom"> 
 
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -43,8 +41,20 @@ class Navigation extends Component {
                 <Nav className="mr-auto">
                 
                 <Link to="/" >
-                    <Nav.Link as="div" className="center-block">Home</Nav.Link>
-                </Link>    
+                    <Navbar.Brand as="div" style={{color:"#d1d3d3"}}>
+                    <img
+                        src={logo}
+                        width="37"
+                        height="35"
+                        className="d-inline-block align-top"
+                        alt="Beyond Design logo"
+                        style={{borderRadius:"50%", marginRight:"15px", opacity:"0.8"}}
+                    />
+                    BEYOND DESIGN
+                    </Navbar.Brand>                
+                </Link> 
+
+      
                
                 {this.props.loggedUser ?
                     <Link to={`/search/${this.props.loggedUser._id}`}>

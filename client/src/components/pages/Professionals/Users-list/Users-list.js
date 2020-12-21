@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ProfessionalsService from '../../../../service/professionals.service'
 import UserCard from "./User-card"
-
+import Fade from 'react-reveal/Fade'
 import { Container, Row } from 'react-bootstrap'
 // import Loader from '../shared/Spinner/Loader'
 
@@ -33,8 +33,9 @@ class UsersList extends Component {
     render() {
         return (            
             <>
+                <Fade>
                 <Container className="professionals-container">
-                    <Row>                                      
+                    <Row className="">                                      
             
                         {
                             this.state.users.map(elm => <UserCard key={elm._id} {...elm} />) 
@@ -42,6 +43,7 @@ class UsersList extends Component {
                                                 
                     </Row>           
                 </Container>
+                </Fade>
             </> 
         )
     }

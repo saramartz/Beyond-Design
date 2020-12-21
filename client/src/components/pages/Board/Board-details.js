@@ -4,6 +4,8 @@ import { Container, Row, Col, Button, Card } from 'react-bootstrap'
 import { Link } from "react-router-dom"
 import { XCircle } from 'react-bootstrap-icons';
 
+import Fade from 'react-reveal/Fade'
+
 // import WorkEdit from "../Work-edit/Work-edit"
 // import Popup from "../../../shared/Popup/Popup"
 
@@ -75,6 +77,7 @@ class BoardDetails extends Component {
 
         return (
             <>
+                <Fade>
                 <Container className="images-container">
          
                 <Row>
@@ -103,7 +106,9 @@ class BoardDetails extends Component {
                     </Col> 
                 </Row>    
                
-                </Container>             
+                </Container>         
+
+                </Fade>
             </>    
         )    
     }

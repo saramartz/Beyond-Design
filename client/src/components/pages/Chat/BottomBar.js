@@ -13,6 +13,7 @@ const useStyles = makeStyles(theme => ({
     bottom: 0,
     top: 'auto',
     paddingBottom: theme.spacing(4),
+    paddingTop: theme.spacing(4),
     backgroundColor: fade(theme.palette.common.black, 0.15)
   },
   inputContainer: {
