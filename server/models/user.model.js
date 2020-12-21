@@ -50,7 +50,11 @@ const userSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Follower'
         }
-    ],  
+    ],
+    weAreFriends: {
+        type: Boolean,
+        default: false
+    },
     username: {
         type: String,
         required: true,

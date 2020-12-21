@@ -25,4 +25,12 @@ router.get('/getOneUser/:user_id', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
+router.put('/editUser/:user_id', (req, res) => {
+
+    User
+        .findByIdAndUpdate(req.params.user_id, req.body)
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+})
+
 module.exports = router
