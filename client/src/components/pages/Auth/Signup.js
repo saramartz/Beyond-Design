@@ -51,7 +51,8 @@ class Signup extends Component {
                             <Form onSubmit={this.handleSubmit}>
                                 
                                 <Form.Group controlId="username">                               
-                                    <Form.Control type="text" placeholder="Username" name="username" value={this.state.username} onChange={this.handleInputChange} />
+                                    <Form.Control type="text" placeholder="Username" name="username" value={this.state.username} onChange={this.handleInputChange} style={{marginBottom:"10px"}}/>
+                                    <small>* Must be between 2 and 15 characters with no special characters.</small>
                                 </Form.Group>
                                 <Form.Group controlId="name">                               
                                     <Form.Control type="text" placeholder="Full Name" name="name" value={this.state.name} onChange={this.handleInputChange} />
