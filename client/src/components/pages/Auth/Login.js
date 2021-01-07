@@ -10,27 +10,29 @@ class Login extends Component {
     constructor() {
         super()
         this.state = {
-            username: '',
-            password: ''
+            user: {
+                username: '',
+                password: ''
+            },
+            showToast: true,
+            toastText: ""
         }
         this.authService = new AuthService()
     }
 
-    handleInputChange = e => this.setState({ [e.target.name]: e.target.value })
+    handleInputChange = e => this.setState({ user: { ...this.state.user, [e.target.name]: e.target.value } })
 
     handleSubmit = e => {
         e.preventDefault()
 
         this.authService
-            .login(this.state.username, this.state.password)
-            .then(theLoggedInUser => {
-                console.log("Logged successfully as: ", theLoggedInUser)
+            .login(this.state.user.username, this.state.user.password)
+            .then(theLoggedInUser => {        
                 this.props.storeUser(theLoggedInUser.data)            
                 this.props.history.push(`/account/${theLoggedInUser.data._id}`)              
             })
-            .catch(err => console.log({ err }))
+            .catch(err => this.props.handleToastError(true, err.response.data.message))
     }
-
 
     render() {
 
@@ -44,11 +46,11 @@ class Login extends Component {
                             <Form onSubmit={this.handleSubmit}>
                                 <Form.Group controlId="username">
                                     <Form.Label></Form.Label>
-                                    <Form.Control type="text" placeholder="Username" name="username" value={this.state.username} onChange={this.handleInputChange} />
+                                    <Form.Control type="text" placeholder="Username" name="username" value={this.state.user.username} onChange={this.handleInputChange} />
                                 </Form.Group>
                                 <Form.Group controlId="password">
                                     <Form.Label></Form.Label>
-                                    <Form.Control type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleInputChange} />
+                                    <Form.Control type="password" placeholder="Password" name="password" value={this.state.user.password} onChange={this.handleInputChange} />
                                 </Form.Group>
                                 <Form.Group className="text-center">
                                     <Button className="btn-transparent" variant="none" type="submit">Login</Button>

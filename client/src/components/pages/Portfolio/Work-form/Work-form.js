@@ -26,7 +26,9 @@ class WorkForm extends Component {
             user: this.props.loggedUser,
             friends: [],
             boards: [],
-            uploadingActive: false
+            uploadingActive: false,
+            showToast: true,
+            toastText: ""
         }
         this.worksService = new WorkService()
         this.filesService = new FilesService()
@@ -66,29 +68,27 @@ class WorkForm extends Component {
             .then(res => {
                 this.props.updateList()
                 this.props.closeModal()
+                this.props.handleToast(true, 'Successfully submitted!')
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log({err})) 
     }
 
     handleImageUpload = e => {
 
         const uploadData = new FormData()
         uploadData.append('imageUrl', e.target.files[0])
-        console.log('The image:', e.target.files[0])
-
+    
         this.setState({ uploadingActive: true })
 
         this.filesService
             .uploadImage(uploadData)
-            .then(response => {
-                console.log(response)
+            .then(response => {       
                 this.setState({
                     work: { ...this.state.work, image: response.data.secure_url },
                     uploadingActive: false                    
-                })
-                console.log(this.state.work.image)
+                })           
             })
-            .catch(err => console.log('ERRORRR!', err))
+            .catch(err => console.log(err))
     }  
 
     displayFriends = () => {
@@ -131,25 +131,25 @@ class WorkForm extends Component {
                     {/* <!-- Title --> */}
                     <Form.Group controlId="title">
                         <Form.Label>Title</Form.Label>
-                        <Form.Control type="text" name="title" value={this.state.title} onChange={this.handleInputChange} />
+                        <Form.Control type="text" name="title" value={this.state.title} onChange={this.handleInputChange} minLength="5" maxLength="27" required/>
                     </Form.Group>
 
                     {/* <!-- Description --> */}
                     <Form.Group controlId="description">
                         <Form.Label>Description</Form.Label>
-                        <Form.Control as="textarea" rows={3} type="textarea"  name="description" value={this.state.description} onChange={this.handleInputChange} />
+                        <Form.Control as="textarea" rows={3} type="textarea" name="description" value={this.state.description} onChange={this.handleInputChange} minLength="150" maxLength="400" required/>
                     </Form.Group>
 
                     {/* <!-- Date --> */}
                     <Form.Group controlId="date">
                         <Form.Label>Fecha de creación</Form.Label>
-                        <Form.Control type="date" name="date" value={this.state.date} onChange={this.handleInputChange} />
+                        <Form.Control type="date" name="date" value={this.state.date} onChange={this.handleInputChange} required/>
                     </Form.Group> 
 
                     {/* <!-- Status --> */}        
                     <Form.Group controlId="status">
                         <Form.Label>Status</Form.Label>
-                        <Form.Control as="select" name="status" type="select" value={this.state.status} onChange={this.handleInputChange} > 
+                        <Form.Control as="select" name="status" type="select" value={this.state.status} onChange={this.handleInputChange} required> 
                             <option>Choose</option>    
                             <option value="In Progress">In progress</option>
                             <option value="Completed">Completed</option>                     
@@ -162,7 +162,7 @@ class WorkForm extends Component {
                             <option disabled style={{marginBottom:"10px", fontStyle:"italic", fontSize:"15px"}}>Press Ctrl or Shift to select multiple</option>
                             {this.state.friends.map(elm => <option key={elm._id} value={elm._id}>{elm.name}</option>)}   
                         </Form.Control>
-                        <small>* Start following someone to add a coworker</small>
+                        <small><i>* Start following someone to add a coworker</i></small>
                     </Form.Group>            
 
                     {/* <!-- Board --> */}
@@ -184,7 +184,7 @@ class WorkForm extends Component {
                         <Button variant="none" className="btn-transparent" type="submit" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Loading image' : 'Create'}</Button>
                     </div>
 
-                    <small>* All fields are required</small>
+                    <small><i>* All fields are required</i></small>
 
                 </Form>
             </Container>

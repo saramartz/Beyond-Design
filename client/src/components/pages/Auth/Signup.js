@@ -9,32 +9,34 @@ class Signup extends Component {
     constructor() {
         super()
         this.state = {
-            username: "",
-            password: "",
-            name: "",
-            birthday: "",
-            country: "",
-                city: "",
+            user: {
+                username: "",
+                password: "",
+                name: "",
+                birthday: "",
+                country: "",
+                city: ""
+            },
+            showToast: true,
+            toastText: ""
         }
         this.authService = new AuthService()
 
     }
 
-    handleInputChange = e => this.setState({ [e.target.name]: e.target.value })
+    handleInputChange = e => this.setState({ user: { ...this.state.user, [e.target.name]: e.target.value } })
 
     handleSubmit = e => {
 
         e.preventDefault()
 
         this.authService
-            .signup(this.state.username, this.state.password, this.state.name, this.state.birthday, this.state.country, this.state.city)
-            .then(theLoggedInUser => {
-                console.log("Sign Up and logged as: ", theLoggedInUser)
-                
+            .signup(this.state.user.username, this.state.user.password, this.state.user.name, this.state.user.birthday, this.state.user.country, this.state.user.city)
+            .then(theLoggedInUser => {  
                 this.props.storeUser(theLoggedInUser.data)               
-                this.props.history.push("/login")  
-            })
-            .catch(err => console.log("Error", {err}))
+                this.props.history.push(`/account/${theLoggedInUser.data._id}`)  
+            })    
+            .catch(err => this.props.handleToastError(true, err.response.data.message))
     }
 
 
@@ -51,23 +53,23 @@ class Signup extends Component {
                             <Form onSubmit={this.handleSubmit}>
                                 
                                 <Form.Group controlId="username">                               
-                                    <Form.Control type="text" placeholder="Username" name="username" value={this.state.username} onChange={this.handleInputChange} style={{marginBottom:"10px"}}/>
-                                    <small>* Must be between 2 and 15 characters with no special characters.</small>
+                                    <Form.Control type="text" placeholder="Username" name="username" value={this.state.user.username} onChange={this.handleInputChange} style={{marginBottom:"10px"}}/>
+                                    <small><i>* Must be between 2 and 15 characters with no special characters.</i></small>                                    
                                 </Form.Group>
                                 <Form.Group controlId="name">                               
-                                    <Form.Control type="text" placeholder="Full Name" name="name" value={this.state.name} onChange={this.handleInputChange} />
+                                    <Form.Control type="text" placeholder="Full Name" name="name" value={this.state.user.name} onChange={this.handleInputChange} />
                                 </Form.Group>
                                 <Form.Group controlId="birthday">                               
-                                    <Form.Control type="date" placeholder="Birthdate" name="birthday" value={this.state.birthday} onChange={this.handleInputChange} />
+                                    <Form.Control type="date" placeholder="Birthdate" name="birthday" value={this.state.user.birthday} onChange={this.handleInputChange} />
                                 </Form.Group>
                                 <Form.Group controlId="city">                               
-                                    <Form.Control type="text" placeholder="City" name="city" value={this.state.city} onChange={this.handleInputChange} />
+                                    <Form.Control type="text" placeholder="City" name="city" value={this.state.user.city} onChange={this.handleInputChange} />
                                 </Form.Group>
                                 <Form.Group controlId="country">                               
-                                    <Form.Control type="text" placeholder="Province" name="country" value={this.state.country} onChange={this.handleInputChange} />
+                                    <Form.Control type="text" placeholder="Province" name="country" value={this.state.user.country} onChange={this.handleInputChange} />
                                 </Form.Group>
                                 <Form.Group controlId="password">                               
-                                    <Form.Control type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleInputChange} />
+                                    <Form.Control type="password" placeholder="Password" name="password" value={this.state.user.password} onChange={this.handleInputChange} />
                                 </Form.Group>
 
                                 <Form.Group className="text-center">

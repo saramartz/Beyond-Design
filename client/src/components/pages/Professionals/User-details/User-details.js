@@ -6,6 +6,11 @@ import WorkCard2 from "../../Portfolio/Works-list/Work-card2"
 import { Container, Row, Col, Button, Card } from 'react-bootstrap'
 import Fade from 'react-reveal/Fade'
 
+import linkedin from "../../Account/linkedin.png"
+import insta from "../../Account/insta.png"
+import whatsapp from "../../Account/whatsapp.png"
+import email from "../../Account/mail.png"
+
 class UserDetails extends Component {
 
     constructor(props) {
@@ -29,8 +34,7 @@ class UserDetails extends Component {
     displayWorks = () => {
         this.worksService
             .getWorks()
-            .then(res => {
-                console.log("These are the works", res.data)
+            .then(res => {     
                 const works = res.data.filter(elm => elm.author == this.state.otherUser._id || elm.coworkers.includes(this.state.otherUser._id) )            
                
                 this.setState({ works: works })
@@ -62,8 +66,7 @@ class UserDetails extends Component {
         const user_id = this.state.user._id
             
         this.userService
-            .editUser(user_id, this.state)
-            .then(() => console.log("good!!"))            
+            .editUser(user_id, this.state)               
             .catch((err) => console.log(err))
     }    
 
@@ -82,8 +85,7 @@ class UserDetails extends Component {
         const user_id = this.state.otherUser._id
             
         this.professionalsService
-            .editOtherUser(user_id, this.state.otherUser)
-            .then(() => console.log("good!!")) 
+            .editOtherUser(user_id, this.state.otherUser) 
             .then(() => this.updateUserInfo())
             .then(() => this.getLoggedUser())
             .then(() => this.displayUser())
@@ -103,7 +105,51 @@ class UserDetails extends Component {
                                 <Card.Img className="mb-4" src={this.state.otherUser.image} alt={this.state.otherUser.name} />                       
                             </div> 
                             <h2 className="mb-2">{this.state.otherUser.name}</h2>
-                            <p>{this.state.otherUser.specialty}</p>
+                                <p>{this.state.otherUser.specialty}</p>
+
+                            <Row className="mb-3">
+                                <Col>
+                                    <a href={this.state.otherUser.instagram} target="_blank" rel="noreferrer">
+                                        <img
+                                            alt="instagram logo"
+                                            src={insta}
+                                            className="mt-1"
+                                            style={{width: '46px', opacity: 0.5 }}
+                                        />
+                                    </a>
+                                </Col>
+                                <Col>
+                                    <a href={this.state.otherUser.linkedin} target="_blank" rel="noreferrer">
+                                        <img
+                                            alt="linkedin logo"
+                                            src={linkedin}
+                                            className="mt-1"
+                                            style={{width: '46px', opacity: 0.5 }}
+                                        />
+                                    </a>
+                                </Col>
+                                <Col>
+                                    <a href={`https://api.whatsapp.com/send?phone=${this.state.otherUser.mobile}&text=%20Hi!`} target="_blank" rel="noreferrer">
+                                        <img
+                                            alt="whatsapp logo"
+                                            src={whatsapp}
+                                            className=""
+                                            style={{width: '55px', opacity: 0.5 }}
+                                        />
+                                    </a>                                        
+                                </Col>
+                                <Col>
+                                    <a href={"mailto:" + this.state.otherUser.email} target="_blank" rel="noreferrer">
+                                        <img
+                                            alt="mail logo"
+                                            src={email}
+                                            className="mt-1"
+                                            style={{width: '53px', opacity: 0.5 }}
+                                        />
+                                    </a>                                        
+                                </Col>
+                            </Row>
+                                
                             <p>{this.state.otherUser.introduction}</p>     
                                                     
                             <hr />                                   

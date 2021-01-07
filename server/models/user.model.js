@@ -45,6 +45,19 @@ const userSchema = new Schema({
     area: {       
       location: [String]
     },
+    linkedin: {
+        type: String,
+        default: 'https://www.linkedin.com/in/'
+    },
+    instagram: {
+        type: String,
+        default: 'https://www.instagram.com/'
+    },
+    email: {
+        type: String,
+        default: ''
+    },
+    mobile: Number,
     follows: [
         {
             type: Schema.Types.ObjectId,

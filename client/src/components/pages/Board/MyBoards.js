@@ -4,7 +4,7 @@ import UserService from '../../../service/account.service'
 import BoardService from "../../../service/boards.service"
 import BoardForm from "./Board-form"
 import BoardCard from "./Board-card"
-import Popup from "../../shared/Popup/Popup"
+import Popup from "../../shared/Popup/Popup-board"
 import Fade from 'react-reveal/Fade'
 
 class MyBoards extends Component {
@@ -14,7 +14,7 @@ class MyBoards extends Component {
         this.state = {          
             user: this.props.loggedUser,
             boards: [],
-            showModal: false
+            showModal: false            
         }
         this.userService = new UserService()
         this.boardsService = new BoardService()
@@ -63,8 +63,8 @@ class MyBoards extends Component {
                 </Container>
                 </Fade>
 
-                <Popup show={this.state.showModal} handleModal={this.handleModal} title="New work">
-                    <BoardForm closeModal={() => this.handleModal(false)} getBoards={this.displayBoards} loggedUser={this.props.loggedUser} />
+                <Popup show={this.state.showModal} handleModal={this.handleModal} title="Board">
+                    <BoardForm closeModal={() => this.handleModal(false)} getBoards={this.displayBoards} loggedUser={this.props.loggedUser} {...this.props}/>
                 </Popup> 
             </>      
         )

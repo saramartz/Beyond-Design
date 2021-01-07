@@ -1,6 +1,6 @@
 const cors = require('cors')
 
-const whitelist = [process.env.DOMAIN_REMOTE, process.env.DOMAIN_LOCAL, process.env.DOMAIN_LOCAL_CHAT, "*", "Access-Control-Allow-Origin"]
+const whitelist = [process.env.DOMAIN_REMOTE, process.env.DOMAIN_LOCAL, process.env.DOMAIN_LOCAL_CHAT]
 
 const corsOptions = {
     origin: (origin, cb) => {

@@ -15,7 +15,7 @@ class WorksList extends Component {
         this.state = {
             user: {},
             works: [],            
-            showModal: false
+            showModal: false            
         }
         this.worksService = new WorkService()
         this.userService = new UserService()
@@ -72,7 +72,7 @@ class WorksList extends Component {
                 </Fade>
 
                  <Popup show={this.state.showModal} handleModal={this.handleModal} title=" ">
-                    <WorkForm closeModal={() => this.handleModal(false)} updateList={this.displayWorks} loggedUser={this.props.loggedUser} />
+                    <WorkForm closeModal={() => this.handleModal(false)} updateList={this.displayWorks} loggedUser={this.props.loggedUser} {...this.props}/>
                 </Popup>             
             </> 
         )

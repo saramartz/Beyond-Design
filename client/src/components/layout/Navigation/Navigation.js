@@ -19,11 +19,7 @@ class Navigation extends Component {
     logOut = () => {
         this.authService
             .logout()
-            .then(res => {                
-                console.log("Logout succesfully: ", res)
-                console.log("These are the props: ", this.props)
-                this.props.storeUser(undefined)               
-            })
+            .then(res => this.props.storeUser(undefined))
             .catch(err => console.log(err))
     }
 

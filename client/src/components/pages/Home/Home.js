@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Col, Container, Row } from "react-bootstrap";
+import Footer from "../Footer/Footer"
 import Fade from 'react-reveal/Fade';
 import Animation from "./Slider"
 import ParticlesBg from "particles-bg";
@@ -27,7 +28,7 @@ class Home extends Component {
                         <Col md="6" className="">
                             <div className="overlay"></div>                           
                         </Col>
-                         <video playsinline="playsinline" autoPlay muted="muted" loop="loop" className="video1">
+                         <video playsinline="playsinline" muted="muted" loop="loop" className="video1">
                                 <source src={video} type="video/mp4" />
                         </video>
                         <div className="section-overlay text-center">
@@ -164,40 +165,7 @@ class Home extends Component {
 Find castings near you or publish your own. Discover job opportunities <br></br> or collaborations to improve your portfolio. <br></br> Discover new faces and explore editorials from creative artists just like you. <br></br> Put your portfolio or your book in front of professionals, bookers, agencies, clients and fans.</p>
                             </div>     */}
                 
-                <footer className="font-small  footer">
-                    {/* <Container fluid className="text-center text-md-left section1">
-                        <Row>
-                        <Col md="6">
-                            <h5 >Content</h5>
-                            <p>
-                            Description
-                            </p>
-                        </Col>
-                        <Col md="6">
-                            <h5>Links</h5>
-                            <ul>
-                            <li className="list-unstyled">
-                                <a href="#!">Link 1</a>
-                            </li>
-                            <li className="list-unstyled">
-                                <a href="#!">Link 2</a>
-                            </li>
-                            <li className="list-unstyled">
-                                <a href="#!">Link 3</a>
-                            </li>
-                            <li className="list-unstyled">
-                                <a href="#!">Link 4</a>
-                            </li>
-                            </ul>
-                        </Col>
-                        </Row>
-                    </Container> */}
-                    <div className="footer-copyright text-center py-3">
-                        <Container fluid>
-                        &copy; {new Date().getFullYear()} Copyright: Sara Martínez Vega
-                        </Container>
-                    </div>
-                </footer>
+                <Footer></Footer>
           
             </>      
         )

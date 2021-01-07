@@ -15,7 +15,9 @@ class WorkEdit extends Component {
             work: {},
             user: this.props.loggedUser,
             collaborators: [],
-            boards: []
+            boards: [],
+            showToast: false,
+            toastText: ""
         }
         this.worksService = new WorkService()
         this.filesService = new FilesService()
@@ -57,28 +59,26 @@ class WorkEdit extends Component {
             .then(() => {
                 this.props.updateWork()      
                 this.props.closeModal()
+                this.props.handleToast(true, 'Successfully updated!')
             })
             .catch(err => console.log(err))
     }
 
     handleImageUpload = e => {
         const uploadData = new FormData()
-        uploadData.append('imageUrl', e.target.files[0])
-        console.log('The image:', e.target.files[0])
+        uploadData.append('imageUrl', e.target.files[0])     
 
         this.setState({ uploadingActive: true })
 
         this.filesService
             .uploadImage(uploadData)
-            .then(response => {
-                console.log(response)
+            .then(response => {              
                 this.setState({
                     work: { ...this.state.work, image: response.data.secure_url },
-                    uploadingActive: false                    
-                })
-                console.log(this.state.work.image)
+                    uploadingActive: false                   
+                })            
             })
-            .catch(err => console.log('ERRORRR!', err))
+            .catch(err => console.log(err))
     }  
 
     displayFriends = () => {
@@ -110,26 +110,26 @@ class WorkEdit extends Component {
                     {/* <!-- Title --> */}
                     <Form.Group controlId="title">
                         <Form.Label>Title</Form.Label>
-                        <Form.Control type="text" name="title" value={this.state.work.title} onChange={this.handleInputChange} />
+                        <Form.Control type="text" name="title" value={this.state.work.title} onChange={this.handleInputChange} minLength="5" maxLength="27" required/>
                     </Form.Group>
 
                     {/* <!-- Description --> */}
                     <Form.Group controlId="description">
                         <Form.Label>Description</Form.Label>
-                        <Form.Control as="textarea" rows={3} type="textarea" name="description" value={this.state.work.description} onChange={this.handleInputChange} />
+                        <Form.Control as="textarea" rows={3} type="textarea" name="description" value={this.state.work.description} onChange={this.handleInputChange} minLength="150" maxLength="400" required/>
                     </Form.Group>
 
                     {/* <!-- Date --> */}
                     <Form.Group controlId="date">
                         <Form.Label>Fecha de creación</Form.Label>
-                        <Form.Control type="date" name="date" value={this.state.work.date} onChange={this.handleInputChange} />
+                        <Form.Control type="date" name="date" value={this.state.work.date} onChange={this.handleInputChange} required/>
                     </Form.Group> 
 
                     {/* <!-- Status --> */}        
                     <Form.Group controlId="status">
                         <Form.Label>Status</Form.Label>
-                        <Form.Control as="select" name="status" type="select" value={this.state.work.status} onChange={this.handleInputChange} > 
-                            <option>Choose</option>    
+                        <Form.Control as="select" name="status" type="select" value={this.state.work.status} onChange={this.handleInputChange} required> 
+                            <option value="Choose" disabled>Choose</option>    
                             <option value="In Progress">In progress</option>
                             <option value="Completed">Completed</option>                     
                         </Form.Control>
@@ -147,7 +147,7 @@ class WorkEdit extends Component {
                     <Form.Group controlId="board">
                         <Form.Label>Choose your board</Form.Label>
                         <Form.Control as="select" name="board" type="select" value={this.state.work.board} onChange={this.handleInputChange} >
-                            <option>Choose</option>    
+                            <option value="Choose" disabled>Choose</option>    
                             {this.state.boards.map(elm => <option key={elm._id} value={elm._id}>{elm.title}</option>)}
                         </Form.Control>
                     </Form.Group>

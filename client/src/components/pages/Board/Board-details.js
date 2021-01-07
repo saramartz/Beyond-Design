@@ -1,22 +1,21 @@
 import React, { Component } from 'react'
 import BoardService from '../../../service/boards.service'
+import PopupDelete from "../../shared/Popup/Popup-delete"
 import { Container, Row, Col, Button, Card } from 'react-bootstrap'
 import { Link } from "react-router-dom"
 import { XCircle } from 'react-bootstrap-icons';
 
 import Fade from 'react-reveal/Fade'
 
-// import WorkEdit from "../Work-edit/Work-edit"
-// import Popup from "../../../shared/Popup/Popup"
 
 class BoardDetails extends Component {
 
     constructor() {
         super()
         this.state = {
-            board: {},
-            showModal: false,
-            hover: false
+            board: {},           
+            hover: false,
+            showDeleteModal: false
         }
         this.boardsService = new BoardService()
     }
@@ -58,13 +57,13 @@ class BoardDetails extends Component {
             
         this.boardsService
             .editBoard(board_id, this.state)
-            .then(() => console.log("good"))            
+            // .then(() => console.log("good"))            
             .catch((err) => console.log(err))
     }
 
     toggleHover = (state) => this.setState({hover: state})
 
-    handleModal = visible => this.setState({ showModal: visible })
+    handleDeleteModal = visible => this.setState({ showDeleteModal: visible })
 
     render() {
         
@@ -101,7 +100,19 @@ class BoardDetails extends Component {
 
                 <Row>
                     <Col md={12} className="text-center">
-                        <Button onClick={this.deleteBoard} variant="none" size="sm" className="create-btn mr-4 btn-delete">Delete</Button>
+                                
+                        <PopupDelete show={this.state.showDeleteModal} handleModal={this.handleDeleteModal} title={"DELETE BOARD"}>                        
+                            <Row className='justify-content-center'>
+                                <Col xs='auto'>
+                                    <Button onClick={() => this.handleDeleteModal(false)} variant="none" size="sm" className="create-btn mr-4 mt-5 btn-transparent">Close</Button>
+                                </Col>
+                                <Col xs='auto'>
+                                    <Button onClick={this.deleteBoard} variant="none" size="sm" className="create-btn mr-4 mt-5 btn-delete">Delete</Button>                     
+                                </Col>
+                            </Row>
+                        </PopupDelete>
+
+                        <Button onClick={() => this.handleDeleteModal(true)} variant="none" size="sm" className="create-btn mr-4 btn-delete">Delete</Button>
                         <Link to={`/myBoards/${this.props.loggedUser._id}`}  className="btn-sm ml-5 btn-obscure">Back</Link>
                     </Col> 
                 </Row>    

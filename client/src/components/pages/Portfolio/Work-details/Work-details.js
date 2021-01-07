@@ -5,9 +5,8 @@ import UserService from "../../../../service/professionals.service"
 import { Container, Row, Col, Button, Card } from 'react-bootstrap'
 import WorkEdit from "../Work-edit/Work-edit"
 import Popup from "../../../shared/Popup/Popup"
+import PopupDelete from "../../../shared/Popup/Popup-delete"
 import Fade from 'react-reveal/Fade'
-
-import { Link } from 'react-router-dom'
 
 class WorkDetails extends Component {
 
@@ -18,7 +17,8 @@ class WorkDetails extends Component {
             theBoard: {},
             coworkers: [],
             user: this.props.loggedUser,
-            showModal: false
+            showModal: false,
+            showDeleteModal: false
         }
         this.worksService = new WorkService()
         this.boardsService = new BoardService()
@@ -74,6 +74,7 @@ class WorkDetails extends Component {
     } 
 
     handleModal = visible => this.setState({ showModal: visible })
+    handleDeleteModal = visible => this.setState({ showDeleteModal: visible })
 
     render() {
 
@@ -97,7 +98,18 @@ class WorkDetails extends Component {
                     <p> {this.state.work.status}</p>
                                                                                                        
                     <Button onClick={() => this.handleModal(true)} variant="none" size="sm" className="create-btn mr-4 mt-5 btn-transparent">Edit</Button>
-                    <Button onClick={this.deleteWork} variant="none" size="sm" className="create-btn mt-5 btn-delete">Delete</Button>
+
+                    <PopupDelete show={this.state.showDeleteModal} handleModal={this.handleDeleteModal} title={"DELETE WORK"}>                        
+                        <Row className='justify-content-center'>
+                            <Col xs='auto'>
+                                <Button onClick={() => this.handleDeleteModal(false)} variant="none" size="sm" className="create-btn mr-4 mt-5 btn-transparent">Close</Button>
+                            </Col>
+                            <Col xs='auto'>
+                                <Button onClick={this.deleteWork} variant="none" size="sm" className="create-btn mt-5 btn-delete">Delete</Button>
+                            </Col>
+                        </Row>
+                    </PopupDelete>
+                    <Button onClick={() => this.handleDeleteModal(true)} variant="none" size="sm" className="create-btn mt-5 btn-delete">Delete</Button>
                 </Col>
                             
                 <Col md={6} className="account-section2 d-flex flex-column justify-content-between">
@@ -151,9 +163,3 @@ class WorkDetails extends Component {
 }
 
 export default WorkDetails
-
-
-
-// {this.state.coworkers.map(elm => <img key={elm} src={elm.image} style={{marginBottom: "30px"}}/>)}
-
-// {this.state.board.images.map(elm => <img key={elm} src={elm} style={{ marginBottom: "30px" }} />)}

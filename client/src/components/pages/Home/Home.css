@@ -32,6 +32,8 @@ section {
 
 .section1 {
   padding-bottom: 100px;
+    background: linear-gradient(90deg, rgba(26,19,40,0.9430147058823529) 0%, rgba(37,150,105,0.4682247899159664) 0%, rgba(32,92,89,1) 0%, rgba(75,129,153,0.39399509803921573) 48%, rgba(194,189,196,0) 95%);
+
 }
 
 .section-overlay {
@@ -49,6 +51,7 @@ section {
 
 .section2 {
   padding: 100px 0;
+  
 }
 
 .section2-container {

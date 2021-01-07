@@ -22,7 +22,6 @@ class ImageForm extends Component {
 
     componentDidMount = () => { 
         this.displayBoards()
-        // this.displayBoard() >>>>>>>>> Conseguir id cuando se muestra formulario
     }
     
     handleInputChange = e => this.setState({ board: { ...this.state.board, [e.target.name]: e.target.value, image: this.props.favImages } }) 
@@ -38,8 +37,7 @@ class ImageForm extends Component {
         this.boardsService
             .editBoard(board_id, this.state.board)
             .then(() => {              
-               this.props.closeModal()              
-                console.log("yay!!!")
+               this.props.closeModal()           
             })
             .catch(err => console.log(err))
     }
@@ -69,8 +67,8 @@ class ImageForm extends Component {
             <>       
                 <Form onSubmit={this.handleSubmit} className="account-edit">                  
                     <Form.Group controlId="images">                                          
-                        <Form.Control as="select" name="_id" type="select" value={this.state._id} onChange={this.handleInputChange} >
-                            <option value="Choose" disabled>Choose</option>    
+                        <Form.Control as="select" name="_id" type="select" value={this.state._id} onChange={this.handleInputChange}>                       
+                            <option>Choose</option> 
                             {this.state.boards.map(elm => <option key={elm._id} value={elm._id}>{elm.title}</option>)}
                         </Form.Control>
                     </Form.Group>
