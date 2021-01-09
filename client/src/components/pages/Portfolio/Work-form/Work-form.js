@@ -131,7 +131,7 @@ class WorkForm extends Component {
                     {/* <!-- Title --> */}
                     <Form.Group controlId="title">
                         <Form.Label>Title</Form.Label>
-                        <Form.Control type="text" name="title" value={this.state.title} onChange={this.handleInputChange} minLength="5" maxLength="27" required/>
+                        <Form.Control type="text" name="title" value={this.state.title} onChange={this.handleInputChange} minLength="4" maxLength="27" required/>
                     </Form.Group>
 
                     {/* <!-- Description --> */}

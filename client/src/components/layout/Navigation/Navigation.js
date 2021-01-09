@@ -23,8 +23,6 @@ class Navigation extends Component {
             .catch(err => console.log(err))
     }
 
-    // handleModal = visible => this.setState({ showModal: visible })
-   
     render() {
 
         
@@ -49,15 +47,7 @@ class Navigation extends Component {
                     BEYOND DESIGN
                     </Navbar.Brand>                
                 </Link> 
-
-      
-               
-                {this.props.loggedUser ?
-                    <Link to={`/search/${this.props.loggedUser._id}`}>
-                            <Nav.Link as="div">Search Images</Nav.Link>
-                    </Link>
-                    : null
-                }                 
+                
                 </Nav>
                                         
                 <Nav className="ml-auto">             
@@ -100,8 +90,15 @@ class Navigation extends Component {
                                         <NavDropdown.Item as="div">Portfolio</NavDropdown.Item>
                                     </Link>                                                                     
                                      <Link to={`/myBoards/${this.props.loggedUser._id}`}>
-                                        <NavDropdown.Item as="div">My Boards</NavDropdown.Item>
+                                        <NavDropdown.Item as="div">Boards</NavDropdown.Item>
                                     </Link> 
+
+                                    {this.props.loggedUser ?
+                                        <Link to={`/search/${this.props.loggedUser._id}`}>
+                                            <NavDropdown.Item as="div">Search</NavDropdown.Item>
+                                        </Link>
+                                        : null
+                                    } 
 
                                     <Link to="/logout">
                                         <NavDropdown.Item as="div" onClick={this.logOut}>Log Out</NavDropdown.Item>  

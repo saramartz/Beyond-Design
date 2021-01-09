@@ -52,7 +52,7 @@ class WorksList extends Component {
                 <Container className="portfolio-container mb-5 mt-5">
                     <Row>
                         <Col className="mt-5 text-center">
-                            <h2>Portfolio</h2>
+                            <h2>PORTFOLIO</h2>
                         </Col>                        
                     </Row> 
                     <Row className=" mb-5 d-flex flex-row justify-content-center">                                      

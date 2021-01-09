@@ -1,4 +1,3 @@
-import React, { Component } from 'react'
 import { Col, Container, Row } from "react-bootstrap";
 import Footer from "../Footer/Footer"
 import Fade from 'react-reveal/Fade';
@@ -10,166 +9,148 @@ import video from "./videos/intro.mp4"
 
 import "./Home.css"
 
-class Home extends Component {
-
-    constructor() {
-        super()
-        this.state = {         
-            
-        }    
-    }   
-
-    render() {
-        return (
-            <>
-                <Fade>
-                <header className="home-header">              
-                    <Row pattern={1}>                        
+const Home = () => {
+    return (
+        <>
+            <Fade>
+                <header className="home-header">
+                    <Row pattern={1}>
                         <Col md="6" className="">
-                            <div className="overlay"></div>                           
+                            <div className="overlay"></div>
                         </Col>
-                         <video playsinline="playsinline" muted="muted" loop="loop" className="video1">
-                                <source src={video} type="video/mp4" />
+                        <video playsinline="playsinline" autoPlay muted="muted" loop="loop" className="video1">
+                            <source src={video} type="video/mp4" />
                         </video>
                         <div className="section-overlay text-center">
-                               <h2 class="display-3" style={{fontFamily:"Razed", fontSize:"60px"}} >Community for designers</h2>
-                               <p class="lead mb-0">CREATE YOUR TEAM, JOIN CASTINGS, ORGANIZE FASHION SHOOTS AND SHOWCASE YOUR ARTWORKS.</p>
+                            <h2 class="display-3" style={{ fontFamily: "Razed", fontSize: "60px" }} >Community for designers</h2>
+                            <p class="lead mb-0">CREATE YOUR TEAM, JOIN CASTINGS, ORGANIZE FASHION SHOOTS AND SHOWCASE YOUR ARTWORKS.</p>
                         </div>
                         <Col md="6" className="divider">
-                            <div className="overlay2"></div>                          
-                        </Col>  
-                    </Row>   
-                </header>
-                </Fade>
-                    <ParticlesBg color="#6baaaf" num={320} type="cobweb" bg={true}/>
-   
-                <section className="section1 pb-5" style={{height: "250px"}}>
-                    <Row>                   
-                        <Col md="4" className="text-center">                 
-                        </Col>                       
+                            <div className="overlay2"></div>
+                        </Col>
                     </Row>
-                </section> 
+                </header>
+            </Fade>
+            <ParticlesBg color="#6baaaf" num={320} type="cobweb" bg={true} />
+   
+            <section className="section1 pb-5" style={{ height: "250px" }}>
+                <Row>
+                    <Col md="4" className="text-center">
+                    </Col>
+                </Row>
+            </section>
                 
-                <Animation></Animation>
+            <Animation></Animation>
 
-                <section className="section2">
-                    <Container>
-                        <Row className="mb-5 text-center another-section">
-                            <Col md={{ span: 6, offset: 3 }} className="">
-                                <Fade left>
-                                    <h1 className="mb-5">ABOUT</h1>
-                                </Fade>
-                                <Fade right>
-                                    <p className="mb-5">
-                                        WORLD'S BEST DESIGNERS AND CREATIVE MINDS.
-                                        SHOWCASING THEIR LATEST CREATIONS AS WELL AS MASTERWORKS.
+            <section className="section2">
+                <Container>
+                    <Row className="mb-5 text-center another-section">
+                        <Col md={{ span: 6, offset: 3 }} className="">
+                            <Fade left>
+                                <h1 className="mb-5">JOIN US</h1>
+                            </Fade>
+                            <Fade right>
+                                <p className="mb-5">
+                                    WORLD'S BEST DESIGNERS AND CREATIVE MINDS.
+                                    SHOWCASING THEIR LATEST CREATIONS AS WELL AS MASTERWORKS.
                                     </p>
-                                </Fade>
-                                <div>
-                                    <img src={icon} className="mb-5 icon"/>
-                                </div>
-                            </Col>
-                        </Row>
-                    </Container>
-                    <Container className="section2-container section2-body">
-                        <div className="">
-                        <Row className="d-flex flex-row justify-content-center align-items-center">                             
-                            <Col lg={5} className="text-center section2-overlay">                        
+                            </Fade>
+                            <div>
+                                <img src={icon} className="mb-5 icon" />
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
+                <Container className="section2-container section2-body">
+                    <div className="">
+                        <Row className="d-flex flex-row justify-content-center align-items-center">
+                            <Col lg={5} className="text-center section2-overlay">
                                 <div className="section2Div">
                                     <h1>
                                         FASHION DESIGNER ?
                                     </h1>
-                                </div>                    
-                            </Col> 
-                              <Col lg={5} className="text-center">                        
+                                </div>
+                            </Col>
+                            <Col lg={5} className="text-center">
                                 <div className="section2Div">
                                     <Fade right>
-                                    <p>
-                                      EXPLORE BEAUTIFUL PORTFOLIOS, EDITORIALS, PUBLICATIONS AND LOOKBOOKS; 
-                                        FIND THE RIGHT MODEL, PHOTOGRAPHER OR STYLIST FOR YOUR NEXT CREATIVE PHOTO PROJECT, 
-                                        OR JUST GET YOUR DAILY DOSE OF OVERWHELMING INSPIRATION!                                  
-                                    </p>                                            
+                                        <p>
+                                            EXPLORE BEAUTIFUL PORTFOLIOS, EDITORIALS, PUBLICATIONS AND LOOKBOOKS;
+                                            FIND THE RIGHT MODEL, PHOTOGRAPHER OR STYLIST FOR YOUR NEXT CREATIVE PHOTO PROJECT,
+                                            OR JUST GET YOUR DAILY DOSE OF OVERWHELMING INSPIRATION!
+                                        </p>
                                     </Fade>
-                                </div>                    
+                                </div>
                             </Col>
                         </Row>
                         <Row className="d-flex flex-row justify-content-center align-items-center">
-                            <Col lg={5} className="text-center">                        
+                            <Col lg={5} className="text-center">
                                 <div className="section2Div">
                                     <Fade left>
-                                    <p>
-                                        CREATE CASTINGS TO FIND THE MODELS YOU NEED FOR YOUR NEXT CREATIVE PROJECT.
-                                        SHOWCASE YOUR PORTFOLIO AND BUILD A TEAM OF STYLISTS, MAKEUP ARTISTS, MODELS AND ASSISTANTS
-                                        TO SUPERCHARGE YOUR CREATIVITY.              
-                                    </p>                                            
-                                    </Fade>    
-                                </div>                    
-                            </Col> 
-                        <Col lg={5} className="text-center section2-overlay">                        
+                                        <p>
+                                            CREATE CASTINGS TO FIND THE MODELS YOU NEED FOR YOUR NEXT CREATIVE PROJECT.
+                                            SHOWCASE YOUR PORTFOLIO AND BUILD A TEAM OF STYLISTS, MAKEUP ARTISTS, MODELS AND ASSISTANTS
+                                            TO SUPERCHARGE YOUR CREATIVITY.
+                                        </p>
+                                    </Fade>
+                                </div>
+                            </Col>
+                            <Col lg={5} className="text-center section2-overlay">
                                 <div className="section2Div">
                                     <h1 >
                                         PHOTOGRAPHER ?
                                     </h1>
-                                </div>                    
-                            </Col> 
+                                </div>
+                            </Col>
                         </Row>
 
                         <Row className="d-flex flex-row justify-content-center align-items-center">
-                            <Col lg={5} className="text-center section2-overlay">                        
+                            <Col lg={5} className="text-center section2-overlay">
                                 <div className="section2Div">
                                     <h1>
                                         STYLIST OR MAKEUP ARTIST ?
                                     </h1>
-                                </div>                    
-                            </Col> 
-                            <Col lg={5} className="text-center">                        
+                                </div>
+                            </Col>
+                            <Col lg={5} className="text-center">
                                 <div className="section2Div">
                                     <Fade right>
-                                    <p>
-                                        YOUR WORK IS KEY FOR PHOTOGRAPHY PRODUCTIONS! FIND JOB OPPORTUNITIES OR GROW YOUR PORTFOLIO. 
-                                        THOUSANDS OF PROFILES MIGHT BE SEARCHING FOR YOUR SERVICES!
-                                    </p>                                            
+                                        <p>
+                                            YOUR WORK IS KEY FOR PHOTOGRAPHY PRODUCTIONS! FIND JOB OPPORTUNITIES OR GROW YOUR PORTFOLIO.
+                                            THOUSANDS OF PROFILES MIGHT BE SEARCHING FOR YOUR SERVICES!
+                                        </p>
                                     </Fade>
-                                </div>                    
+                                </div>
                             </Col>
                         </Row>
 
                         <Row className="d-flex flex-row justify-content-center align-items-center">
-                            <Col lg={5} className="text-center ">                        
+                            <Col lg={5} className="text-center ">
                                 <div className="section2Div">
                                     <Fade left>
-                                    <p>
-                                        JOIN CASTINGS IN YOUR AREA, BOTH FOR PROFESSIONAL AND AMATEUR MODELS. 
-                                        GET YOUR BOOK IN FRONT OF THOUSANDS OF PROFESSIONAL PHOTOGRAPHERS AND AGENCY SCOUTERS.                             
-                                    </p>                                            
+                                        <p>
+                                            JOIN CASTINGS IN YOUR AREA, BOTH FOR PROFESSIONAL AND AMATEUR MODELS.
+                                            GET YOUR BOOK IN FRONT OF THOUSANDS OF PROFESSIONAL PHOTOGRAPHERS AND AGENCY SCOUTERS.
+                                        </p>
                                     </Fade>
-                                </div>                    
-                            </Col> 
-                              <Col lg={5} className="text-center section2-overlay">                        
+                                </div>
+                            </Col>
+                            <Col lg={5} className="text-center section2-overlay">
                                 <div className="section2Div">
                                     <h1>
                                         MODEL ?
                                     </h1>
-                                </div>                    
+                                </div>
                             </Col>
                         </Row>
 
-                        </div>
-                    </Container>
-                </section>
+                    </div>
+                </Container>
+            </section>
 
-{/* 
-                               <h1 class="display-3">About</h1>
-                               <p class="lead mb-0">A community passionate for fashion photography where models, <br></br> photographers, makeup artists, fashion designers and stylists meet to create together. <br></br>
-
-Find castings near you or publish your own. Discover job opportunities <br></br> or collaborations to improve your portfolio. <br></br> Discover new faces and explore editorials from creative artists just like you. <br></br> Put your portfolio or your book in front of professionals, bookers, agencies, clients and fans.</p>
-                            </div>     */}
-                
-                <Footer></Footer>
-          
-            </>      
-        )
-    }
+            <Footer></Footer>
+        </>
+    )
 }
 
 export default Home

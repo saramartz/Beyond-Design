@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 
 import Home from "../pages/Home/Home"
+import About from "../pages/Footer/Links/About"
+import Privacy from "../pages/Footer/Links/Privacy"
+import Terms from "../pages/Footer/Links/Terms"
+import Sitemap from "../pages/Footer/Links/Sitemap"
+import Cookies from "../pages/Footer/Links/Cookies"
 
 // ========== BOARDS ========== 
 import MyBoards from "../pages/Board/MyBoards"
@@ -51,7 +56,8 @@ class App extends Component {
       showToast: false,
       toastText: '',
       showToastError: false,
-      toastTextError: '' 
+      toastTextError: '',
+      loading: true
     }
     this.authServices = new AuthServices()
   }
@@ -60,29 +66,52 @@ class App extends Component {
 
     this.authServices   
       .isLoggedIn()
-      .then(response => this.setTheUser(response.data))
+      .then(response => this.setTheUser(response.data)
+      )    
       .catch(err => this.setTheUser(undefined))
   }
 
-  setTheUser = user => this.setState({ loggedInUser: user, mount: true })
+  setTheUser = user => this.setState({ loggedInUser: user, mount: true }, () => this.stopLoader())
 
   removeUser = () => this.setTheUser(undefined)
 
   handleToast = (visible, text) => this.setState({ showToast: visible, toastText: text })
   handleToastError = (visible, text) => this.setState({ showToastError: visible, toastTextError: text})
 
+  stopLoader = () => {      
+      this.fakeRequest().then(() => {
+        const spinner = document.querySelector(".loader-home");
+        if (spinner) {
+          spinner.remove();  
+          this.setState({ loading: false }); // showing the app
+        }
+      });
+  }
+
+  fakeRequest = () => {
+    return new Promise(resolve => setTimeout(() => resolve(), 500));
+  };
+
   render() {
+      if (this.state.loading) {
+      return null; //app is not ready (fake request is in process)
+    }
 
     return (
       <>
-        <Navigation storeUser={this.setTheUser} loggedUser={this.state.loggedInUser} {...this.props} />   
+        <Navigation storeUser={this.setTheUser} loggedUser={this.state.loggedInUser} {...this.props} /> 
     
         {this.state.mount ? 
           
           <main>
           <Switch> 
 
-            <Route path="/" exact render={props => <Home loggedUser={this.state.loggedInUser} loggedUser={this.state.loggedInUser} {...props} />} />                  
+            <Route path="/" exact render={() => <Home />} /> 
+            <Route path="/about" render={() => <About />} />
+            <Route path="/privacy" render={() => <Privacy />} /> 
+            <Route path="/terms" render={() => <Terms />} />
+            <Route path="/contact" render={() => <Sitemap />} />
+            <Route path="/cookies" render={() => <Cookies/>} />  
                                 
             {/* <!-- Auth --> */}
             <Route path="/signup" render={props => <Signup handleToast={this.handleToast} handleToastError={this.handleToastError} storeUser={this.setTheUser} {...props} />} />
@@ -124,7 +153,7 @@ class App extends Component {
             
             <Alert show={this.state.showToast} handleToast={this.handleToast} toastText={this.state.toastText} />
             <AlertError show={this.state.showToastError} handleToastError={this.handleToastError} toastText={this.state.toastTextError} />
-          </main>
+          </main>      
           
           : null
           

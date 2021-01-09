@@ -162,7 +162,7 @@ class UserDetails extends Component {
                             <div className="mt-5">
                                 <h3>About</h3>
                                 <hr/>
-                                <p className="mb-5">{this.state.otherUser.bio}</p> 
+                                <p className="mb-5" style={{textAlign: "justify"}}>{this.state.otherUser.bio}</p> 
                                 <h5>Related Info</h5>
                                 <hr />
 
@@ -186,7 +186,7 @@ class UserDetails extends Component {
                 <Container className="portfolio-container mb-5" >     
                     <Row>
                         <Col className="mt-5 text-center">
-                            <h2>Portfolio</h2>
+                            <h2>PORTFOLIO</h2>
                         </Col>                        
                     </Row>    
                     <Row className=" mb-5 d-flex flex-row justify-content-center">

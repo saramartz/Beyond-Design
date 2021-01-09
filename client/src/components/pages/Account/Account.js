@@ -145,7 +145,7 @@ class Account extends Component {
                             <div className="mt-5">
                                 <h3>About</h3>
                                 <hr/>
-                                <p className="mb-5">{this.state.user.bio}</p> 
+                                <p className="mb-5" style={{textAlign: "justify"}}>{this.state.user.bio}</p> 
                                 <h5>Related Info</h5>
                                 <hr />
 

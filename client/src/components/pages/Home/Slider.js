@@ -14,36 +14,39 @@ import slider3 from "./slider3.jpg"
 
 const content = [
 	{
-		title: 'Vulputate Mollis Ultricies Fermentum Parturient',
+		title: 'What is Beyond Design ?',
 		description:
-		'Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cras justo odio, dapibus ac facilisis.',
+		'A community passionate for fashion photography where models, photographers, makeup artists, fashion designers and stylists meet to create together.',
 		button: 'Read More',
+		url: '/about',
 		image: `${slider1}`,
-		user: 'Luan Gjokaj',
-		userProfile: 'https://i.imgur.com/JSW6mEk.png'
+		user: 'Sara Martínez Vega',
+		userProfile: 'https://i.postimg.cc/k4YgHL4z/Captura-de-pantalla-2020-12-20-a-las-16-53-22.png'
 	},
 	{
-		title: 'Tortor Dapibus Commodo Aenean Quam',
+		title: 'How does it works ?',
 		description:
-		'Nullam id dolor id nibh ultricies vehicula ut id elit. Cras mattis consectetur purus sit amet fermentum. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Donec sed odio dui.',
+		'Find castings near you or publish your own. Discover job opportunities or collaborations to improve your portfolio. Meet new faces and explore editorials from creative artists just like you.',
 		button: 'Discover',
+		url: '/signup',
 		image: `${slider2}`,
-		user: 'Erich Behrens',
-		userProfile: 'https://i.imgur.com/0Clfnu7.png'
+		user: 'Sara Martínez Vega',
+		userProfile: 'https://i.postimg.cc/k4YgHL4z/Captura-de-pantalla-2020-12-20-a-las-16-53-22.png'
 	},
 	{
-		title: 'Phasellus volutpat metus',
+		title: 'Why should you join us ?',
 		description:
-		'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Duis mollis, est non commodo luctus, nisi erat porttitor ligula.',
-		button: 'Buy now',
+		'Put your portfolio or your book in front of professionals, bookers, agencies, clients and fans.',
+		button: 'Register Now',
+		url: '/signup',
 		image: `${slider3}`,
-		user: 'Bruno Vizovskyy',
-		userProfile: 'https://i.imgur.com/4KeKvtH.png'
+		user: 'Sara Martínez Vega',
+		userProfile: 'https://i.postimg.cc/k4YgHL4z/Captura-de-pantalla-2020-12-20-a-las-16-53-22.png'
 	}
 ];
 
 const Animation = () => (
-	<div className="">
+	<>
 		<Fade bottom>
 		<Slider className="slider-wrapper">
 			{content.map((item, index) => (
@@ -55,19 +58,19 @@ const Animation = () => (
 					<div className="inner">
 						<h1>{item.title}</h1>
 						<p>{item.description}</p>
-						{/* <button className="btn-transparent">{item.button}</button> */}
+						<a href={item.url}><button className="btn-transparent">{item.button}</button></a>
 					</div>
-					{/* <section>
+					<section>
 						<img src={item.userProfile} alt={item.user} />
 						<span>
-							Posted by <strong>{item.user}</strong>
+							Developed by <strong>{item.user}</strong>
 						</span>
-					</section> */}
+					</section>
 				</div>
 			))}
 			</Slider>
 			</Fade>
-	</div>
+	</>
 );
 
 export default Animation

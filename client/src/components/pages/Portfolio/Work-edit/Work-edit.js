@@ -110,7 +110,7 @@ class WorkEdit extends Component {
                     {/* <!-- Title --> */}
                     <Form.Group controlId="title">
                         <Form.Label>Title</Form.Label>
-                        <Form.Control type="text" name="title" value={this.state.work.title} onChange={this.handleInputChange} minLength="5" maxLength="27" required/>
+                        <Form.Control type="text" name="title" value={this.state.work.title} onChange={this.handleInputChange} minLength="4" maxLength="27" required/>
                     </Form.Group>
 
                     {/* <!-- Description --> */}
@@ -129,7 +129,7 @@ class WorkEdit extends Component {
                     <Form.Group controlId="status">
                         <Form.Label>Status</Form.Label>
                         <Form.Control as="select" name="status" type="select" value={this.state.work.status} onChange={this.handleInputChange} required> 
-                            <option value="Choose" disabled>Choose</option>    
+                            <option value="Choose">Choose</option>    
                             <option value="In Progress">In progress</option>
                             <option value="Completed">Completed</option>                     
                         </Form.Control>
@@ -147,7 +147,7 @@ class WorkEdit extends Component {
                     <Form.Group controlId="board">
                         <Form.Label>Choose your board</Form.Label>
                         <Form.Control as="select" name="board" type="select" value={this.state.work.board} onChange={this.handleInputChange} >
-                            <option value="Choose" disabled>Choose</option>    
+                            <option value="Choose">Choose</option>    
                             {this.state.boards.map(elm => <option key={elm._id} value={elm._id}>{elm.title}</option>)}
                         </Form.Control>
                     </Form.Group>
