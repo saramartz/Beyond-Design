@@ -4,6 +4,11 @@
 
 Website link https://beyond-design.herokuapp.com/
 
+```
+* If the website doesn't load, please click the refresh icon. It's a matter related to heroku cloud platform.
+
+```
+
 ## Introduction
 
 Beyond Design is a Single Page Application to connect with photographers, fashion designers, stylists, make-up artists and models to find job opportunities, build your team and unleash your creativity.
