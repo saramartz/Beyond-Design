@@ -8,7 +8,7 @@ Website link https://beyond-design.herokuapp.com/
 
 Beyond Design is a Single Page Application to connect with photographers, fashion designers, stylists, make-up artists and models to find job opportunities, build your team and unleash your creativity.
 
-**Developed by** :computer: :
+**Developed by** :
 - Sara Martínez Vega
 
 **Acknowledgements** :
