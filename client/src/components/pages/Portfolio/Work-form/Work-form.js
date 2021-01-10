@@ -142,7 +142,7 @@ class WorkForm extends Component {
 
                     {/* <!-- Date --> */}
                     <Form.Group controlId="date">
-                        <Form.Label>Fecha de creación</Form.Label>
+                        <Form.Label>Date</Form.Label>
                         <Form.Control type="date" name="date" value={this.state.date} onChange={this.handleInputChange} required/>
                     </Form.Group> 
 
